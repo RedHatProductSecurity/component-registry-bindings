@@ -1,0 +1,32 @@
+# python
+__pycache__/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+venv
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# JetBrains
+.idea/
+
+# pytest-cov
+/coverage.xml
+/.coverage
+
+# local python requirements for pip-tools
+local-requirements.*
+
+# Visual Studio Code
+.vscode
