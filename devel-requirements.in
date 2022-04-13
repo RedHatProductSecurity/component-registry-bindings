@@ -1,0 +1,8 @@
+# Additional set of dependencies required in a local development env
+-c requirements.txt
+openapi-python-client
+pip-tools
+pytest
+pytest-recording
+tox
+vcrpy

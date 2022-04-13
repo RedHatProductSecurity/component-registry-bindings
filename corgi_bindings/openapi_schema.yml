@@ -1,0 +1,2792 @@
+openapi: 3.0.3
+info:
+  title: Component Registry API
+  version: 0.0.1
+  description: REST API auto-generated docs for Component Registry
+paths:
+  /api/healthy:
+    get:
+      operationId: healthy_retrieve
+      description: Send empty 200 response as an indicator that the application is
+        up and running.
+      tags:
+      - healthy
+      responses:
+        '200':
+          description: No response body
+  /api/v1/builds:
+    get:
+      operationId: v1_builds_list
+      description: View for api/v1/builds
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: object
+          additionalProperties: {}
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSoftwareBuildDetailList'
+          description: ''
+    post:
+      operationId: v1_builds_create
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SoftwareBuildDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SoftwareBuildDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SoftwareBuildDetail'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoftwareBuildDetail'
+          description: ''
+  /api/v1/builds/{build_id}:
+    get:
+      operationId: v1_builds_retrieve
+      description: View for api/v1/builds
+      parameters:
+      - in: path
+        name: build_id
+        schema:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        description: A unique value identifying this software build.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoftwareBuildDetail'
+          description: ''
+    put:
+      operationId: v1_builds_update
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: build_id
+        schema:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        description: A unique value identifying this software build.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SoftwareBuildDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SoftwareBuildDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SoftwareBuildDetail'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoftwareBuildDetail'
+          description: ''
+    delete:
+      operationId: v1_builds_destroy
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: build_id
+        schema:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        description: A unique value identifying this software build.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/builds/{build_id}/tags:
+    get:
+      operationId: v1_builds_tags_retrieve
+      description: Get all tags on component.
+      parameters:
+      - in: path
+        name: build_id
+        schema:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        description: A unique value identifying this software build.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoftwareBuildDetail'
+          description: ''
+    post:
+      operationId: v1_builds_tags_create
+      description: Set new tags on component, removing any older values if present.
+      parameters:
+      - in: path
+        name: build_id
+        schema:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        description: A unique value identifying this software build.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SoftwareBuildDetail'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoftwareBuildDetail'
+          description: ''
+    put:
+      operationId: v1_builds_tags_update
+      description: |-
+        Set new tags on component, without removing any older values.
+
+        Sequence tags have their values merged. To remove a tag, GET all the current tags. Then
+        POST all of them back, except the tags to be removed.
+      parameters:
+      - in: path
+        name: build_id
+        schema:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        description: A unique value identifying this software build.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SoftwareBuildDetail'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoftwareBuildDetail'
+          description: ''
+    delete:
+      operationId: v1_builds_tags_destroy
+      description: Delete all tags on component.
+      parameters:
+      - in: path
+        name: build_id
+        schema:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        description: A unique value identifying this software build.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/channels:
+    get:
+      operationId: v1_channels_list
+      description: View for api/v1/channels
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: string
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedChannelList'
+          description: ''
+    post:
+      operationId: v1_channels_create
+      description: View for api/v1/channels
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Channel'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+  /api/v1/channels/{uuid}:
+    get:
+      operationId: v1_channels_retrieve
+      description: View for api/v1/channels
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this channel.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+    put:
+      operationId: v1_channels_update
+      description: View for api/v1/channels
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this channel.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Channel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+    delete:
+      operationId: v1_channels_destroy
+      description: View for api/v1/channels
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this channel.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/channels/registries:
+    get:
+      operationId: v1_channels_registries_list
+      description: View for api/v1/channels/registries
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: string
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedChannelList'
+          description: ''
+    post:
+      operationId: v1_channels_registries_create
+      description: View for api/v1/channels/registries
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Channel'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+  /api/v1/channels/registries/{uuid}:
+    get:
+      operationId: v1_channels_registries_retrieve
+      description: View for api/v1/channels/registries
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A unique value identifying this container registry.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+    put:
+      operationId: v1_channels_registries_update
+      description: View for api/v1/channels/registries
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A unique value identifying this container registry.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Channel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+    delete:
+      operationId: v1_channels_registries_destroy
+      description: View for api/v1/channels/registries
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A unique value identifying this container registry.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/channels/repos:
+    get:
+      operationId: v1_channels_repos_list
+      description: View for api/v1/channels/repos
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: string
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedChannelList'
+          description: ''
+    post:
+      operationId: v1_channels_repos_create
+      description: View for api/v1/channels/repos
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Channel'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+  /api/v1/channels/repos/{uuid}:
+    get:
+      operationId: v1_channels_repos_retrieve
+      description: View for api/v1/channels/repos
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A unique value identifying this cdn repository.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+    put:
+      operationId: v1_channels_repos_update
+      description: View for api/v1/channels/repos
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A unique value identifying this cdn repository.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Channel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Channel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+          description: ''
+    delete:
+      operationId: v1_channels_repos_destroy
+      description: View for api/v1/channels/repos
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A unique value identifying this cdn repository.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/components:
+    get:
+      operationId: v1_components_list
+      description: View for api/v1/components
+      parameters:
+      - in: query
+        name: arch
+        schema:
+          type: string
+      - in: query
+        name: channels
+        schema:
+          type: string
+      - in: query
+        name: description
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: product_streams
+        schema:
+          type: string
+      - in: query
+        name: product_variants
+        schema:
+          type: string
+      - in: query
+        name: product_versions
+        schema:
+          type: string
+      - in: query
+        name: products
+        schema:
+          type: string
+      - in: query
+        name: provides
+        schema:
+          type: string
+      - in: query
+        name: purl
+        schema:
+          type: string
+      - in: query
+        name: release
+        schema:
+          type: string
+      - in: query
+        name: rname
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: sources
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: object
+          additionalProperties: {}
+      - in: query
+        name: type
+        schema:
+          type: string
+          enum:
+          - CONTAINER_IMAGE
+          - MAVEN
+          - NPM
+          - RHEL_MODULE
+          - RPM
+          - SRPM
+          - UNKNOWN
+          - UPSTREAM
+      - in: query
+        name: upstream
+        schema:
+          type: string
+      - in: query
+        name: version
+        schema:
+          type: string
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedComponentDetailList'
+          description: ''
+    post:
+      operationId: v1_components_create
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComponentDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ComponentDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ComponentDetail'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentDetail'
+          description: ''
+  /api/v1/components/{uuid}:
+    get:
+      operationId: v1_components_retrieve
+      description: View for api/v1/components
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Component(<class 'type'>).
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentDetail'
+          description: ''
+    put:
+      operationId: v1_components_update
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Component(<class 'type'>).
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComponentDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ComponentDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ComponentDetail'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentDetail'
+          description: ''
+    delete:
+      operationId: v1_components_destroy
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Component(<class 'type'>).
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/components/{uuid}/tags:
+    get:
+      operationId: v1_components_tags_retrieve
+      description: Get all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Component(<class 'type'>).
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentDetail'
+          description: ''
+    post:
+      operationId: v1_components_tags_create
+      description: Set new tags on component, removing any older values if present.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Component(<class 'type'>).
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComponentDetail'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentDetail'
+          description: ''
+    put:
+      operationId: v1_components_tags_update
+      description: |-
+        Set new tags on component, without removing any older values.
+
+        Sequence tags have their values merged. To remove a tag, GET all the current tags. Then
+        POST all of them back, except the tags to be removed.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Component(<class 'type'>).
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComponentDetail'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentDetail'
+          description: ''
+    delete:
+      operationId: v1_components_tags_destroy
+      description: Delete all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Component(<class 'type'>).
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/lifecycles:
+    get:
+      operationId: v1_lifecycles_list
+      description: View for api/v1/lifecycles
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAppStreamLifeCycleList'
+          description: ''
+  /api/v1/lifecycles/{id}:
+    get:
+      operationId: v1_lifecycles_retrieve
+      description: View for api/v1/lifecycles
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this app stream life cycle.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStreamLifeCycle'
+          description: ''
+  /api/v1/product_streams:
+    get:
+      operationId: v1_product_streams_list
+      description: View for api/v1/product_streams
+      parameters:
+      - in: query
+        name: channels
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: product_streams
+        schema:
+          type: string
+      - in: query
+        name: product_variants
+        schema:
+          type: string
+      - in: query
+        name: product_versions
+        schema:
+          type: string
+      - in: query
+        name: products
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: object
+          additionalProperties: {}
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductStreamList'
+          description: ''
+    post:
+      operationId: v1_product_streams_create
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductStream'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductStream'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductStream'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStream'
+          description: ''
+  /api/v1/product_streams/{uuid}:
+    get:
+      operationId: v1_product_streams_retrieve
+      description: View for api/v1/product_streams
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product stream.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStream'
+          description: ''
+    put:
+      operationId: v1_product_streams_update
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product stream.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductStream'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductStream'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductStream'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStream'
+          description: ''
+    delete:
+      operationId: v1_product_streams_destroy
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product stream.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/product_streams/{uuid}/tags:
+    get:
+      operationId: v1_product_streams_tags_retrieve
+      description: Get all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product stream.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStream'
+          description: ''
+    post:
+      operationId: v1_product_streams_tags_create
+      description: Set new tags on component, removing any older values if present.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product stream.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductStream'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStream'
+          description: ''
+    put:
+      operationId: v1_product_streams_tags_update
+      description: |-
+        Set new tags on component, without removing any older values.
+
+        Sequence tags have their values merged. To remove a tag, GET all the current tags. Then
+        POST all of them back, except the tags to be removed.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product stream.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductStream'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStream'
+          description: ''
+    delete:
+      operationId: v1_product_streams_tags_destroy
+      description: Delete all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product stream.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/product_variants:
+    get:
+      operationId: v1_product_variants_list
+      description: View for api/v1/product_variants
+      parameters:
+      - in: query
+        name: channels
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: product_streams
+        schema:
+          type: string
+      - in: query
+        name: product_variants
+        schema:
+          type: string
+      - in: query
+        name: product_versions
+        schema:
+          type: string
+      - in: query
+        name: products
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: object
+          additionalProperties: {}
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductVariantList'
+          description: ''
+    post:
+      operationId: v1_product_variants_create
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVariant'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductVariant'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductVariant'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariant'
+          description: ''
+  /api/v1/product_variants/{uuid}:
+    get:
+      operationId: v1_product_variants_retrieve
+      description: View for api/v1/product_variants
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product variant.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariant'
+          description: ''
+    put:
+      operationId: v1_product_variants_update
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product variant.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVariant'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductVariant'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductVariant'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariant'
+          description: ''
+    delete:
+      operationId: v1_product_variants_destroy
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product variant.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/product_variants/{uuid}/tags:
+    get:
+      operationId: v1_product_variants_tags_retrieve
+      description: Get all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product variant.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariant'
+          description: ''
+    post:
+      operationId: v1_product_variants_tags_create
+      description: Set new tags on component, removing any older values if present.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product variant.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVariant'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariant'
+          description: ''
+    put:
+      operationId: v1_product_variants_tags_update
+      description: |-
+        Set new tags on component, without removing any older values.
+
+        Sequence tags have their values merged. To remove a tag, GET all the current tags. Then
+        POST all of them back, except the tags to be removed.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product variant.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVariant'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariant'
+          description: ''
+    delete:
+      operationId: v1_product_variants_tags_destroy
+      description: Delete all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product variant.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/product_versions:
+    get:
+      operationId: v1_product_versions_list
+      description: View for api/v1/product_versions
+      parameters:
+      - in: query
+        name: channels
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: product_streams
+        schema:
+          type: string
+      - in: query
+        name: product_variants
+        schema:
+          type: string
+      - in: query
+        name: product_versions
+        schema:
+          type: string
+      - in: query
+        name: products
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: object
+          additionalProperties: {}
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductVersionList'
+          description: ''
+    post:
+      operationId: v1_product_versions_create
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVersion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductVersion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductVersion'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVersion'
+          description: ''
+  /api/v1/product_versions/{uuid}:
+    get:
+      operationId: v1_product_versions_retrieve
+      description: View for api/v1/product_versions
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product version.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVersion'
+          description: ''
+    put:
+      operationId: v1_product_versions_update
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product version.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVersion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductVersion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductVersion'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVersion'
+          description: ''
+    delete:
+      operationId: v1_product_versions_destroy
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product version.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/product_versions/{uuid}/tags:
+    get:
+      operationId: v1_product_versions_tags_retrieve
+      description: Get all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product version.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVersion'
+          description: ''
+    post:
+      operationId: v1_product_versions_tags_create
+      description: Set new tags on component, removing any older values if present.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product version.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVersion'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVersion'
+          description: ''
+    put:
+      operationId: v1_product_versions_tags_update
+      description: |-
+        Set new tags on component, without removing any older values.
+
+        Sequence tags have their values merged. To remove a tag, GET all the current tags. Then
+        POST all of them back, except the tags to be removed.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product version.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVersion'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVersion'
+          description: ''
+    delete:
+      operationId: v1_product_versions_tags_destroy
+      description: Delete all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product version.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/products:
+    get:
+      operationId: v1_products_list
+      description: View for api/v1/products
+      parameters:
+      - in: query
+        name: channels
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: product_streams
+        schema:
+          type: string
+      - in: query
+        name: product_variants
+        schema:
+          type: string
+      - in: query
+        name: product_versions
+        schema:
+          type: string
+      - in: query
+        name: products
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          type: object
+          additionalProperties: {}
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductList'
+          description: ''
+    post:
+      operationId: v1_products_create
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+  /api/v1/products/{uuid}:
+    get:
+      operationId: v1_products_retrieve
+      description: View for api/v1/products
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+    put:
+      operationId: v1_products_update
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+    delete:
+      operationId: v1_products_destroy
+      description: |-
+        Raise NotImplementedError for Model Entity DELETE / POST / PUT and tag HEAD / OPTIONS.
+
+        This mess can just go away once we implement all of these methods.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/products/{uuid}/tags:
+    get:
+      operationId: v1_products_tags_retrieve
+      description: Get all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+    post:
+      operationId: v1_products_tags_create
+      description: Set new tags on component, removing any older values if present.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+    put:
+      operationId: v1_products_tags_update
+      description: |-
+        Set new tags on component, without removing any older values.
+
+        Sequence tags have their values merged. To remove a tag, GET all the current tags. Then
+        POST all of them back, except the tags to be removed.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+    delete:
+      operationId: v1_products_tags_destroy
+      description: Delete all tags on component.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this product.
+        required: true
+      tags:
+      - v1
+      responses:
+        '204':
+          description: No response body
+  /api/v1/schema/:
+    get:
+      operationId: v1_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      tags:
+      - v1
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/status/:
+    get:
+      operationId: v1_status_retrieve
+      description: View for api/v1/status
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  dt:
+                    type: string
+                    format: date-time
+                  service_version:
+                    type: string
+                  rest_api_version:
+                    type: string
+                  components:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                  products:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                  product_versions:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                  product_streams:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+          description: ''
+components:
+  schemas:
+    AppStreamLifeCycle:
+      type: object
+      description: lifecycle serializer
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        last_changed:
+          type: string
+          format: date-time
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AppStreamLifeCycleTypeEnum'
+        lifecycle:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        acg:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        start_date:
+          type: string
+          format: date
+          nullable: true
+        end_date:
+          type: string
+          format: date
+          nullable: true
+        product:
+          type: string
+        initial_product_version:
+          type: string
+        stream:
+          type: string
+        source:
+          $ref: '#/components/schemas/SourceEnum'
+        private:
+          type: boolean
+          nullable: true
+        meta_attr:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      required:
+      - acg
+      - created_at
+      - id
+      - initial_product_version
+      - last_changed
+      - lifecycle
+      - name
+      - product
+      - source
+      - stream
+    AppStreamLifeCycleTypeEnum:
+      enum:
+      - module
+      - package
+      - scl
+      type: string
+    Channel:
+      type: object
+      description: channel detail serializer
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        last_changed:
+          type: string
+          format: date-time
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        meta_attr:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      required:
+      - created_at
+      - last_changed
+      - name
+      - uuid
+    ComponentDetail:
+      type: object
+      description: |-
+        Component detail serializer
+
+        TODO - most of these serialisations are experimental, we may push to the model itself and/or
+        generalise.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        purl:
+          type: string
+          nullable: true
+          maxLength: 1024
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        tags:
+          type: object
+          additionalProperties: {}
+        version:
+          type: string
+          nullable: true
+          maxLength: 1024
+        release:
+          type: string
+          nullable: true
+          maxLength: 1024
+        arch:
+          type: string
+          nullable: true
+          maxLength: 1024
+        nvr:
+          type: string
+          readOnly: true
+        epoch:
+          type: string
+          readOnly: true
+        license:
+          type: string
+          readOnly: true
+        software_build:
+          type: string
+          readOnly: true
+        errata:
+          type: string
+          readOnly: true
+        products:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_versions:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_streams:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_variants:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        sources:
+          type: array
+          items:
+            type: string
+            maxLength: 1024
+          nullable: true
+        provides:
+          type: array
+          items:
+            type: string
+            maxLength: 1024
+          nullable: true
+        upstream:
+          type: array
+          items:
+            type: string
+            maxLength: 1024
+          nullable: true
+        meta_attr:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      required:
+      - epoch
+      - errata
+      - license
+      - nvr
+      - software_build
+      - uuid
+    PaginatedAppStreamLifeCycleList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppStreamLifeCycle'
+    PaginatedChannelList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Channel'
+    PaginatedComponentDetailList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentDetail'
+    PaginatedProductList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    PaginatedProductStreamList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductStream'
+    PaginatedProductVariantList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductVariant'
+    PaginatedProductVersionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductVersion'
+    PaginatedSoftwareBuildDetailList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoftwareBuildDetail'
+    Product:
+      type: object
+      description: product detail serializer
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        tags:
+          type: object
+          additionalProperties: {}
+        product_versions:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_streams:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_variants:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        errata:
+          type: string
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        channels:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        components:
+          type: string
+          readOnly: true
+        upstream:
+          type: string
+          readOnly: true
+        meta_attr:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      required:
+      - builds
+      - components
+      - errata
+      - name
+      - upstream
+      - uuid
+    ProductStream:
+      type: object
+      description: product stream serializer
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+        cpe:
+          type: string
+          nullable: true
+          maxLength: 200
+        description:
+          type: string
+          nullable: true
+        tags:
+          type: object
+          additionalProperties: {}
+        products:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_versions:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_variants:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        errata:
+          type: string
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        channels:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        components:
+          type: string
+          readOnly: true
+        upstream:
+          type: string
+          readOnly: true
+        meta_attr:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      required:
+      - builds
+      - components
+      - errata
+      - name
+      - upstream
+      - uuid
+    ProductVariant:
+      type: object
+      description: product variant (errata) serializer
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        tags:
+          type: object
+          additionalProperties: {}
+        products:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_versions:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_streams:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        errata:
+          type: string
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        channels:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        components:
+          type: string
+          readOnly: true
+        upstream:
+          type: string
+          readOnly: true
+        meta_attr:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      required:
+      - builds
+      - components
+      - errata
+      - name
+      - upstream
+      - uuid
+    ProductVersion:
+      type: object
+      description: product version serializer
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        tags:
+          type: object
+          additionalProperties: {}
+        products:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_streams:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        product_variants:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        errata:
+          type: string
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        channels:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          nullable: true
+        components:
+          type: string
+          readOnly: true
+        upstream:
+          type: string
+          readOnly: true
+        meta_attr:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      required:
+      - builds
+      - components
+      - errata
+      - name
+      - upstream
+      - uuid
+    SoftwareBuildDetail:
+      type: object
+      description: software build detail serializer
+      properties:
+        build_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        name:
+          type: string
+        tags:
+          type: object
+          additionalProperties: {}
+        brew_tags:
+          type: string
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/SoftwareBuildDetailTypeEnum'
+        components:
+          type: string
+          readOnly: true
+        meta_attr:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      required:
+      - brew_tags
+      - build_id
+      - components
+      - name
+    SoftwareBuildDetailTypeEnum:
+      enum:
+      - BREW
+      - KOJI
+      - PNC
+      type: string
+    SourceEnum:
+      enum:
+      - default
+      - previous_release
+      - prp
+      - confirmed
+      - override
+      type: string
