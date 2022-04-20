@@ -26,11 +26,11 @@ class AppStreamLifeCycle:
     initial_product_version: str
     stream: str
     source: SourceEnum
+    private: bool
     type: Union[Unset, AppStreamLifeCycleTypeEnum] = UNSET
     start_date: Union[Unset, None, datetime.date] = UNSET
     end_date: Union[Unset, None, datetime.date] = UNSET
-    private: Union[Unset, None, bool] = UNSET
-    meta_attr: Union[Unset, None, AppStreamLifeCycleMetaAttr] = UNSET
+    meta_attr: Union[Unset, AppStreamLifeCycleMetaAttr] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -54,6 +54,7 @@ class AppStreamLifeCycle:
 
             source = SourceEnum(self.source).value
 
+        private = self.private
         type: Union[Unset, str] = UNSET
         if not isinstance(self.type, Unset):
 
@@ -67,10 +68,9 @@ class AppStreamLifeCycle:
         if not isinstance(self.end_date, Unset):
             end_date = self.end_date.isoformat() if self.end_date else None
 
-        private = self.private
-        meta_attr: Union[Unset, None, Dict[str, Any]] = UNSET
+        meta_attr: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.meta_attr, Unset):
-            meta_attr = self.meta_attr.to_dict() if self.meta_attr else None
+            meta_attr = self.meta_attr.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -94,14 +94,14 @@ class AppStreamLifeCycle:
             field_dict["stream"] = stream
         if source is not UNSET:
             field_dict["source"] = source
+        if private is not UNSET:
+            field_dict["private"] = private
         if type is not UNSET:
             field_dict["type"] = type
         if start_date is not UNSET:
             field_dict["start_date"] = start_date
         if end_date is not UNSET:
             field_dict["end_date"] = end_date
-        if private is not UNSET:
-            field_dict["private"] = private
         if meta_attr is not UNSET:
             field_dict["meta_attr"] = meta_attr
 
@@ -145,6 +145,8 @@ class AppStreamLifeCycle:
         else:
             source = SourceEnum(_source)
 
+        private = d.pop("private", UNSET)
+
         _type = d.pop("type", UNSET)
         type: Union[Unset, AppStreamLifeCycleTypeEnum]
         if isinstance(_type, Unset):
@@ -170,13 +172,9 @@ class AppStreamLifeCycle:
         else:
             end_date = isoparse(_end_date).date()
 
-        private = d.pop("private", UNSET)
-
         _meta_attr = d.pop("meta_attr", UNSET)
-        meta_attr: Union[Unset, None, AppStreamLifeCycleMetaAttr]
-        if _meta_attr is None:
-            meta_attr = None
-        elif isinstance(_meta_attr, Unset):
+        meta_attr: Union[Unset, AppStreamLifeCycleMetaAttr]
+        if isinstance(_meta_attr, Unset):
             meta_attr = UNSET
         else:
             meta_attr = AppStreamLifeCycleMetaAttr.from_dict(_meta_attr)
@@ -192,10 +190,10 @@ class AppStreamLifeCycle:
             initial_product_version=initial_product_version,
             stream=stream,
             source=source,
+            private=private,
             type=type,
             start_date=start_date,
             end_date=end_date,
-            private=private,
             meta_attr=meta_attr,
         )
 

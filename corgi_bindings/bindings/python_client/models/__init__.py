@@ -5,9 +5,11 @@ from .app_stream_life_cycle_meta_attr import AppStreamLifeCycleMetaAttr
 from .app_stream_life_cycle_type_enum import AppStreamLifeCycleTypeEnum
 from .channel import Channel
 from .channel_meta_attr import ChannelMetaAttr
+from .channel_type_enum import ChannelTypeEnum
 from .component_detail import ComponentDetail
 from .component_detail_meta_attr import ComponentDetailMetaAttr
 from .component_detail_tags import ComponentDetailTags
+from .component_detail_type_enum import ComponentDetailTypeEnum
 from .paginated_app_stream_life_cycle_list import PaginatedAppStreamLifeCycleList
 from .paginated_channel_list import PaginatedChannelList
 from .paginated_component_detail_list import PaginatedComponentDetailList
@@ -34,6 +36,8 @@ from .software_build_detail_tags import SoftwareBuildDetailTags
 from .software_build_detail_type_enum import SoftwareBuildDetailTypeEnum
 from .source_enum import SourceEnum
 from .v1_builds_list_tags import V1BuildsListTags
+from .v1_builds_list_type import V1BuildsListType
+from .v1_channels_list_type import V1ChannelsListType
 from .v1_components_list_tags import V1ComponentsListTags
 from .v1_components_list_type import V1ComponentsListType
 from .v1_product_streams_list_tags import V1ProductStreamsListTags

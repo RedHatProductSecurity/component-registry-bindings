@@ -20,13 +20,13 @@ class ProductVersion:
     builds: str
     components: str
     upstream: str
-    description: Union[Unset, None, str] = UNSET
+    description: Union[Unset, str] = UNSET
     tags: Union[Unset, ProductVersionTags] = UNSET
-    products: Union[Unset, None, List[str]] = UNSET
-    product_streams: Union[Unset, None, List[str]] = UNSET
-    product_variants: Union[Unset, None, List[str]] = UNSET
-    channels: Union[Unset, None, List[str]] = UNSET
-    meta_attr: Union[Unset, None, ProductVersionMetaAttr] = UNSET
+    products: Union[Unset, List[str]] = UNSET
+    product_streams: Union[Unset, List[str]] = UNSET
+    product_variants: Union[Unset, List[str]] = UNSET
+    channels: Union[Unset, List[str]] = UNSET
+    meta_attr: Union[Unset, ProductVersionMetaAttr] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -41,37 +41,25 @@ class ProductVersion:
         if not isinstance(self.tags, Unset):
             tags = self.tags.to_dict()
 
-        products: Union[Unset, None, List[str]] = UNSET
+        products: Union[Unset, List[str]] = UNSET
         if not isinstance(self.products, Unset):
-            if self.products is None:
-                products = None
-            else:
-                products = self.products
+            products = self.products
 
-        product_streams: Union[Unset, None, List[str]] = UNSET
+        product_streams: Union[Unset, List[str]] = UNSET
         if not isinstance(self.product_streams, Unset):
-            if self.product_streams is None:
-                product_streams = None
-            else:
-                product_streams = self.product_streams
+            product_streams = self.product_streams
 
-        product_variants: Union[Unset, None, List[str]] = UNSET
+        product_variants: Union[Unset, List[str]] = UNSET
         if not isinstance(self.product_variants, Unset):
-            if self.product_variants is None:
-                product_variants = None
-            else:
-                product_variants = self.product_variants
+            product_variants = self.product_variants
 
-        channels: Union[Unset, None, List[str]] = UNSET
+        channels: Union[Unset, List[str]] = UNSET
         if not isinstance(self.channels, Unset):
-            if self.channels is None:
-                channels = None
-            else:
-                channels = self.channels
+            channels = self.channels
 
-        meta_attr: Union[Unset, None, Dict[str, Any]] = UNSET
+        meta_attr: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.meta_attr, Unset):
-            meta_attr = self.meta_attr.to_dict() if self.meta_attr else None
+            meta_attr = self.meta_attr.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -118,39 +106,27 @@ class ProductVersion:
 
         products: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.products, Unset):
-            if self.products is None:
-                products = None
-            else:
-                _temp_products = self.products
-                products = (None, json.dumps(_temp_products), "application/json")
+            _temp_products = self.products
+            products = (None, json.dumps(_temp_products), "application/json")
 
         product_streams: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.product_streams, Unset):
-            if self.product_streams is None:
-                product_streams = None
-            else:
-                _temp_product_streams = self.product_streams
-                product_streams = (None, json.dumps(_temp_product_streams), "application/json")
+            _temp_product_streams = self.product_streams
+            product_streams = (None, json.dumps(_temp_product_streams), "application/json")
 
         product_variants: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.product_variants, Unset):
-            if self.product_variants is None:
-                product_variants = None
-            else:
-                _temp_product_variants = self.product_variants
-                product_variants = (None, json.dumps(_temp_product_variants), "application/json")
+            _temp_product_variants = self.product_variants
+            product_variants = (None, json.dumps(_temp_product_variants), "application/json")
 
         channels: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.channels, Unset):
-            if self.channels is None:
-                channels = None
-            else:
-                _temp_channels = self.channels
-                channels = (None, json.dumps(_temp_channels), "application/json")
+            _temp_channels = self.channels
+            channels = (None, json.dumps(_temp_channels), "application/json")
 
         meta_attr: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.meta_attr, Unset):
-            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json") if self.meta_attr else None
+            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json")
 
         field_dict: Dict[str, Any] = {}
         field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
@@ -216,10 +192,8 @@ class ProductVersion:
         channels = cast(List[str], d.pop("channels", UNSET))
 
         _meta_attr = d.pop("meta_attr", UNSET)
-        meta_attr: Union[Unset, None, ProductVersionMetaAttr]
-        if _meta_attr is None:
-            meta_attr = None
-        elif isinstance(_meta_attr, Unset):
+        meta_attr: Union[Unset, ProductVersionMetaAttr]
+        if isinstance(_meta_attr, Unset):
             meta_attr = UNSET
         else:
             meta_attr = ProductVersionMetaAttr.from_dict(_meta_attr)
