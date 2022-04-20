@@ -5,6 +5,7 @@ import httpx
 from ...client import Client
 from ...models.paginated_software_build_detail_list import PaginatedSoftwareBuildDetailList
 from ...models.v1_builds_list_tags import V1BuildsListTags
+from ...models.v1_builds_list_type import V1BuildsListType
 from ...types import UNSET, Response, Unset
 
 
@@ -16,6 +17,7 @@ def _get_kwargs(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, V1BuildsListTags] = UNSET,
+    type: Union[Unset, None, V1BuildsListType] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1/builds".format(
         client.base_url,
@@ -27,11 +29,17 @@ def _get_kwargs(
     if not isinstance(tags, Unset):
         json_tags = tags.to_dict() if tags else None
 
+    json_type: Union[Unset, None, str] = UNSET
+    if not isinstance(type, Unset):
+
+        json_type = V1BuildsListType(type).value if type else None
+
     params: Dict[str, Any] = {
         "limit": limit,
         "name": name,
         "offset": offset,
         "search": search,
+        "type": json_type,
     }
     if not isinstance(json_tags, Unset) and json_tags is not None:
         params.update(json_tags)
@@ -74,6 +82,7 @@ def sync_detailed(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, V1BuildsListTags] = UNSET,
+    type: Union[Unset, None, V1BuildsListType] = UNSET,
 ) -> Response[PaginatedSoftwareBuildDetailList]:
     kwargs = _get_kwargs(
         client=client,
@@ -82,6 +91,7 @@ def sync_detailed(
         offset=offset,
         search=search,
         tags=tags,
+        type=type,
     )
 
     response = httpx.get(
@@ -103,6 +113,7 @@ def sync(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, V1BuildsListTags] = UNSET,
+    type: Union[Unset, None, V1BuildsListType] = UNSET,
 ) -> Optional[PaginatedSoftwareBuildDetailList]:
     """View for api/v1/builds"""
 
@@ -113,6 +124,7 @@ def sync(
         offset=offset,
         search=search,
         tags=tags,
+        type=type,
     ).parsed
 
 
@@ -124,6 +136,7 @@ async def asyncio_detailed(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, V1BuildsListTags] = UNSET,
+    type: Union[Unset, None, V1BuildsListType] = UNSET,
 ) -> Response[PaginatedSoftwareBuildDetailList]:
     kwargs = _get_kwargs(
         client=client,
@@ -132,6 +145,7 @@ async def asyncio_detailed(
         offset=offset,
         search=search,
         tags=tags,
+        type=type,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
@@ -148,6 +162,7 @@ async def asyncio(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, V1BuildsListTags] = UNSET,
+    type: Union[Unset, None, V1BuildsListType] = UNSET,
 ) -> Optional[PaginatedSoftwareBuildDetailList]:
     """View for api/v1/builds"""
 
@@ -159,5 +174,6 @@ async def asyncio(
             offset=offset,
             search=search,
             tags=tags,
+            type=type,
         )
     ).parsed

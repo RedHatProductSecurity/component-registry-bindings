@@ -4,6 +4,7 @@ import httpx
 
 from ...client import Client
 from ...models.paginated_channel_list import PaginatedChannelList
+from ...models.v1_channels_list_type import V1ChannelsListType
 from ...types import UNSET, Response, Unset
 
 
@@ -15,6 +16,7 @@ def _get_kwargs(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, None, V1ChannelsListType] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1/channels".format(
         client.base_url,
@@ -22,12 +24,18 @@ def _get_kwargs(
 
     headers: Dict[str, Any] = client.get_headers()
 
+    json_type: Union[Unset, None, str] = UNSET
+    if not isinstance(type, Unset):
+
+        json_type = V1ChannelsListType(type).value if type else None
+
     params: Dict[str, Any] = {
         "limit": limit,
         "name": name,
         "offset": offset,
         "search": search,
         "tags": tags,
+        "type": json_type,
     }
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -68,6 +76,7 @@ def sync_detailed(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, None, V1ChannelsListType] = UNSET,
 ) -> Response[PaginatedChannelList]:
     kwargs = _get_kwargs(
         client=client,
@@ -76,6 +85,7 @@ def sync_detailed(
         offset=offset,
         search=search,
         tags=tags,
+        type=type,
     )
 
     response = httpx.get(
@@ -97,6 +107,7 @@ def sync(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, None, V1ChannelsListType] = UNSET,
 ) -> Optional[PaginatedChannelList]:
     """View for api/v1/channels"""
 
@@ -107,6 +118,7 @@ def sync(
         offset=offset,
         search=search,
         tags=tags,
+        type=type,
     ).parsed
 
 
@@ -118,6 +130,7 @@ async def asyncio_detailed(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, None, V1ChannelsListType] = UNSET,
 ) -> Response[PaginatedChannelList]:
     kwargs = _get_kwargs(
         client=client,
@@ -126,6 +139,7 @@ async def asyncio_detailed(
         offset=offset,
         search=search,
         tags=tags,
+        type=type,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
@@ -142,6 +156,7 @@ async def asyncio(
     offset: Union[Unset, None, int] = UNSET,
     search: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, None, V1ChannelsListType] = UNSET,
 ) -> Optional[PaginatedChannelList]:
     """View for api/v1/channels"""
 
@@ -153,5 +168,6 @@ async def asyncio(
             offset=offset,
             search=search,
             tags=tags,
+            type=type,
         )
     ).parsed

@@ -18,29 +18,29 @@ class SoftwareBuildDetail:
     build_id: int
     name: str
     brew_tags: str
+    type: SoftwareBuildDetailTypeEnum
     components: str
     tags: Union[Unset, SoftwareBuildDetailTags] = UNSET
-    type: Union[Unset, SoftwareBuildDetailTypeEnum] = UNSET
-    meta_attr: Union[Unset, None, SoftwareBuildDetailMetaAttr] = UNSET
+    meta_attr: Union[Unset, SoftwareBuildDetailMetaAttr] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         build_id = self.build_id
         name = self.name
         brew_tags = self.brew_tags
+        type: str = UNSET
+        if not isinstance(self.type, Unset):
+
+            type = SoftwareBuildDetailTypeEnum(self.type).value
+
         components = self.components
         tags: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.tags, Unset):
             tags = self.tags.to_dict()
 
-        type: Union[Unset, str] = UNSET
-        if not isinstance(self.type, Unset):
-
-            type = SoftwareBuildDetailTypeEnum(self.type).value
-
-        meta_attr: Union[Unset, None, Dict[str, Any]] = UNSET
+        meta_attr: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.meta_attr, Unset):
-            meta_attr = self.meta_attr.to_dict() if self.meta_attr else None
+            meta_attr = self.meta_attr.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -50,12 +50,12 @@ class SoftwareBuildDetail:
             field_dict["name"] = name
         if brew_tags is not UNSET:
             field_dict["brew_tags"] = brew_tags
+        if type is not UNSET:
+            field_dict["type"] = type
         if components is not UNSET:
             field_dict["components"] = components
         if tags is not UNSET:
             field_dict["tags"] = tags
-        if type is not UNSET:
-            field_dict["type"] = type
         if meta_attr is not UNSET:
             field_dict["meta_attr"] = meta_attr
 
@@ -65,19 +65,19 @@ class SoftwareBuildDetail:
         build_id = self.build_id if self.build_id is UNSET else (None, str(self.build_id), "text/plain")
         name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
         brew_tags = self.brew_tags if self.brew_tags is UNSET else (None, str(self.brew_tags), "text/plain")
-        components = self.components if self.components is UNSET else (None, str(self.components), "text/plain")
-        tags: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.tags, Unset):
-            tags = (None, json.dumps(self.tags.to_dict()), "application/json")
-
         type: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.type, Unset):
 
             type = SoftwareBuildDetailTypeEnum(self.type).value
 
+        components = self.components if self.components is UNSET else (None, str(self.components), "text/plain")
+        tags: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.tags, Unset):
+            tags = (None, json.dumps(self.tags.to_dict()), "application/json")
+
         meta_attr: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.meta_attr, Unset):
-            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json") if self.meta_attr else None
+            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json")
 
         field_dict: Dict[str, Any] = {}
         field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
@@ -87,12 +87,12 @@ class SoftwareBuildDetail:
             field_dict["name"] = name
         if brew_tags is not UNSET:
             field_dict["brew_tags"] = brew_tags
+        if type is not UNSET:
+            field_dict["type"] = type
         if components is not UNSET:
             field_dict["components"] = components
         if tags is not UNSET:
             field_dict["tags"] = tags
-        if type is not UNSET:
-            field_dict["type"] = type
         if meta_attr is not UNSET:
             field_dict["meta_attr"] = meta_attr
 
@@ -107,6 +107,13 @@ class SoftwareBuildDetail:
 
         brew_tags = d.pop("brew_tags", UNSET)
 
+        _type = d.pop("type", UNSET)
+        type: SoftwareBuildDetailTypeEnum
+        if isinstance(_type, Unset):
+            type = UNSET
+        else:
+            type = SoftwareBuildDetailTypeEnum(_type)
+
         components = d.pop("components", UNSET)
 
         _tags = d.pop("tags", UNSET)
@@ -116,18 +123,9 @@ class SoftwareBuildDetail:
         else:
             tags = SoftwareBuildDetailTags.from_dict(_tags)
 
-        _type = d.pop("type", UNSET)
-        type: Union[Unset, SoftwareBuildDetailTypeEnum]
-        if isinstance(_type, Unset):
-            type = UNSET
-        else:
-            type = SoftwareBuildDetailTypeEnum(_type)
-
         _meta_attr = d.pop("meta_attr", UNSET)
-        meta_attr: Union[Unset, None, SoftwareBuildDetailMetaAttr]
-        if _meta_attr is None:
-            meta_attr = None
-        elif isinstance(_meta_attr, Unset):
+        meta_attr: Union[Unset, SoftwareBuildDetailMetaAttr]
+        if isinstance(_meta_attr, Unset):
             meta_attr = UNSET
         else:
             meta_attr = SoftwareBuildDetailMetaAttr.from_dict(_meta_attr)
@@ -136,9 +134,9 @@ class SoftwareBuildDetail:
             build_id=build_id,
             name=name,
             brew_tags=brew_tags,
+            type=type,
             components=components,
             tags=tags,
-            type=type,
             meta_attr=meta_attr,
         )
 

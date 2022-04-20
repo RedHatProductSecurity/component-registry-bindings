@@ -6,6 +6,7 @@ import attr
 from dateutil.parser import isoparse
 
 from ..models.channel_meta_attr import ChannelMetaAttr
+from ..models.channel_type_enum import ChannelTypeEnum
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="Channel")
@@ -19,8 +20,9 @@ class Channel:
     last_changed: datetime.datetime
     created_at: datetime.datetime
     name: str
-    description: Union[Unset, None, str] = UNSET
-    meta_attr: Union[Unset, None, ChannelMetaAttr] = UNSET
+    type: ChannelTypeEnum
+    description: Union[Unset, str] = UNSET
+    meta_attr: Union[Unset, ChannelMetaAttr] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -34,10 +36,15 @@ class Channel:
             created_at = self.created_at.isoformat()
 
         name = self.name
+        type: str = UNSET
+        if not isinstance(self.type, Unset):
+
+            type = ChannelTypeEnum(self.type).value
+
         description = self.description
-        meta_attr: Union[Unset, None, Dict[str, Any]] = UNSET
+        meta_attr: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.meta_attr, Unset):
-            meta_attr = self.meta_attr.to_dict() if self.meta_attr else None
+            meta_attr = self.meta_attr.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -49,6 +56,8 @@ class Channel:
             field_dict["created_at"] = created_at
         if name is not UNSET:
             field_dict["name"] = name
+        if type is not UNSET:
+            field_dict["type"] = type
         if description is not UNSET:
             field_dict["description"] = description
         if meta_attr is not UNSET:
@@ -67,10 +76,15 @@ class Channel:
             created_at = self.created_at.isoformat()
 
         name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
+        type: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.type, Unset):
+
+            type = ChannelTypeEnum(self.type).value
+
         description = self.description if self.description is UNSET else (None, str(self.description), "text/plain")
         meta_attr: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.meta_attr, Unset):
-            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json") if self.meta_attr else None
+            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json")
 
         field_dict: Dict[str, Any] = {}
         field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
@@ -82,6 +96,8 @@ class Channel:
             field_dict["created_at"] = created_at
         if name is not UNSET:
             field_dict["name"] = name
+        if type is not UNSET:
+            field_dict["type"] = type
         if description is not UNSET:
             field_dict["description"] = description
         if meta_attr is not UNSET:
@@ -110,13 +126,18 @@ class Channel:
 
         name = d.pop("name", UNSET)
 
+        _type = d.pop("type", UNSET)
+        type: ChannelTypeEnum
+        if isinstance(_type, Unset):
+            type = UNSET
+        else:
+            type = ChannelTypeEnum(_type)
+
         description = d.pop("description", UNSET)
 
         _meta_attr = d.pop("meta_attr", UNSET)
-        meta_attr: Union[Unset, None, ChannelMetaAttr]
-        if _meta_attr is None:
-            meta_attr = None
-        elif isinstance(_meta_attr, Unset):
+        meta_attr: Union[Unset, ChannelMetaAttr]
+        if isinstance(_meta_attr, Unset):
             meta_attr = UNSET
         else:
             meta_attr = ChannelMetaAttr.from_dict(_meta_attr)
@@ -126,6 +147,7 @@ class Channel:
             last_changed=last_changed,
             created_at=created_at,
             name=name,
+            type=type,
             description=description,
             meta_attr=meta_attr,
         )

@@ -1,10 +1,10 @@
 from enum import Enum
 
 
-class SoftwareBuildDetailTypeEnum(str, Enum):
+class V1BuildsListType(str, Enum):
     BREW = "BREW"
-    PNC = "PNC"
     KOJI = "KOJI"
+    PNC = "PNC"
 
     def __str__(self) -> str:
         return str(self.value)
