@@ -151,7 +151,7 @@ class SessionOperationsGroup:
                 client=self.client,
                 form_data=transformed_data,
                 multipart_data=UNSET,
-                json_data=UNSET,
+                json_body=UNSET,
             )
         else:
             raise OperationUnsupported(
@@ -172,7 +172,7 @@ class SessionOperationsGroup:
                 client=self.client,
                 form_data=transformed_data,
                 multipart_data=UNSET,
-                json_data=UNSET,
+                json_body=UNSET,
             )
         else:
             raise OperationUnsupported(
@@ -201,7 +201,7 @@ class SessionOperationsGroup:
     def search(self, searched_text: str):
         if "search" in self.allowed_operations:
             method_module = self.__get_method_module(
-                resource_name=self.resource_name, method="retrieve_list"
+                resource_name=self.resource_name, method="list"
             )
             sync_fn = get_sync_function(method_module)
             return sync_fn(client=self.client, search=searched_text)
