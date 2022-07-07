@@ -1,6 +1,5 @@
 import datetime
-import json
-from typing import Any, Dict, List, Tuple, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 import attr
 from dateutil.parser import isoparse
@@ -14,7 +13,7 @@ T = TypeVar("T", bound="Channel")
 
 @attr.s(auto_attribs=True)
 class Channel:
-    """channel detail serializer"""
+    """ """
 
     uuid: str
     last_changed: datetime.datetime
@@ -65,49 +64,9 @@ class Channel:
 
         return field_dict
 
-    def to_multipart(self) -> Dict[str, Any]:
-        uuid = self.uuid if self.uuid is UNSET else (None, str(self.uuid), "text/plain")
-        last_changed: str = UNSET
-        if not isinstance(self.last_changed, Unset):
-            last_changed = self.last_changed.isoformat()
-
-        created_at: str = UNSET
-        if not isinstance(self.created_at, Unset):
-            created_at = self.created_at.isoformat()
-
-        name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
-        type: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.type, Unset):
-
-            type = ChannelTypeEnum(self.type).value
-
-        description = self.description if self.description is UNSET else (None, str(self.description), "text/plain")
-        meta_attr: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.meta_attr, Unset):
-            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
-        if uuid is not UNSET:
-            field_dict["uuid"] = uuid
-        if last_changed is not UNSET:
-            field_dict["last_changed"] = last_changed
-        if created_at is not UNSET:
-            field_dict["created_at"] = created_at
-        if name is not UNSET:
-            field_dict["name"] = name
-        if type is not UNSET:
-            field_dict["type"] = type
-        if description is not UNSET:
-            field_dict["description"] = description
-        if meta_attr is not UNSET:
-            field_dict["meta_attr"] = meta_attr
-
-        return field_dict
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+        d = src_dict.copy() if isinstance(src_dict, dict) else {}
         uuid = d.pop("uuid", UNSET)
 
         _last_changed = d.pop("last_changed", UNSET)

@@ -1,9 +1,9 @@
 from typing import Any, Dict, Optional
 
-import httpx
+import requests
 
 from ...client import Client
-from ...models.software_build_detail import SoftwareBuildDetail
+from ...models.software_build import SoftwareBuild
 from ...types import UNSET, Response, Unset
 
 
@@ -25,20 +25,20 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: httpx.Response) -> Optional[SoftwareBuildDetail]:
+def _parse_response(*, response: requests.Response) -> Optional[SoftwareBuild]:
     if response.status_code == 200:
         _response_200 = response.json()
-        response_200: SoftwareBuildDetail
+        response_200: SoftwareBuild
         if isinstance(_response_200, Unset):
             response_200 = UNSET
         else:
-            response_200 = SoftwareBuildDetail.from_dict(_response_200)
+            response_200 = SoftwareBuild.from_dict(_response_200)
 
         return response_200
     return None
 
 
-def _build_response(*, response: httpx.Response) -> Response[SoftwareBuildDetail]:
+def _build_response(*, response: requests.Response) -> Response[SoftwareBuild]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -51,13 +51,13 @@ def sync_detailed(
     build_id: int,
     *,
     client: Client,
-) -> Response[SoftwareBuildDetail]:
+) -> Response[SoftwareBuild]:
     kwargs = _get_kwargs(
         build_id=build_id,
         client=client,
     )
 
-    response = httpx.get(
+    response = requests.get(
         verify=client.verify_ssl,
         auth=client.auth,
         timeout=client.timeout,
@@ -72,41 +72,10 @@ def sync(
     build_id: int,
     *,
     client: Client,
-) -> Optional[SoftwareBuildDetail]:
+) -> Optional[SoftwareBuild]:
     """View for api/v1/builds"""
 
     return sync_detailed(
         build_id=build_id,
         client=client,
-    ).parsed
-
-
-async def asyncio_detailed(
-    build_id: int,
-    *,
-    client: Client,
-) -> Response[SoftwareBuildDetail]:
-    kwargs = _get_kwargs(
-        build_id=build_id,
-        client=client,
-    )
-
-    async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
-        response = await _client.get(**kwargs)
-
-    return _build_response(response=response)
-
-
-async def asyncio(
-    build_id: int,
-    *,
-    client: Client,
-) -> Optional[SoftwareBuildDetail]:
-    """View for api/v1/builds"""
-
-    return (
-        await asyncio_detailed(
-            build_id=build_id,
-            client=client,
-        )
     ).parsed

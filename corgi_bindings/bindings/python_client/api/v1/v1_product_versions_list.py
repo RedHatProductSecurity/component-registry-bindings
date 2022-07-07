@@ -1,10 +1,9 @@
 from typing import Any, Dict, Optional, Union
 
-import httpx
+import requests
 
 from ...client import Client
 from ...models.paginated_product_version_list import PaginatedProductVersionList
-from ...models.v1_product_versions_list_tags import V1ProductVersionsListTags
 from ...types import UNSET, Response, Unset
 
 
@@ -19,18 +18,16 @@ def _get_kwargs(
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
+    re_name: Union[Unset, None, str] = UNSET,
+    re_ofuri: Union[Unset, None, str] = UNSET,
     search: Union[Unset, None, str] = UNSET,
-    tags: Union[Unset, None, V1ProductVersionsListTags] = UNSET,
+    tags: Union[Unset, None, int] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1/product_versions".format(
         client.base_url,
     )
 
     headers: Dict[str, Any] = client.get_headers()
-
-    json_tags: Union[Unset, None, Dict[str, Any]] = UNSET
-    if not isinstance(tags, Unset):
-        json_tags = tags.to_dict() if tags else None
 
     params: Dict[str, Any] = {
         "channels": channels,
@@ -41,10 +38,11 @@ def _get_kwargs(
         "product_variants": product_variants,
         "product_versions": product_versions,
         "products": products,
+        "re_name": re_name,
+        "re_ofuri": re_ofuri,
         "search": search,
+        "tags": tags,
     }
-    if not isinstance(json_tags, Unset) and json_tags is not None:
-        params.update(json_tags)
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     return {
@@ -54,7 +52,7 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: httpx.Response) -> Optional[PaginatedProductVersionList]:
+def _parse_response(*, response: requests.Response) -> Optional[PaginatedProductVersionList]:
     if response.status_code == 200:
         _response_200 = response.json()
         response_200: PaginatedProductVersionList
@@ -67,7 +65,7 @@ def _parse_response(*, response: httpx.Response) -> Optional[PaginatedProductVer
     return None
 
 
-def _build_response(*, response: httpx.Response) -> Response[PaginatedProductVersionList]:
+def _build_response(*, response: requests.Response) -> Response[PaginatedProductVersionList]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -87,8 +85,10 @@ def sync_detailed(
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
+    re_name: Union[Unset, None, str] = UNSET,
+    re_ofuri: Union[Unset, None, str] = UNSET,
     search: Union[Unset, None, str] = UNSET,
-    tags: Union[Unset, None, V1ProductVersionsListTags] = UNSET,
+    tags: Union[Unset, None, int] = UNSET,
 ) -> Response[PaginatedProductVersionList]:
     kwargs = _get_kwargs(
         client=client,
@@ -100,11 +100,13 @@ def sync_detailed(
         product_variants=product_variants,
         product_versions=product_versions,
         products=products,
+        re_name=re_name,
+        re_ofuri=re_ofuri,
         search=search,
         tags=tags,
     )
 
-    response = httpx.get(
+    response = requests.get(
         verify=client.verify_ssl,
         auth=client.auth,
         timeout=client.timeout,
@@ -126,8 +128,10 @@ def sync(
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
+    re_name: Union[Unset, None, str] = UNSET,
+    re_ofuri: Union[Unset, None, str] = UNSET,
     search: Union[Unset, None, str] = UNSET,
-    tags: Union[Unset, None, V1ProductVersionsListTags] = UNSET,
+    tags: Union[Unset, None, int] = UNSET,
 ) -> Optional[PaginatedProductVersionList]:
     """View for api/v1/product_versions"""
 
@@ -141,73 +145,8 @@ def sync(
         product_variants=product_variants,
         product_versions=product_versions,
         products=products,
+        re_name=re_name,
+        re_ofuri=re_ofuri,
         search=search,
         tags=tags,
-    ).parsed
-
-
-async def asyncio_detailed(
-    *,
-    client: Client,
-    channels: Union[Unset, None, str] = UNSET,
-    limit: Union[Unset, None, int] = UNSET,
-    name: Union[Unset, None, str] = UNSET,
-    offset: Union[Unset, None, int] = UNSET,
-    product_streams: Union[Unset, None, str] = UNSET,
-    product_variants: Union[Unset, None, str] = UNSET,
-    product_versions: Union[Unset, None, str] = UNSET,
-    products: Union[Unset, None, str] = UNSET,
-    search: Union[Unset, None, str] = UNSET,
-    tags: Union[Unset, None, V1ProductVersionsListTags] = UNSET,
-) -> Response[PaginatedProductVersionList]:
-    kwargs = _get_kwargs(
-        client=client,
-        channels=channels,
-        limit=limit,
-        name=name,
-        offset=offset,
-        product_streams=product_streams,
-        product_variants=product_variants,
-        product_versions=product_versions,
-        products=products,
-        search=search,
-        tags=tags,
-    )
-
-    async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
-        response = await _client.get(**kwargs)
-
-    return _build_response(response=response)
-
-
-async def asyncio(
-    *,
-    client: Client,
-    channels: Union[Unset, None, str] = UNSET,
-    limit: Union[Unset, None, int] = UNSET,
-    name: Union[Unset, None, str] = UNSET,
-    offset: Union[Unset, None, int] = UNSET,
-    product_streams: Union[Unset, None, str] = UNSET,
-    product_variants: Union[Unset, None, str] = UNSET,
-    product_versions: Union[Unset, None, str] = UNSET,
-    products: Union[Unset, None, str] = UNSET,
-    search: Union[Unset, None, str] = UNSET,
-    tags: Union[Unset, None, V1ProductVersionsListTags] = UNSET,
-) -> Optional[PaginatedProductVersionList]:
-    """View for api/v1/product_versions"""
-
-    return (
-        await asyncio_detailed(
-            client=client,
-            channels=channels,
-            limit=limit,
-            name=name,
-            offset=offset,
-            product_streams=product_streams,
-            product_variants=product_variants,
-            product_versions=product_versions,
-            products=products,
-            search=search,
-            tags=tags,
-        )
     ).parsed

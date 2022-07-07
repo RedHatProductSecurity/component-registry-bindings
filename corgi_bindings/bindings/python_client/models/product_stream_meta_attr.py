@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
@@ -9,7 +9,7 @@ T = TypeVar("T", bound="ProductStreamMetaAttr")
 class ProductStreamMetaAttr:
     """ """
 
-    additional_properties: Dict[str, Optional[str]] = attr.ib(init=False, factory=dict)
+    additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
 
@@ -20,7 +20,7 @@ class ProductStreamMetaAttr:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+        d = src_dict.copy() if isinstance(src_dict, dict) else {}
         product_stream_meta_attr = cls()
 
         product_stream_meta_attr.additional_properties = d
@@ -30,10 +30,10 @@ class ProductStreamMetaAttr:
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> Optional[str]:
+    def __getitem__(self, key: str) -> Any:
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: Optional[str]) -> None:
+    def __setitem__(self, key: str, value: Any) -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

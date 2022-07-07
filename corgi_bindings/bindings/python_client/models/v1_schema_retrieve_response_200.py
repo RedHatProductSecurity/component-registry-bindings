@@ -20,7 +20,7 @@ class V1SchemaRetrieveResponse200:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+        d = src_dict.copy() if isinstance(src_dict, dict) else {}
         v1_schema_retrieve_response_200 = cls()
 
         v1_schema_retrieve_response_200.additional_properties = d

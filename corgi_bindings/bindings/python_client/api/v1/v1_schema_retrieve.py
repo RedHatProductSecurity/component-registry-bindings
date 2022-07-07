@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional, Union
 
-import httpx
+import requests
 
 from ...client import AuthenticatedClient
 from ...models.v1_schema_retrieve_format import V1SchemaRetrieveFormat
@@ -13,7 +13,7 @@ def _get_kwargs(
     client: AuthenticatedClient,
     format_: Union[Unset, None, V1SchemaRetrieveFormat] = UNSET,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1/schema/".format(
+    url = "{}/api/v1/schema".format(
         client.base_url,
     )
 
@@ -36,7 +36,7 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: httpx.Response) -> Optional[V1SchemaRetrieveResponse200]:
+def _parse_response(*, response: requests.Response) -> Optional[V1SchemaRetrieveResponse200]:
     if response.status_code == 200:
         _response_200 = response.json()
         response_200: V1SchemaRetrieveResponse200
@@ -49,7 +49,7 @@ def _parse_response(*, response: httpx.Response) -> Optional[V1SchemaRetrieveRes
     return None
 
 
-def _build_response(*, response: httpx.Response) -> Response[V1SchemaRetrieveResponse200]:
+def _build_response(*, response: requests.Response) -> Response[V1SchemaRetrieveResponse200]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -68,7 +68,7 @@ def sync_detailed(
         format_=format_,
     )
 
-    response = httpx.get(
+    response = requests.get(
         verify=client.verify_ssl,
         auth=client.auth,
         timeout=client.timeout,
@@ -92,38 +92,4 @@ def sync(
     return sync_detailed(
         client=client,
         format_=format_,
-    ).parsed
-
-
-async def asyncio_detailed(
-    *,
-    client: AuthenticatedClient,
-    format_: Union[Unset, None, V1SchemaRetrieveFormat] = UNSET,
-) -> Response[V1SchemaRetrieveResponse200]:
-    kwargs = _get_kwargs(
-        client=client,
-        format_=format_,
-    )
-
-    async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
-        response = await _client.get(**kwargs)
-
-    return _build_response(response=response)
-
-
-async def asyncio(
-    *,
-    client: AuthenticatedClient,
-    format_: Union[Unset, None, V1SchemaRetrieveFormat] = UNSET,
-) -> Optional[V1SchemaRetrieveResponse200]:
-    """OpenApi3 schema for this API. Format can be selected via content negotiation.
-
-    - YAML: application/vnd.oai.openapi
-    - JSON: application/vnd.oai.openapi+json"""
-
-    return (
-        await asyncio_detailed(
-            client=client,
-            format_=format_,
-        )
     ).parsed
