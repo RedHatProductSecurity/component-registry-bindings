@@ -53,20 +53,30 @@ class Session:
             verify_ssl=verify_ssl,
         )
 
-        self.builds = SessionOperationsGroup(self.__client, "builds")
-        self.components = SessionOperationsGroup(self.__client, "components")
+        self.builds = SessionOperationsGroup(
+            self.__client, "builds", allowed_operations=("retrieve", "list")
+        )
+        self.components = SessionOperationsGroup(
+            self.__client, "components", allowed_operations=("retrieve", "list")
+        )
         self.lifecycles = SessionOperationsGroup(
-            self.__client, "lifecycles", ("retrieve", "list")
+            self.__client, "lifecycles", allowed_operations=("retrieve", "list")
         )
-        self.products = SessionOperationsGroup(self.__client, "products")
+        self.products = SessionOperationsGroup(
+            self.__client, "products", allowed_operations=("retrieve", "list")
+        )
         self.product_versions = SessionOperationsGroup(
-            self.__client, "product_versions"
+            self.__client, "product_versions", allowed_operations=("retrieve", "list")
         )
-        self.product_streams = SessionOperationsGroup(self.__client, "product_streams")
+        self.product_streams = SessionOperationsGroup(
+            self.__client, "product_streams", allowed_operations=("retrieve", "list")
+        )
         self.product_variants = SessionOperationsGroup(
-            self.__client, "product_variants"
+            self.__client, "product_variants", allowed_operations=("retrieve", "list")
         )
-        self.channels = SessionOperationsGroup(self.__client, "channels")
+        self.channels = SessionOperationsGroup(
+            self.__client, "channels", allowed_operations=("retrieve", "list")
+        )
 
     def status(self):
         status_fn = get_sync_function(corgi_status_retrieve)
