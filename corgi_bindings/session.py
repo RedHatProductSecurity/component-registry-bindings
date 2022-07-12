@@ -13,7 +13,7 @@ from .constants import (
 )
 
 corgi_status_retrieve = importlib.import_module(
-    f"{CORGI_BINDINGS_API_PATH}.{CORGI_API_VERSION}_status_retrieve",
+    f"{CORGI_BINDINGS_API_PATH}.{CORGI_API_VERSION}_status_list",
     package="corgi_bindings",
 )
 
