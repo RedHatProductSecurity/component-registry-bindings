@@ -130,6 +130,20 @@ Retrieve a list of Components. Performs full text search filter.
     components = session.components.search("crypto")
 ```
 
+#### tag components
+
+Create a tag for the component
+```python
+    tag = session.components.create_tags(id="be2e8441-b188-483a-be4a-c040e8c665d2")
+```
+
+#### untag components
+
+Delete tags for the component
+```python
+    session.components.delete_tags(id="be2e8441-b188-483a-be4a-c040e8c665d2")
+```
+
 ### Response
 
 This section describes how to work with responses. See [operations section](#session-operations) to learn how to get these responses.

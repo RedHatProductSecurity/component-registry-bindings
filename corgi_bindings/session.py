@@ -54,25 +54,37 @@ class Session:
         )
 
         self.builds = SessionOperationsGroup(
-            self.__client, "builds", allowed_operations=("retrieve", "list")
+            self.__client,
+            "builds",
+            allowed_operations=("retrieve", "list", "create_tags", "delete_tags"),
         )
         self.components = SessionOperationsGroup(
-            self.__client, "components", allowed_operations=("retrieve", "list")
+            self.__client,
+            "components",
+            allowed_operations=("retrieve", "list", "create_tags", "delete_tags"),
         )
         self.lifecycles = SessionOperationsGroup(
             self.__client, "lifecycles", allowed_operations=("retrieve", "list")
         )
         self.products = SessionOperationsGroup(
-            self.__client, "products", allowed_operations=("retrieve", "list")
+            self.__client,
+            "products",
+            allowed_operations=("retrieve", "list", "create_tags", "delete_tags"),
         )
         self.product_versions = SessionOperationsGroup(
-            self.__client, "product_versions", allowed_operations=("retrieve", "list")
+            self.__client,
+            "product_versions",
+            allowed_operations=("retrieve", "list", "create_tags", "delete_tags"),
         )
         self.product_streams = SessionOperationsGroup(
-            self.__client, "product_streams", allowed_operations=("retrieve", "list")
+            self.__client,
+            "product_streams",
+            allowed_operations=("retrieve", "list", "create_tags", "delete_tags"),
         )
         self.product_variants = SessionOperationsGroup(
-            self.__client, "product_variants", allowed_operations=("retrieve", "list")
+            self.__client,
+            "product_variants",
+            allowed_operations=("retrieve", "list", "create_tags", "delete_tags"),
         )
         self.channels = SessionOperationsGroup(
             self.__client, "channels", allowed_operations=("retrieve", "list")
@@ -218,5 +230,90 @@ class SessionOperationsGroup:
         else:
             raise OperationUnsupported(
                 'Operation "search" is not supported for the '
+                f'"{self.resource_name}" resource.'
+            )
+
+    def create_tags(self, id, form_data: Dict[str, Any]):
+        if "create_tags" in self.allowed_operations:
+            model = getattr(models, self.model_name)
+            transformed_data = model.from_dict(form_data)
+
+            method_module = self.__get_method_module(
+                resource_name=self.resource_name, method="tags_create"
+            )
+            sync_fn = get_sync_function(method_module)
+            return sync_fn(
+                id,
+                client=self.client,
+                form_data=transformed_data,
+                multipart_data=UNSET,
+                json_body=UNSET,
+            )
+        else:
+            raise OperationUnsupported(
+                'Operation "create_tags" is not supported for the '
+                f'"{self.resource_name}" resource.'
+            )
+
+    def delete_tags(self, id):
+        # TODO: Needs adjustments after the delete_tags gets schema for
+        # the request defined in the Corgi
+        if "tags_destroy" in self.allowed_operations:
+            method_module = self.__get_method_module(
+                resource_name=self.resource_name, method="tags_destroy"
+            )
+            sync_fn = get_sync_function(method_module)
+            return sync_fn(
+                id,
+                client=self.client,
+            )
+        else:
+            raise OperationUnsupported(
+                'Operation "delete_tags" is not supported for the '
+                f'"{self.resource_name}" resource.'
+            )
+
+    def retrieve_provides(self, id, **kwargs):
+        # TODO: Once the schema in Corgi is adjusted, allow this for the
+        # particular resources
+        if "retrieve_provides" in self.allowed_operations:
+            method_module = self.__get_method_module(
+                resource_name=self.resource_name, method="provides_retrieve"
+            )
+            sync_fn = get_sync_function(method_module)
+            return sync_fn(id, client=self.client, **kwargs)
+        else:
+            raise OperationUnsupported(
+                'Operation "retrieve_provides" is not supported for the '
+                f'"{self.resource_name}" resource.'
+            )
+
+    def retrieve_taxonomy(self, id, **kwargs):
+        # TODO: Once the schema in Corgi is adjusted, allow this for the
+        # particular resources
+        if "retrieve" in self.allowed_operations:
+            method_module = self.__get_method_module(
+                resource_name=self.resource_name, method="taxonomy_retrieve"
+            )
+            sync_fn = get_sync_function(method_module)
+            return sync_fn(id, client=self.client, **kwargs)
+        else:
+            raise OperationUnsupported(
+                'Operation "retrieve_taxonomy" is not supported for the '
+                f'"{self.resource_name}" resource.'
+            )
+
+    def retrieve_manifest(self, id, **kwargs):
+        # TODO: Once the schema in Corgi is adjusted, allow this for the
+        # particular resources
+        if "retrieve" in self.allowed_operations:
+            method_module = self.__get_method_module(
+                resource_name=self.resource_name, method="manifest_retrieve"
+            )
+            sync_fn = get_sync_function(method_module)
+            return sync_fn(id, client=self.client, **kwargs)
+        else:
+            raise OperationUnsupported(
+                'Operation "retrieve_manifest" is not supported for the '
                 f'"{self.resource_name}" resource.'
             )
