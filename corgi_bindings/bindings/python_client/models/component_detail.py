@@ -1,11 +1,11 @@
-import json
-from typing import Any, Dict, List, Tuple, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 import attr
 
 from ..models.component_detail_meta_attr import ComponentDetailMetaAttr
-from ..models.component_detail_tags import ComponentDetailTags
-from ..models.component_detail_type_enum import ComponentDetailTypeEnum
+from ..models.software_build_summary import SoftwareBuildSummary
+from ..models.tag import Tag
+from ..models.type_1b3_enum import Type1B3Enum
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ComponentDetail")
@@ -13,91 +13,92 @@ T = TypeVar("T", bound="ComponentDetail")
 
 @attr.s(auto_attribs=True)
 class ComponentDetail:
-    """Component detail serializer
+    """ """
 
-    TODO - most of these serialisations are experimental, we may push to the model itself and/or
-    generalise."""
-
+    link: str
     uuid: str
-    type: ComponentDetailTypeEnum
+    type: Type1B3Enum
     name: str
     description: str
+    tags: List[Tag]
     version: str
-    nvr: str
     epoch: str
-    license_: str
-    software_build: str
-    errata: str
+    license_list: List[str]
+    software_build: SoftwareBuildSummary
+    errata: List[str]
+    products: str
+    product_versions: str
+    product_streams: str
+    product_variants: str
+    sources: str
+    provides: str
+    upstream: str
     purl: Union[Unset, str] = UNSET
-    tags: Union[Unset, ComponentDetailTags] = UNSET
+    related_url: Union[Unset, None, str] = UNSET
     release: Union[Unset, str] = UNSET
     arch: Union[Unset, str] = UNSET
-    products: Union[Unset, List[str]] = UNSET
-    product_versions: Union[Unset, List[str]] = UNSET
-    product_streams: Union[Unset, List[str]] = UNSET
-    product_variants: Union[Unset, List[str]] = UNSET
-    sources: Union[Unset, List[str]] = UNSET
-    provides: Union[Unset, List[str]] = UNSET
-    upstream: Union[Unset, List[str]] = UNSET
+    nvr: Union[Unset, str] = UNSET
+    nevra: Union[Unset, str] = UNSET
+    license_: Union[Unset, str] = UNSET
     meta_attr: Union[Unset, ComponentDetailMetaAttr] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        link = self.link
         uuid = self.uuid
         type: str = UNSET
         if not isinstance(self.type, Unset):
 
-            type = ComponentDetailTypeEnum(self.type).value
+            type = Type1B3Enum(self.type).value
 
         name = self.name
         description = self.description
-        version = self.version
-        nvr = self.nvr
-        epoch = self.epoch
-        license_ = self.license_
-        software_build = self.software_build
-        errata = self.errata
-        purl = self.purl
-        tags: Union[Unset, Dict[str, Any]] = UNSET
+        tags: List[Dict[str, Any]] = UNSET
         if not isinstance(self.tags, Unset):
-            tags = self.tags.to_dict()
+            tags = []
+            for tags_item_data in self.tags:
+                tags_item: Dict[str, Any] = UNSET
+                if not isinstance(tags_item_data, Unset):
+                    tags_item = tags_item_data.to_dict()
 
+                tags.append(tags_item)
+
+        version = self.version
+        epoch = self.epoch
+        license_list: List[str] = UNSET
+        if not isinstance(self.license_list, Unset):
+            license_list = self.license_list
+
+        software_build: Dict[str, Any] = UNSET
+        if not isinstance(self.software_build, Unset):
+            software_build = self.software_build.to_dict()
+
+        errata: List[str] = UNSET
+        if not isinstance(self.errata, Unset):
+            errata = self.errata
+
+        products = self.products
+        product_versions = self.product_versions
+        product_streams = self.product_streams
+        product_variants = self.product_variants
+        sources = self.sources
+        provides = self.provides
+        upstream = self.upstream
+        purl = self.purl
+        related_url = self.related_url
         release = self.release
         arch = self.arch
-        products: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.products, Unset):
-            products = self.products
-
-        product_versions: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.product_versions, Unset):
-            product_versions = self.product_versions
-
-        product_streams: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.product_streams, Unset):
-            product_streams = self.product_streams
-
-        product_variants: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.product_variants, Unset):
-            product_variants = self.product_variants
-
-        sources: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.sources, Unset):
-            sources = self.sources
-
-        provides: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.provides, Unset):
-            provides = self.provides
-
-        upstream: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.upstream, Unset):
-            upstream = self.upstream
-
+        nvr = self.nvr
+        nevra = self.nevra
+        license_ = self.license_
         meta_attr: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.meta_attr, Unset):
             meta_attr = self.meta_attr.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
+        if link is not UNSET:
+            field_dict["link"] = link
         if uuid is not UNSET:
             field_dict["uuid"] = uuid
         if type is not UNSET:
@@ -106,26 +107,18 @@ class ComponentDetail:
             field_dict["name"] = name
         if description is not UNSET:
             field_dict["description"] = description
+        if tags is not UNSET:
+            field_dict["tags"] = tags
         if version is not UNSET:
             field_dict["version"] = version
-        if nvr is not UNSET:
-            field_dict["nvr"] = nvr
         if epoch is not UNSET:
             field_dict["epoch"] = epoch
-        if license_ is not UNSET:
-            field_dict["license"] = license_
+        if license_list is not UNSET:
+            field_dict["license_list"] = license_list
         if software_build is not UNSET:
             field_dict["software_build"] = software_build
         if errata is not UNSET:
             field_dict["errata"] = errata
-        if purl is not UNSET:
-            field_dict["purl"] = purl
-        if tags is not UNSET:
-            field_dict["tags"] = tags
-        if release is not UNSET:
-            field_dict["release"] = release
-        if arch is not UNSET:
-            field_dict["arch"] = arch
         if products is not UNSET:
             field_dict["products"] = products
         if product_versions is not UNSET:
@@ -140,118 +133,20 @@ class ComponentDetail:
             field_dict["provides"] = provides
         if upstream is not UNSET:
             field_dict["upstream"] = upstream
-        if meta_attr is not UNSET:
-            field_dict["meta_attr"] = meta_attr
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        uuid = self.uuid if self.uuid is UNSET else (None, str(self.uuid), "text/plain")
-        type: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.type, Unset):
-
-            type = ComponentDetailTypeEnum(self.type).value
-
-        name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
-        description = self.description if self.description is UNSET else (None, str(self.description), "text/plain")
-        version = self.version if self.version is UNSET else (None, str(self.version), "text/plain")
-        nvr = self.nvr if self.nvr is UNSET else (None, str(self.nvr), "text/plain")
-        epoch = self.epoch if self.epoch is UNSET else (None, str(self.epoch), "text/plain")
-        license_ = self.license_ if self.license_ is UNSET else (None, str(self.license_), "text/plain")
-        software_build = (
-            self.software_build if self.software_build is UNSET else (None, str(self.software_build), "text/plain")
-        )
-        errata = self.errata if self.errata is UNSET else (None, str(self.errata), "text/plain")
-        purl = self.purl if self.purl is UNSET else (None, str(self.purl), "text/plain")
-        tags: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.tags, Unset):
-            tags = (None, json.dumps(self.tags.to_dict()), "application/json")
-
-        release = self.release if self.release is UNSET else (None, str(self.release), "text/plain")
-        arch = self.arch if self.arch is UNSET else (None, str(self.arch), "text/plain")
-        products: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.products, Unset):
-            _temp_products = self.products
-            products = (None, json.dumps(_temp_products), "application/json")
-
-        product_versions: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.product_versions, Unset):
-            _temp_product_versions = self.product_versions
-            product_versions = (None, json.dumps(_temp_product_versions), "application/json")
-
-        product_streams: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.product_streams, Unset):
-            _temp_product_streams = self.product_streams
-            product_streams = (None, json.dumps(_temp_product_streams), "application/json")
-
-        product_variants: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.product_variants, Unset):
-            _temp_product_variants = self.product_variants
-            product_variants = (None, json.dumps(_temp_product_variants), "application/json")
-
-        sources: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.sources, Unset):
-            _temp_sources = self.sources
-            sources = (None, json.dumps(_temp_sources), "application/json")
-
-        provides: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.provides, Unset):
-            _temp_provides = self.provides
-            provides = (None, json.dumps(_temp_provides), "application/json")
-
-        upstream: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.upstream, Unset):
-            _temp_upstream = self.upstream
-            upstream = (None, json.dumps(_temp_upstream), "application/json")
-
-        meta_attr: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.meta_attr, Unset):
-            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
-        if uuid is not UNSET:
-            field_dict["uuid"] = uuid
-        if type is not UNSET:
-            field_dict["type"] = type
-        if name is not UNSET:
-            field_dict["name"] = name
-        if description is not UNSET:
-            field_dict["description"] = description
-        if version is not UNSET:
-            field_dict["version"] = version
-        if nvr is not UNSET:
-            field_dict["nvr"] = nvr
-        if epoch is not UNSET:
-            field_dict["epoch"] = epoch
-        if license_ is not UNSET:
-            field_dict["license"] = license_
-        if software_build is not UNSET:
-            field_dict["software_build"] = software_build
-        if errata is not UNSET:
-            field_dict["errata"] = errata
         if purl is not UNSET:
             field_dict["purl"] = purl
-        if tags is not UNSET:
-            field_dict["tags"] = tags
+        if related_url is not UNSET:
+            field_dict["related_url"] = related_url
         if release is not UNSET:
             field_dict["release"] = release
         if arch is not UNSET:
             field_dict["arch"] = arch
-        if products is not UNSET:
-            field_dict["products"] = products
-        if product_versions is not UNSET:
-            field_dict["product_versions"] = product_versions
-        if product_streams is not UNSET:
-            field_dict["product_streams"] = product_streams
-        if product_variants is not UNSET:
-            field_dict["product_variants"] = product_variants
-        if sources is not UNSET:
-            field_dict["sources"] = sources
-        if provides is not UNSET:
-            field_dict["provides"] = provides
-        if upstream is not UNSET:
-            field_dict["upstream"] = upstream
+        if nvr is not UNSET:
+            field_dict["nvr"] = nvr
+        if nevra is not UNSET:
+            field_dict["nevra"] = nevra
+        if license_ is not UNSET:
+            field_dict["license"] = license_
         if meta_attr is not UNSET:
             field_dict["meta_attr"] = meta_attr
 
@@ -259,58 +154,79 @@ class ComponentDetail:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+        d = src_dict.copy() if isinstance(src_dict, dict) else {}
+        link = d.pop("link", UNSET)
+
         uuid = d.pop("uuid", UNSET)
 
         _type = d.pop("type", UNSET)
-        type: ComponentDetailTypeEnum
+        type: Type1B3Enum
         if isinstance(_type, Unset):
             type = UNSET
         else:
-            type = ComponentDetailTypeEnum(_type)
+            type = Type1B3Enum(_type)
 
         name = d.pop("name", UNSET)
 
         description = d.pop("description", UNSET)
 
-        version = d.pop("version", UNSET)
+        tags = []
+        _tags = d.pop("tags", UNSET)
+        if _tags is UNSET:
+            tags = UNSET
+        else:
+            for tags_item_data in _tags or []:
+                _tags_item = tags_item_data
+                tags_item: Tag
+                if isinstance(_tags_item, Unset):
+                    tags_item = UNSET
+                else:
+                    tags_item = Tag.from_dict(_tags_item)
 
-        nvr = d.pop("nvr", UNSET)
+                tags.append(tags_item)
+
+        version = d.pop("version", UNSET)
 
         epoch = d.pop("epoch", UNSET)
 
-        license_ = d.pop("license", UNSET)
+        license_list = cast(List[str], d.pop("license_list", UNSET))
 
-        software_build = d.pop("software_build", UNSET)
+        _software_build = d.pop("software_build", UNSET)
+        software_build: SoftwareBuildSummary
+        if isinstance(_software_build, Unset):
+            software_build = UNSET
+        else:
+            software_build = SoftwareBuildSummary.from_dict(_software_build)
 
-        errata = d.pop("errata", UNSET)
+        errata = cast(List[str], d.pop("errata", UNSET))
+
+        products = d.pop("products", UNSET)
+
+        product_versions = d.pop("product_versions", UNSET)
+
+        product_streams = d.pop("product_streams", UNSET)
+
+        product_variants = d.pop("product_variants", UNSET)
+
+        sources = d.pop("sources", UNSET)
+
+        provides = d.pop("provides", UNSET)
+
+        upstream = d.pop("upstream", UNSET)
 
         purl = d.pop("purl", UNSET)
 
-        _tags = d.pop("tags", UNSET)
-        tags: Union[Unset, ComponentDetailTags]
-        if isinstance(_tags, Unset):
-            tags = UNSET
-        else:
-            tags = ComponentDetailTags.from_dict(_tags)
+        related_url = d.pop("related_url", UNSET)
 
         release = d.pop("release", UNSET)
 
         arch = d.pop("arch", UNSET)
 
-        products = cast(List[str], d.pop("products", UNSET))
+        nvr = d.pop("nvr", UNSET)
 
-        product_versions = cast(List[str], d.pop("product_versions", UNSET))
+        nevra = d.pop("nevra", UNSET)
 
-        product_streams = cast(List[str], d.pop("product_streams", UNSET))
-
-        product_variants = cast(List[str], d.pop("product_variants", UNSET))
-
-        sources = cast(List[str], d.pop("sources", UNSET))
-
-        provides = cast(List[str], d.pop("provides", UNSET))
-
-        upstream = cast(List[str], d.pop("upstream", UNSET))
+        license_ = d.pop("license", UNSET)
 
         _meta_attr = d.pop("meta_attr", UNSET)
         meta_attr: Union[Unset, ComponentDetailMetaAttr]
@@ -320,20 +236,17 @@ class ComponentDetail:
             meta_attr = ComponentDetailMetaAttr.from_dict(_meta_attr)
 
         component_detail = cls(
+            link=link,
             uuid=uuid,
             type=type,
             name=name,
             description=description,
+            tags=tags,
             version=version,
-            nvr=nvr,
             epoch=epoch,
-            license_=license_,
+            license_list=license_list,
             software_build=software_build,
             errata=errata,
-            purl=purl,
-            tags=tags,
-            release=release,
-            arch=arch,
             products=products,
             product_versions=product_versions,
             product_streams=product_streams,
@@ -341,6 +254,13 @@ class ComponentDetail:
             sources=sources,
             provides=provides,
             upstream=upstream,
+            purl=purl,
+            related_url=related_url,
+            release=release,
+            arch=arch,
+            nvr=nvr,
+            nevra=nevra,
+            license_=license_,
             meta_attr=meta_attr,
         )
 

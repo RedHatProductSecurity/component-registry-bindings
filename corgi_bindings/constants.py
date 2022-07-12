@@ -18,5 +18,5 @@ ALL_SESSION_OPERATIONS: List[str] = (
 RESOURCE_TO_MODEL_MAPPING: Dict[str, str] = {
     "lifecycles": "AppStreamLifeCycle",
     "components": "ComponentDetail",
-    "builds": "SoftwareBuilds",
+    "builds": "SoftwareBuild",
 }

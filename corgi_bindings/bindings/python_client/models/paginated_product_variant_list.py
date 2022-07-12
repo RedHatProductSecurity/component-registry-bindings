@@ -47,7 +47,7 @@ class PaginatedProductVariantList:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+        d = src_dict.copy() if isinstance(src_dict, dict) else {}
         count = d.pop("count", UNSET)
 
         next_ = d.pop("next", UNSET)

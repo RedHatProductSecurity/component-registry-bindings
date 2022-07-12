@@ -14,7 +14,7 @@ T = TypeVar("T", bound="AppStreamLifeCycle")
 
 @attr.s(auto_attribs=True)
 class AppStreamLifeCycle:
-    """lifecycle serializer"""
+    """ """
 
     id: int
     last_changed: datetime.datetime
@@ -109,7 +109,7 @@ class AppStreamLifeCycle:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+        d = src_dict.copy() if isinstance(src_dict, dict) else {}
         id = d.pop("id", UNSET)
 
         _last_changed = d.pop("last_changed", UNSET)

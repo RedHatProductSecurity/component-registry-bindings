@@ -1,10 +1,10 @@
-import json
-from typing import Any, Dict, List, Tuple, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 import attr
 
+from ..models.component_list import ComponentList
 from ..models.product_variant_meta_attr import ProductVariantMetaAttr
-from ..models.product_variant_tags import ProductVariantTags
+from ..models.tag import Tag
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ProductVariant")
@@ -12,47 +12,59 @@ T = TypeVar("T", bound="ProductVariant")
 
 @attr.s(auto_attribs=True)
 class ProductVariant:
-    """product variant (errata) serializer"""
+    """ """
 
+    link: str
     uuid: str
     name: str
+    tags: List[Tag]
+    products: str
+    product_versions: str
+    product_streams: str
     errata: str
     builds: str
-    components: str
+    components: List[ComponentList]
+    manifest: str
     upstream: str
+    ofuri: Union[Unset, str] = UNSET
     description: Union[Unset, str] = UNSET
-    tags: Union[Unset, ProductVariantTags] = UNSET
-    products: Union[Unset, List[str]] = UNSET
-    product_versions: Union[Unset, List[str]] = UNSET
-    product_streams: Union[Unset, List[str]] = UNSET
     channels: Union[Unset, List[str]] = UNSET
     meta_attr: Union[Unset, ProductVariantMetaAttr] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        link = self.link
         uuid = self.uuid
         name = self.name
+        tags: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.tags, Unset):
+            tags = []
+            for tags_item_data in self.tags:
+                tags_item: Dict[str, Any] = UNSET
+                if not isinstance(tags_item_data, Unset):
+                    tags_item = tags_item_data.to_dict()
+
+                tags.append(tags_item)
+
+        products = self.products
+        product_versions = self.product_versions
+        product_streams = self.product_streams
         errata = self.errata
         builds = self.builds
-        components = self.components
+        components: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.components, Unset):
+            components = []
+            for components_item_data in self.components:
+                components_item: Dict[str, Any] = UNSET
+                if not isinstance(components_item_data, Unset):
+                    components_item = components_item_data.to_dict()
+
+                components.append(components_item)
+
+        manifest = self.manifest
         upstream = self.upstream
+        ofuri = self.ofuri
         description = self.description
-        tags: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.tags, Unset):
-            tags = self.tags.to_dict()
-
-        products: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.products, Unset):
-            products = self.products
-
-        product_versions: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.product_versions, Unset):
-            product_versions = self.product_versions
-
-        product_streams: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.product_streams, Unset):
-            product_streams = self.product_streams
-
         channels: Union[Unset, List[str]] = UNSET
         if not isinstance(self.channels, Unset):
             channels = self.channels
@@ -63,20 +75,12 @@ class ProductVariant:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
+        if link is not UNSET:
+            field_dict["link"] = link
         if uuid is not UNSET:
             field_dict["uuid"] = uuid
         if name is not UNSET:
             field_dict["name"] = name
-        if errata is not UNSET:
-            field_dict["errata"] = errata
-        if builds is not UNSET:
-            field_dict["builds"] = builds
-        if components is not UNSET:
-            field_dict["components"] = components
-        if upstream is not UNSET:
-            field_dict["upstream"] = upstream
-        if description is not UNSET:
-            field_dict["description"] = description
         if tags is not UNSET:
             field_dict["tags"] = tags
         if products is not UNSET:
@@ -85,73 +89,20 @@ class ProductVariant:
             field_dict["product_versions"] = product_versions
         if product_streams is not UNSET:
             field_dict["product_streams"] = product_streams
-        if channels is not UNSET:
-            field_dict["channels"] = channels
-        if meta_attr is not UNSET:
-            field_dict["meta_attr"] = meta_attr
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        uuid = self.uuid if self.uuid is UNSET else (None, str(self.uuid), "text/plain")
-        name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
-        errata = self.errata if self.errata is UNSET else (None, str(self.errata), "text/plain")
-        builds = self.builds if self.builds is UNSET else (None, str(self.builds), "text/plain")
-        components = self.components if self.components is UNSET else (None, str(self.components), "text/plain")
-        upstream = self.upstream if self.upstream is UNSET else (None, str(self.upstream), "text/plain")
-        description = self.description if self.description is UNSET else (None, str(self.description), "text/plain")
-        tags: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.tags, Unset):
-            tags = (None, json.dumps(self.tags.to_dict()), "application/json")
-
-        products: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.products, Unset):
-            _temp_products = self.products
-            products = (None, json.dumps(_temp_products), "application/json")
-
-        product_versions: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.product_versions, Unset):
-            _temp_product_versions = self.product_versions
-            product_versions = (None, json.dumps(_temp_product_versions), "application/json")
-
-        product_streams: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.product_streams, Unset):
-            _temp_product_streams = self.product_streams
-            product_streams = (None, json.dumps(_temp_product_streams), "application/json")
-
-        channels: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.channels, Unset):
-            _temp_channels = self.channels
-            channels = (None, json.dumps(_temp_channels), "application/json")
-
-        meta_attr: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.meta_attr, Unset):
-            meta_attr = (None, json.dumps(self.meta_attr.to_dict()), "application/json")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
-        if uuid is not UNSET:
-            field_dict["uuid"] = uuid
-        if name is not UNSET:
-            field_dict["name"] = name
         if errata is not UNSET:
             field_dict["errata"] = errata
         if builds is not UNSET:
             field_dict["builds"] = builds
         if components is not UNSET:
             field_dict["components"] = components
+        if manifest is not UNSET:
+            field_dict["manifest"] = manifest
         if upstream is not UNSET:
             field_dict["upstream"] = upstream
+        if ofuri is not UNSET:
+            field_dict["ofuri"] = ofuri
         if description is not UNSET:
             field_dict["description"] = description
-        if tags is not UNSET:
-            field_dict["tags"] = tags
-        if products is not UNSET:
-            field_dict["products"] = products
-        if product_versions is not UNSET:
-            field_dict["product_versions"] = product_versions
-        if product_streams is not UNSET:
-            field_dict["product_streams"] = product_streams
         if channels is not UNSET:
             field_dict["channels"] = channels
         if meta_attr is not UNSET:
@@ -161,33 +112,60 @@ class ProductVariant:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+        d = src_dict.copy() if isinstance(src_dict, dict) else {}
+        link = d.pop("link", UNSET)
+
         uuid = d.pop("uuid", UNSET)
 
         name = d.pop("name", UNSET)
+
+        tags = []
+        _tags = d.pop("tags", UNSET)
+        if _tags is UNSET:
+            tags = UNSET
+        else:
+            for tags_item_data in _tags or []:
+                _tags_item = tags_item_data
+                tags_item: Tag
+                if isinstance(_tags_item, Unset):
+                    tags_item = UNSET
+                else:
+                    tags_item = Tag.from_dict(_tags_item)
+
+                tags.append(tags_item)
+
+        products = d.pop("products", UNSET)
+
+        product_versions = d.pop("product_versions", UNSET)
+
+        product_streams = d.pop("product_streams", UNSET)
 
         errata = d.pop("errata", UNSET)
 
         builds = d.pop("builds", UNSET)
 
-        components = d.pop("components", UNSET)
+        components = []
+        _components = d.pop("components", UNSET)
+        if _components is UNSET:
+            components = UNSET
+        else:
+            for components_item_data in _components or []:
+                _components_item = components_item_data
+                components_item: ComponentList
+                if isinstance(_components_item, Unset):
+                    components_item = UNSET
+                else:
+                    components_item = ComponentList.from_dict(_components_item)
+
+                components.append(components_item)
+
+        manifest = d.pop("manifest", UNSET)
 
         upstream = d.pop("upstream", UNSET)
 
+        ofuri = d.pop("ofuri", UNSET)
+
         description = d.pop("description", UNSET)
-
-        _tags = d.pop("tags", UNSET)
-        tags: Union[Unset, ProductVariantTags]
-        if isinstance(_tags, Unset):
-            tags = UNSET
-        else:
-            tags = ProductVariantTags.from_dict(_tags)
-
-        products = cast(List[str], d.pop("products", UNSET))
-
-        product_versions = cast(List[str], d.pop("product_versions", UNSET))
-
-        product_streams = cast(List[str], d.pop("product_streams", UNSET))
 
         channels = cast(List[str], d.pop("channels", UNSET))
 
@@ -199,17 +177,20 @@ class ProductVariant:
             meta_attr = ProductVariantMetaAttr.from_dict(_meta_attr)
 
         product_variant = cls(
+            link=link,
             uuid=uuid,
             name=name,
-            errata=errata,
-            builds=builds,
-            components=components,
-            upstream=upstream,
-            description=description,
             tags=tags,
             products=products,
             product_versions=product_versions,
             product_streams=product_streams,
+            errata=errata,
+            builds=builds,
+            components=components,
+            manifest=manifest,
+            upstream=upstream,
+            ofuri=ofuri,
+            description=description,
             channels=channels,
             meta_attr=meta_attr,
         )

@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
 
-import httpx
+import requests
 
 from ...client import Client
 from ...models.product_stream import ProductStream
@@ -25,7 +25,7 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: httpx.Response) -> Optional[ProductStream]:
+def _parse_response(*, response: requests.Response) -> Optional[ProductStream]:
     if response.status_code == 200:
         _response_200 = response.json()
         response_200: ProductStream
@@ -38,7 +38,7 @@ def _parse_response(*, response: httpx.Response) -> Optional[ProductStream]:
     return None
 
 
-def _build_response(*, response: httpx.Response) -> Response[ProductStream]:
+def _build_response(*, response: requests.Response) -> Response[ProductStream]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -57,7 +57,7 @@ def sync_detailed(
         client=client,
     )
 
-    response = httpx.get(
+    response = requests.get(
         verify=client.verify_ssl,
         auth=client.auth,
         timeout=client.timeout,
@@ -78,35 +78,4 @@ def sync(
     return sync_detailed(
         uuid=uuid,
         client=client,
-    ).parsed
-
-
-async def asyncio_detailed(
-    uuid: str,
-    *,
-    client: Client,
-) -> Response[ProductStream]:
-    kwargs = _get_kwargs(
-        uuid=uuid,
-        client=client,
-    )
-
-    async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
-        response = await _client.get(**kwargs)
-
-    return _build_response(response=response)
-
-
-async def asyncio(
-    uuid: str,
-    *,
-    client: Client,
-) -> Optional[ProductStream]:
-    """View for api/v1/product_streams"""
-
-    return (
-        await asyncio_detailed(
-            uuid=uuid,
-            client=client,
-        )
     ).parsed

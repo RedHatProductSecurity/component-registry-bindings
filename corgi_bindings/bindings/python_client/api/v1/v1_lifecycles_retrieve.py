@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
 
-import httpx
+import requests
 
 from ...client import Client
 from ...models.app_stream_life_cycle import AppStreamLifeCycle
@@ -25,7 +25,7 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: httpx.Response) -> Optional[AppStreamLifeCycle]:
+def _parse_response(*, response: requests.Response) -> Optional[AppStreamLifeCycle]:
     if response.status_code == 200:
         _response_200 = response.json()
         response_200: AppStreamLifeCycle
@@ -38,7 +38,7 @@ def _parse_response(*, response: httpx.Response) -> Optional[AppStreamLifeCycle]
     return None
 
 
-def _build_response(*, response: httpx.Response) -> Response[AppStreamLifeCycle]:
+def _build_response(*, response: requests.Response) -> Response[AppStreamLifeCycle]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -57,7 +57,7 @@ def sync_detailed(
         client=client,
     )
 
-    response = httpx.get(
+    response = requests.get(
         verify=client.verify_ssl,
         auth=client.auth,
         timeout=client.timeout,
@@ -78,35 +78,4 @@ def sync(
     return sync_detailed(
         id=id,
         client=client,
-    ).parsed
-
-
-async def asyncio_detailed(
-    id: int,
-    *,
-    client: Client,
-) -> Response[AppStreamLifeCycle]:
-    kwargs = _get_kwargs(
-        id=id,
-        client=client,
-    )
-
-    async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
-        response = await _client.get(**kwargs)
-
-    return _build_response(response=response)
-
-
-async def asyncio(
-    id: int,
-    *,
-    client: Client,
-) -> Optional[AppStreamLifeCycle]:
-    """View for api/v1/lifecycles"""
-
-    return (
-        await asyncio_detailed(
-            id=id,
-            client=client,
-        )
     ).parsed
