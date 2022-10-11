@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bindings"
-version = "0.0.1"
+version = "1.0.0"
 description = "A client library for accessing Component Registry API"
 
 authors = []
