@@ -69,6 +69,7 @@ This section describes possible session operations. See [response section](#resp
 
 Operations can be performed on the following entities 
 * builds
+* channels
 * components
 * products
 * product_versions
