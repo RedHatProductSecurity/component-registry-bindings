@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional
 import requests
 
 from ...client import Client
-from ...models.component_detail import ComponentDetail
+from ...models.component import Component
 from ...types import UNSET, Response, Unset
 
 
@@ -25,20 +25,20 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: requests.Response) -> Optional[ComponentDetail]:
+def _parse_response(*, response: requests.Response) -> Optional[Component]:
     if response.status_code == 200:
         _response_200 = response.json()
-        response_200: ComponentDetail
+        response_200: Component
         if isinstance(_response_200, Unset):
             response_200 = UNSET
         else:
-            response_200 = ComponentDetail.from_dict(_response_200)
+            response_200 = Component.from_dict(_response_200)
 
         return response_200
     return None
 
 
-def _build_response(*, response: requests.Response) -> Response[ComponentDetail]:
+def _build_response(*, response: requests.Response) -> Response[Component]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -51,7 +51,7 @@ def sync_detailed(
     uuid: str,
     *,
     client: Client,
-) -> Response[ComponentDetail]:
+) -> Response[Component]:
     kwargs = _get_kwargs(
         uuid=uuid,
         client=client,
@@ -72,7 +72,7 @@ def sync(
     uuid: str,
     *,
     client: Client,
-) -> Optional[ComponentDetail]:
+) -> Optional[Component]:
     """View for api/v1/components"""
 
     return sync_detailed(

@@ -1,10 +1,10 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 from dateutil.parser import isoparse
 
-from ..models.software_build_meta_attr import SoftwareBuildMetaAttr
+from ..models.software_build_components_item import SoftwareBuildComponentsItem
 from ..models.tag import Tag
 from ..models.type_f2c_enum import TypeF2CEnum
 from ..types import UNSET, Unset
@@ -17,6 +17,7 @@ class SoftwareBuild:
     """ """
 
     link: str
+    web_url: str
     build_id: int
     type: TypeF2CEnum
     name: str
@@ -24,12 +25,12 @@ class SoftwareBuild:
     tags: List[Tag]
     created_at: datetime.datetime
     last_changed: datetime.datetime
-    components: str
-    meta_attr: Union[Unset, SoftwareBuildMetaAttr] = UNSET
+    components: List[SoftwareBuildComponentsItem]
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         link = self.link
+        web_url = self.web_url
         build_id = self.build_id
         type: str = UNSET
         if not isinstance(self.type, Unset):
@@ -56,15 +57,22 @@ class SoftwareBuild:
         if not isinstance(self.last_changed, Unset):
             last_changed = self.last_changed.isoformat()
 
-        components = self.components
-        meta_attr: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.meta_attr, Unset):
-            meta_attr = self.meta_attr.to_dict()
+        components: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.components, Unset):
+            components = []
+            for components_item_data in self.components:
+                components_item: Dict[str, Any] = UNSET
+                if not isinstance(components_item_data, Unset):
+                    components_item = components_item_data.to_dict()
+
+                components.append(components_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         if link is not UNSET:
             field_dict["link"] = link
+        if web_url is not UNSET:
+            field_dict["web_url"] = web_url
         if build_id is not UNSET:
             field_dict["build_id"] = build_id
         if type is not UNSET:
@@ -81,8 +89,6 @@ class SoftwareBuild:
             field_dict["last_changed"] = last_changed
         if components is not UNSET:
             field_dict["components"] = components
-        if meta_attr is not UNSET:
-            field_dict["meta_attr"] = meta_attr
 
         return field_dict
 
@@ -90,6 +96,8 @@ class SoftwareBuild:
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if isinstance(src_dict, dict) else {}
         link = d.pop("link", UNSET)
+
+        web_url = d.pop("web_url", UNSET)
 
         build_id = d.pop("build_id", UNSET)
 
@@ -133,17 +141,24 @@ class SoftwareBuild:
         else:
             last_changed = isoparse(_last_changed)
 
-        components = d.pop("components", UNSET)
-
-        _meta_attr = d.pop("meta_attr", UNSET)
-        meta_attr: Union[Unset, SoftwareBuildMetaAttr]
-        if isinstance(_meta_attr, Unset):
-            meta_attr = UNSET
+        components = []
+        _components = d.pop("components", UNSET)
+        if _components is UNSET:
+            components = UNSET
         else:
-            meta_attr = SoftwareBuildMetaAttr.from_dict(_meta_attr)
+            for components_item_data in _components or []:
+                _components_item = components_item_data
+                components_item: SoftwareBuildComponentsItem
+                if isinstance(_components_item, Unset):
+                    components_item = UNSET
+                else:
+                    components_item = SoftwareBuildComponentsItem.from_dict(_components_item)
+
+                components.append(components_item)
 
         software_build = cls(
             link=link,
+            web_url=web_url,
             build_id=build_id,
             type=type,
             name=name,
@@ -152,7 +167,6 @@ class SoftwareBuild:
             created_at=created_at,
             last_changed=last_changed,
             components=components,
-            meta_attr=meta_attr,
         )
 
         software_build.additional_properties = d

@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Type1B3Enum(str, Enum):
+class ComponentTypeEnum(str, Enum):
     CONTAINER_IMAGE = "CONTAINER_IMAGE"
     GOLANG = "GOLANG"
     MAVEN = "MAVEN"

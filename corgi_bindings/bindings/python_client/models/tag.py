@@ -37,25 +37,6 @@ class Tag:
 
         return field_dict
 
-    def to_multipart(self) -> Dict[str, Any]:
-        name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
-        created_at: str = UNSET
-        if not isinstance(self.created_at, Unset):
-            created_at = self.created_at.isoformat()
-
-        value = self.value if self.value is UNSET else (None, str(self.value), "text/plain")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
-        if name is not UNSET:
-            field_dict["name"] = name
-        if created_at is not UNSET:
-            field_dict["created_at"] = created_at
-        if value is not UNSET:
-            field_dict["value"] = value
-
-        return field_dict
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if isinstance(src_dict, dict) else {}

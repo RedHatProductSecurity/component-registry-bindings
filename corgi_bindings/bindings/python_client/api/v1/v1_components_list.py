@@ -33,7 +33,7 @@ def _get_kwargs(
     sources: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, int] = UNSET,
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
-    upstream: Union[Unset, None, str] = UNSET,
+    upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1/components".format(
@@ -70,7 +70,7 @@ def _get_kwargs(
         "sources": sources,
         "tags": tags,
         "type": json_type,
-        "upstream": upstream,
+        "upstreams": upstreams,
         "version": version,
     }
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
@@ -129,7 +129,7 @@ def sync_detailed(
     sources: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, int] = UNSET,
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
-    upstream: Union[Unset, None, str] = UNSET,
+    upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
 ) -> Response[PaginatedComponentList]:
     kwargs = _get_kwargs(
@@ -156,7 +156,7 @@ def sync_detailed(
         sources=sources,
         tags=tags,
         type=type,
-        upstream=upstream,
+        upstreams=upstreams,
         version=version,
     )
 
@@ -196,7 +196,7 @@ def sync(
     sources: Union[Unset, None, str] = UNSET,
     tags: Union[Unset, None, int] = UNSET,
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
-    upstream: Union[Unset, None, str] = UNSET,
+    upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
 ) -> Optional[PaginatedComponentList]:
     """View for api/v1/components"""
@@ -225,6 +225,6 @@ def sync(
         sources=sources,
         tags=tags,
         type=type,
-        upstream=upstream,
+        upstreams=upstreams,
         version=version,
     ).parsed
