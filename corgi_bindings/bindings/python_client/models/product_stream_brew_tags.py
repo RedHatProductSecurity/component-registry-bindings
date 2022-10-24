@@ -1,47 +1,30 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..types import UNSET, Unset
-
-T = TypeVar("T", bound="ComponentList")
+T = TypeVar("T", bound="ProductStreamBrewTags")
 
 
 @attr.s(auto_attribs=True)
-class ComponentList:
+class ProductStreamBrewTags:
     """ """
 
-    link: str
-    purl: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        link = self.link
-        purl = self.purl
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if link is not UNSET:
-            field_dict["link"] = link
-        if purl is not UNSET:
-            field_dict["purl"] = purl
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if isinstance(src_dict, dict) else {}
-        link = d.pop("link", UNSET)
+        product_stream_brew_tags = cls()
 
-        purl = d.pop("purl", UNSET)
-
-        component_list = cls(
-            link=link,
-            purl=purl,
-        )
-
-        component_list.additional_properties = d
-        return component_list
+        product_stream_brew_tags.additional_properties = d
+        return product_stream_brew_tags
 
     @property
     def additional_keys(self) -> List[str]:

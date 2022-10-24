@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 CORGI_API_VERSION: str = "v1"
-CORGI_BINDINGS_USERAGENT: str = "corgi-bindings-0.0.1"
+CORGI_BINDINGS_USERAGENT: str = "corgi-bindings-1.0.0"
 CORGI_BINDINGS_API_PATH: str = f".bindings.python_client.api.{CORGI_API_VERSION}"
 
 # all available session operations

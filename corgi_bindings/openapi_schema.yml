@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Component Registry API
-  version: 0.0.1
+  version: 1.0.0
   description: REST API auto-generated docs for Component Registry
 paths:
   /api/healthy:
@@ -84,57 +84,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/SoftwareBuild'
           description: ''
-  /api/v1/builds/{build_id}/tags:
-    post:
-      operationId: v1_builds_tags_create
-      description: View for api/v1/builds
-      parameters:
-      - in: path
-        name: build_id
-        schema:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        description: A unique value identifying this software build.
-        required: true
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Tag'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tag'
-          description: ''
-    delete:
-      operationId: v1_builds_tags_destroy
-      description: Delete a tag from a build.
-      parameters:
-      - in: path
-        name: build_id
-        schema:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        description: A unique value identifying this software build.
-        required: true
-      tags:
-      - v1
-      responses:
-        '204':
-          description: No response body
   /api/v1/channels:
     get:
       operationId: v1_channels_list
@@ -310,7 +259,7 @@ paths:
           - UNKNOWN
           - UPSTREAM
       - in: query
-        name: upstream
+        name: upstreams
         schema:
           type: string
       - in: query
@@ -345,7 +294,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ComponentDetail'
+                $ref: '#/components/schemas/Component'
           description: ''
   /api/v1/components/{uuid}/provides:
     get:
@@ -368,55 +317,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Component'
           description: ''
-  /api/v1/components/{uuid}/tags:
-    post:
-      operationId: v1_components_tags_create
-      description: View for api/v1/components
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this Component(<class 'type'>).
-        required: true
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Component'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Component'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Component'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Component'
-          description: ''
-    delete:
-      operationId: v1_components_tags_destroy
-      description: Delete a tag from a build.
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this Component(<class 'type'>).
-        required: true
-      tags:
-      - v1
-      responses:
-        '204':
-          description: No response body
   /api/v1/components/{uuid}/taxonomy:
     get:
       operationId: v1_components_taxonomy_retrieve
@@ -437,52 +337,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Component'
-          description: ''
-  /api/v1/lifecycles:
-    get:
-      operationId: v1_lifecycles_list
-      description: View for api/v1/lifecycles
-      parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedAppStreamLifeCycleList'
-          description: ''
-  /api/v1/lifecycles/{id}:
-    get:
-      operationId: v1_lifecycles_retrieve
-      description: View for api/v1/lifecycles
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this app stream life cycle.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppStreamLifeCycle'
           description: ''
   /api/v1/product_streams:
     get:
@@ -594,55 +448,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductStream'
           description: ''
-  /api/v1/product_streams/{uuid}/tags:
-    post:
-      operationId: v1_product_streams_tags_create
-      description: View for api/v1/product_streams
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product stream.
-        required: true
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Tag'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tag'
-          description: ''
-    delete:
-      operationId: v1_product_streams_tags_destroy
-      description: Delete a tag from a build.
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product stream.
-        required: true
-      tags:
-      - v1
-      responses:
-        '204':
-          description: No response body
   /api/v1/product_streams/{uuid}/taxonomy:
     get:
       operationId: v1_product_streams_taxonomy_retrieve
@@ -774,55 +579,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductVariant'
           description: ''
-  /api/v1/product_variants/{uuid}/tags:
-    post:
-      operationId: v1_product_variants_tags_create
-      description: View for api/v1/product_variants
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product variant.
-        required: true
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Tag'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tag'
-          description: ''
-    delete:
-      operationId: v1_product_variants_tags_destroy
-      description: Delete a tag from a build.
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product variant.
-        required: true
-      tags:
-      - v1
-      responses:
-        '204':
-          description: No response body
   /api/v1/product_variants/{uuid}/taxonomy:
     get:
       operationId: v1_product_variants_taxonomy_retrieve
@@ -954,55 +710,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductVersion'
           description: ''
-  /api/v1/product_versions/{uuid}/tags:
-    post:
-      operationId: v1_product_versions_tags_create
-      description: View for api/v1/product_versions
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product version.
-        required: true
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Tag'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tag'
-          description: ''
-    delete:
-      operationId: v1_product_versions_tags_destroy
-      description: Delete a tag from a build.
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product version.
-        required: true
-      tags:
-      - v1
-      responses:
-        '204':
-          description: No response body
   /api/v1/product_versions/{uuid}/taxonomy:
     get:
       operationId: v1_product_versions_taxonomy_retrieve
@@ -1134,55 +841,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
           description: ''
-  /api/v1/products/{uuid}/tags:
-    post:
-      operationId: v1_products_tags_create
-      description: View for api/v1/products
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product.
-        required: true
-      tags:
-      - v1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Tag'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Tag'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tag'
-          description: ''
-    delete:
-      operationId: v1_products_tags_destroy
-      description: Delete a tag from a build.
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product.
-        required: true
-      tags:
-      - v1
-      responses:
-        '204':
-          description: No response body
   /api/v1/products/{uuid}/taxonomy:
     get:
       operationId: v1_products_taxonomy_retrieve
@@ -1247,7 +905,6 @@ paths:
   /api/v1/status:
     get:
       operationId: v1_status_list
-      description: View for api/v1/status
       parameters:
       - name: limit
         required: false
@@ -1340,114 +997,17 @@ paths:
                             count:
                               type: integer
           description: ''
-  /api/v1/status/{build_id}:
-    get:
-      operationId: v1_status_retrieve
-      parameters:
-      - in: path
-        name: build_id
-        schema:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        description: A unique value identifying this software build.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          description: No response body
-  /api/v1/taxonomy/components:
-    get:
-      operationId: v1_taxonomy_components_retrieve
-      description: return all components in component taxonomy
-      tags:
-      - v1
-      responses:
-        '200':
-          description: No response body
-  /api/v1/taxonomy/products:
-    get:
-      operationId: v1_taxonomy_products_retrieve
-      description: return all product nodes in product taxonomy
-      tags:
-      - v1
-      responses:
-        '200':
-          description: No response body
 components:
   schemas:
-    AppStreamLifeCycle:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        last_changed:
-          type: string
-          format: date-time
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/AppStreamLifeCycleTypeEnum'
-        lifecycle:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        acg:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        start_date:
-          type: string
-          format: date
-          nullable: true
-        end_date:
-          type: string
-          format: date
-          nullable: true
-        product:
-          type: string
-        initial_product_version:
-          type: string
-        stream:
-          type: string
-        source:
-          $ref: '#/components/schemas/SourceEnum'
-        private:
-          type: boolean
-        meta_attr:
-          type: object
-          additionalProperties: {}
-      required:
-      - acg
-      - created_at
-      - id
-      - initial_product_version
-      - last_changed
-      - lifecycle
-      - name
-      - private
-      - product
-      - source
-      - stream
-    AppStreamLifeCycleTypeEnum:
-      enum:
-      - module
-      - package
-      - scl
-      type: string
     Channel:
       type: object
       properties:
         uuid:
           type: string
           format: uuid
+          readOnly: true
+        link:
+          type: string
           readOnly: true
         last_changed:
           type: string
@@ -1466,9 +1026,30 @@ components:
         meta_attr:
           type: object
           additionalProperties: {}
+        products:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+        product_versions:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+        product_streams:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+        product_variants:
+          type: array
+          items:
+            type: string
+            maxLength: 200
       required:
       - created_at
       - last_changed
+      - link
       - name
       - type
       - uuid
@@ -1483,12 +1064,15 @@ components:
         link:
           type: string
           readOnly: true
+        download_url:
+          type: string
+          readOnly: true
         uuid:
           type: string
           format: uuid
           readOnly: true
         type:
-          $ref: '#/components/schemas/Type1b3Enum'
+          $ref: '#/components/schemas/ComponentTypeEnum'
         purl:
           type: string
           maxLength: 1024
@@ -1538,28 +1122,57 @@ components:
             type: string
           readOnly: true
         products:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_versions:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_streams:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_variants:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         sources:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         provides:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
-        upstream:
-          type: string
+        upstreams:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
       required:
       - description
+      - download_url
       - epoch
       - errata
       - license_list
@@ -1574,143 +1187,22 @@ components:
       - sources
       - tags
       - type
-      - upstream
+      - upstreams
       - uuid
       - version
-    ComponentDetail:
-      type: object
-      properties:
-        link:
-          type: string
-          readOnly: true
-        uuid:
-          type: string
-          format: uuid
-          readOnly: true
-        type:
-          $ref: '#/components/schemas/Type1b3Enum'
-        purl:
-          type: string
-          maxLength: 1024
-        name:
-          type: string
-        description:
-          type: string
-        related_url:
-          type: string
-          nullable: true
-          maxLength: 1024
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          readOnly: true
-        version:
-          type: string
-          maxLength: 1024
-        release:
-          type: string
-          maxLength: 1024
-        arch:
-          type: string
-          maxLength: 1024
-        nvr:
-          type: string
-          maxLength: 1024
-        nevra:
-          type: string
-          maxLength: 1024
-        epoch:
-          type: string
-          readOnly: true
-        license:
-          type: string
-        license_list:
-          type: array
-          items:
-            type: string
-          readOnly: true
-        software_build:
-          $ref: '#/components/schemas/SoftwareBuildSummary'
-        errata:
-          type: array
-          items:
-            type: string
-          readOnly: true
-        products:
-          type: string
-          readOnly: true
-        product_versions:
-          type: string
-          readOnly: true
-        product_streams:
-          type: string
-          readOnly: true
-        product_variants:
-          type: string
-          readOnly: true
-        sources:
-          type: string
-          readOnly: true
-        provides:
-          type: string
-          readOnly: true
-        upstream:
-          type: string
-          readOnly: true
-        meta_attr:
-          type: object
-          additionalProperties: {}
-      required:
-      - description
-      - epoch
-      - errata
-      - license_list
-      - link
-      - name
-      - product_streams
-      - product_variants
-      - product_versions
-      - products
-      - provides
-      - software_build
-      - sources
-      - tags
-      - type
-      - upstream
-      - uuid
-      - version
-    ComponentList:
-      type: object
-      properties:
-        link:
-          type: string
-          readOnly: true
-        purl:
-          type: string
-          maxLength: 1024
-      required:
-      - link
-    PaginatedAppStreamLifeCycleList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppStreamLifeCycle'
+    ComponentTypeEnum:
+      enum:
+      - CONTAINER_IMAGE
+      - GOLANG
+      - MAVEN
+      - NPM
+      - RHEL_MODULE
+      - RPM
+      - SRPM
+      - PYPI
+      - UNKNOWN
+      - UPSTREAM
+      type: string
     PaginatedChannelList:
       type: object
       properties:
@@ -1868,57 +1360,55 @@ components:
           type: string
         description:
           type: string
+        build_count:
+          type: integer
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        components:
+          type: string
+          readOnly: true
+        upstreams:
+          type: string
+          readOnly: true
         tags:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
           readOnly: true
         product_versions:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_streams:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_variants:
-          type: string
-          readOnly: true
-        errata:
-          type: string
-          readOnly: true
-        builds:
-          type: string
-          readOnly: true
-        channels:
           type: array
           items:
-            type: string
-            maxLength: 200
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentList'
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
-        manifest:
-          type: string
-          readOnly: true
-        upstream:
-          type: string
-          readOnly: true
-        meta_attr:
-          type: object
-          additionalProperties: {}
       required:
+      - build_count
       - builds
       - components
-      - errata
       - link
-      - manifest
       - name
       - product_streams
       - product_variants
       - product_versions
       - tags
-      - upstream
+      - upstreams
       - uuid
     ProductStream:
       type: object
@@ -1938,59 +1428,92 @@ components:
         cpe:
           type: string
           maxLength: 1000
+        active:
+          type: boolean
+        brew_tags:
+          type: object
+          additionalProperties: {}
+        yum_repositories:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+        composes:
+          type: object
+          additionalProperties: {}
+        et_product_versions:
+          type: array
+          items:
+            type: string
+            maxLength: 200
         description:
           type: string
+        build_count:
+          type: integer
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        manifest:
+          type: string
+          readOnly: true
+        components:
+          type: string
+          readOnly: true
+        upstreams:
+          type: string
+          readOnly: true
+        relations:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+          readOnly: true
         tags:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
           readOnly: true
         products:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_versions:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_variants:
-          type: string
-          readOnly: true
-        errata:
-          type: string
-          readOnly: true
-        builds:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         channels:
           type: array
           items:
             type: string
             maxLength: 200
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentList'
-          readOnly: true
-        manifest:
-          type: string
-          readOnly: true
-        upstream:
-          type: string
-          readOnly: true
-        meta_attr:
-          type: object
-          additionalProperties: {}
       required:
+      - build_count
       - builds
       - components
-      - errata
       - link
       - manifest
       - name
       - product_variants
       - product_versions
       - products
+      - relations
       - tags
-      - upstream
+      - upstreams
       - uuid
     ProductVariant:
       type: object
@@ -2009,57 +1532,72 @@ components:
           type: string
         description:
           type: string
+        build_count:
+          type: integer
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        manifest:
+          type: string
+          readOnly: true
+        components:
+          type: string
+          readOnly: true
+        upstreams:
+          type: string
+          readOnly: true
         tags:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
           readOnly: true
+        relations:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+          readOnly: true
         products:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_versions:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_streams:
-          type: string
-          readOnly: true
-        errata:
-          type: string
-          readOnly: true
-        builds:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         channels:
           type: array
           items:
             type: string
             maxLength: 200
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentList'
-          readOnly: true
-        manifest:
-          type: string
-          readOnly: true
-        upstream:
-          type: string
-          readOnly: true
-        meta_attr:
-          type: object
-          additionalProperties: {}
       required:
+      - build_count
       - builds
       - components
-      - errata
       - link
       - manifest
       - name
       - product_streams
       - product_versions
       - products
+      - relations
       - tags
-      - upstream
+      - upstreams
       - uuid
     ProductVersion:
       type: object
@@ -2078,62 +1616,63 @@ components:
           type: string
         description:
           type: string
+        build_count:
+          type: integer
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        components:
+          type: string
+          readOnly: true
+        upstreams:
+          type: string
+          readOnly: true
         tags:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
           readOnly: true
         products:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_streams:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_variants:
-          type: string
-          readOnly: true
-        errata:
-          type: string
-          readOnly: true
-        builds:
-          type: string
-          readOnly: true
-        channels:
           type: array
           items:
-            type: string
-            maxLength: 200
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentList'
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
-        manifest:
-          type: string
-          readOnly: true
-        upstream:
-          type: string
-          readOnly: true
-        meta_attr:
-          type: object
-          additionalProperties: {}
       required:
+      - build_count
       - builds
       - components
-      - errata
       - link
-      - manifest
       - name
       - product_streams
       - product_variants
       - products
       - tags
-      - upstream
+      - upstreams
       - uuid
     SoftwareBuild:
       type: object
       properties:
         link:
+          type: string
+          readOnly: true
+        web_url:
           type: string
           readOnly: true
         build_id:
@@ -2160,11 +1699,12 @@ components:
           format: date-time
           readOnly: true
         components:
-          type: string
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
-        meta_attr:
-          type: object
-          additionalProperties: {}
       required:
       - build_id
       - components
@@ -2175,6 +1715,7 @@ components:
       - source
       - tags
       - type
+      - web_url
     SoftwareBuildSummary:
       type: object
       properties:
@@ -2197,14 +1738,6 @@ components:
       - name
       - source
       - type
-    SourceEnum:
-      enum:
-      - default
-      - previous_release
-      - prp
-      - confirmed
-      - override
-      type: string
     Tag:
       type: object
       properties:
@@ -2222,19 +1755,6 @@ components:
       required:
       - created_at
       - name
-    Type1b3Enum:
-      enum:
-      - CONTAINER_IMAGE
-      - GOLANG
-      - MAVEN
-      - NPM
-      - RHEL_MODULE
-      - RPM
-      - SRPM
-      - PYPI
-      - UNKNOWN
-      - UPSTREAM
-      type: string
     TypeF2cEnum:
       enum:
       - BREW

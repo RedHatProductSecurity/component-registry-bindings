@@ -83,7 +83,7 @@ def sync(
     limit: Union[Unset, None, int] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
 ) -> Optional[V1StatusListResponse200]:
-    """View for api/v1/status"""
+    """ """
 
     return sync_detailed(
         client=client,

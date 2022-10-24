@@ -2,8 +2,10 @@ from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 import attr
 
-from ..models.component_list import ComponentList
-from ..models.product_variant_meta_attr import ProductVariantMetaAttr
+from ..models.product_variant_product_streams_item import ProductVariantProductStreamsItem
+from ..models.product_variant_product_versions_item import ProductVariantProductVersionsItem
+from ..models.product_variant_products_item import ProductVariantProductsItem
+from ..models.product_variant_relations_item import ProductVariantRelationsItem
 from ..models.tag import Tag
 from ..types import UNSET, Unset
 
@@ -17,25 +19,30 @@ class ProductVariant:
     link: str
     uuid: str
     name: str
-    tags: List[Tag]
-    products: str
-    product_versions: str
-    product_streams: str
-    errata: str
+    build_count: int
     builds: str
-    components: List[ComponentList]
     manifest: str
-    upstream: str
+    components: str
+    upstreams: str
+    tags: List[Tag]
+    relations: List[ProductVariantRelationsItem]
+    products: List[ProductVariantProductsItem]
+    product_versions: List[ProductVariantProductVersionsItem]
+    product_streams: List[ProductVariantProductStreamsItem]
     ofuri: Union[Unset, str] = UNSET
     description: Union[Unset, str] = UNSET
     channels: Union[Unset, List[str]] = UNSET
-    meta_attr: Union[Unset, ProductVariantMetaAttr] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         link = self.link
         uuid = self.uuid
         name = self.name
+        build_count = self.build_count
+        builds = self.builds
+        manifest = self.manifest
+        components = self.components
+        upstreams = self.upstreams
         tags: List[Dict[str, Any]] = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
@@ -46,32 +53,51 @@ class ProductVariant:
 
                 tags.append(tags_item)
 
-        products = self.products
-        product_versions = self.product_versions
-        product_streams = self.product_streams
-        errata = self.errata
-        builds = self.builds
-        components: List[Dict[str, Any]] = UNSET
-        if not isinstance(self.components, Unset):
-            components = []
-            for components_item_data in self.components:
-                components_item: Dict[str, Any] = UNSET
-                if not isinstance(components_item_data, Unset):
-                    components_item = components_item_data.to_dict()
+        relations: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.relations, Unset):
+            relations = []
+            for relations_item_data in self.relations:
+                relations_item: Dict[str, Any] = UNSET
+                if not isinstance(relations_item_data, Unset):
+                    relations_item = relations_item_data.to_dict()
 
-                components.append(components_item)
+                relations.append(relations_item)
 
-        manifest = self.manifest
-        upstream = self.upstream
+        products: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.products, Unset):
+            products = []
+            for products_item_data in self.products:
+                products_item: Dict[str, Any] = UNSET
+                if not isinstance(products_item_data, Unset):
+                    products_item = products_item_data.to_dict()
+
+                products.append(products_item)
+
+        product_versions: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.product_versions, Unset):
+            product_versions = []
+            for product_versions_item_data in self.product_versions:
+                product_versions_item: Dict[str, Any] = UNSET
+                if not isinstance(product_versions_item_data, Unset):
+                    product_versions_item = product_versions_item_data.to_dict()
+
+                product_versions.append(product_versions_item)
+
+        product_streams: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.product_streams, Unset):
+            product_streams = []
+            for product_streams_item_data in self.product_streams:
+                product_streams_item: Dict[str, Any] = UNSET
+                if not isinstance(product_streams_item_data, Unset):
+                    product_streams_item = product_streams_item_data.to_dict()
+
+                product_streams.append(product_streams_item)
+
         ofuri = self.ofuri
         description = self.description
         channels: Union[Unset, List[str]] = UNSET
         if not isinstance(self.channels, Unset):
             channels = self.channels
-
-        meta_attr: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.meta_attr, Unset):
-            meta_attr = self.meta_attr.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -81,32 +107,32 @@ class ProductVariant:
             field_dict["uuid"] = uuid
         if name is not UNSET:
             field_dict["name"] = name
+        if build_count is not UNSET:
+            field_dict["build_count"] = build_count
+        if builds is not UNSET:
+            field_dict["builds"] = builds
+        if manifest is not UNSET:
+            field_dict["manifest"] = manifest
+        if components is not UNSET:
+            field_dict["components"] = components
+        if upstreams is not UNSET:
+            field_dict["upstreams"] = upstreams
         if tags is not UNSET:
             field_dict["tags"] = tags
+        if relations is not UNSET:
+            field_dict["relations"] = relations
         if products is not UNSET:
             field_dict["products"] = products
         if product_versions is not UNSET:
             field_dict["product_versions"] = product_versions
         if product_streams is not UNSET:
             field_dict["product_streams"] = product_streams
-        if errata is not UNSET:
-            field_dict["errata"] = errata
-        if builds is not UNSET:
-            field_dict["builds"] = builds
-        if components is not UNSET:
-            field_dict["components"] = components
-        if manifest is not UNSET:
-            field_dict["manifest"] = manifest
-        if upstream is not UNSET:
-            field_dict["upstream"] = upstream
         if ofuri is not UNSET:
             field_dict["ofuri"] = ofuri
         if description is not UNSET:
             field_dict["description"] = description
         if channels is not UNSET:
             field_dict["channels"] = channels
-        if meta_attr is not UNSET:
-            field_dict["meta_attr"] = meta_attr
 
         return field_dict
 
@@ -118,6 +144,16 @@ class ProductVariant:
         uuid = d.pop("uuid", UNSET)
 
         name = d.pop("name", UNSET)
+
+        build_count = d.pop("build_count", UNSET)
+
+        builds = d.pop("builds", UNSET)
+
+        manifest = d.pop("manifest", UNSET)
+
+        components = d.pop("components", UNSET)
+
+        upstreams = d.pop("upstreams", UNSET)
 
         tags = []
         _tags = d.pop("tags", UNSET)
@@ -134,34 +170,65 @@ class ProductVariant:
 
                 tags.append(tags_item)
 
-        products = d.pop("products", UNSET)
-
-        product_versions = d.pop("product_versions", UNSET)
-
-        product_streams = d.pop("product_streams", UNSET)
-
-        errata = d.pop("errata", UNSET)
-
-        builds = d.pop("builds", UNSET)
-
-        components = []
-        _components = d.pop("components", UNSET)
-        if _components is UNSET:
-            components = UNSET
+        relations = []
+        _relations = d.pop("relations", UNSET)
+        if _relations is UNSET:
+            relations = UNSET
         else:
-            for components_item_data in _components or []:
-                _components_item = components_item_data
-                components_item: ComponentList
-                if isinstance(_components_item, Unset):
-                    components_item = UNSET
+            for relations_item_data in _relations or []:
+                _relations_item = relations_item_data
+                relations_item: ProductVariantRelationsItem
+                if isinstance(_relations_item, Unset):
+                    relations_item = UNSET
                 else:
-                    components_item = ComponentList.from_dict(_components_item)
+                    relations_item = ProductVariantRelationsItem.from_dict(_relations_item)
 
-                components.append(components_item)
+                relations.append(relations_item)
 
-        manifest = d.pop("manifest", UNSET)
+        products = []
+        _products = d.pop("products", UNSET)
+        if _products is UNSET:
+            products = UNSET
+        else:
+            for products_item_data in _products or []:
+                _products_item = products_item_data
+                products_item: ProductVariantProductsItem
+                if isinstance(_products_item, Unset):
+                    products_item = UNSET
+                else:
+                    products_item = ProductVariantProductsItem.from_dict(_products_item)
 
-        upstream = d.pop("upstream", UNSET)
+                products.append(products_item)
+
+        product_versions = []
+        _product_versions = d.pop("product_versions", UNSET)
+        if _product_versions is UNSET:
+            product_versions = UNSET
+        else:
+            for product_versions_item_data in _product_versions or []:
+                _product_versions_item = product_versions_item_data
+                product_versions_item: ProductVariantProductVersionsItem
+                if isinstance(_product_versions_item, Unset):
+                    product_versions_item = UNSET
+                else:
+                    product_versions_item = ProductVariantProductVersionsItem.from_dict(_product_versions_item)
+
+                product_versions.append(product_versions_item)
+
+        product_streams = []
+        _product_streams = d.pop("product_streams", UNSET)
+        if _product_streams is UNSET:
+            product_streams = UNSET
+        else:
+            for product_streams_item_data in _product_streams or []:
+                _product_streams_item = product_streams_item_data
+                product_streams_item: ProductVariantProductStreamsItem
+                if isinstance(_product_streams_item, Unset):
+                    product_streams_item = UNSET
+                else:
+                    product_streams_item = ProductVariantProductStreamsItem.from_dict(_product_streams_item)
+
+                product_streams.append(product_streams_item)
 
         ofuri = d.pop("ofuri", UNSET)
 
@@ -169,30 +236,23 @@ class ProductVariant:
 
         channels = cast(List[str], d.pop("channels", UNSET))
 
-        _meta_attr = d.pop("meta_attr", UNSET)
-        meta_attr: Union[Unset, ProductVariantMetaAttr]
-        if isinstance(_meta_attr, Unset):
-            meta_attr = UNSET
-        else:
-            meta_attr = ProductVariantMetaAttr.from_dict(_meta_attr)
-
         product_variant = cls(
             link=link,
             uuid=uuid,
             name=name,
+            build_count=build_count,
+            builds=builds,
+            manifest=manifest,
+            components=components,
+            upstreams=upstreams,
             tags=tags,
+            relations=relations,
             products=products,
             product_versions=product_versions,
             product_streams=product_streams,
-            errata=errata,
-            builds=builds,
-            components=components,
-            manifest=manifest,
-            upstream=upstream,
             ofuri=ofuri,
             description=description,
             channels=channels,
-            meta_attr=meta_attr,
         )
 
         product_variant.additional_properties = d
