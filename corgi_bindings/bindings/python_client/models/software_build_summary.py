@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..models.type_f2c_enum import TypeF2CEnum
+from ..models.type_111_enum import Type111Enum
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="SoftwareBuildSummary")
@@ -14,7 +14,7 @@ class SoftwareBuildSummary:
 
     link: str
     build_id: int
-    type: TypeF2CEnum
+    type: Type111Enum
     name: str
     source: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
@@ -25,7 +25,7 @@ class SoftwareBuildSummary:
         type: str = UNSET
         if not isinstance(self.type, Unset):
 
-            type = TypeF2CEnum(self.type).value
+            type = Type111Enum(self.type).value
 
         name = self.name
         source = self.source
@@ -53,11 +53,11 @@ class SoftwareBuildSummary:
         build_id = d.pop("build_id", UNSET)
 
         _type = d.pop("type", UNSET)
-        type: TypeF2CEnum
+        type: Type111Enum
         if isinstance(_type, Unset):
             type = UNSET
         else:
-            type = TypeF2CEnum(_type)
+            type = Type111Enum(_type)
 
         name = d.pop("name", UNSET)
 

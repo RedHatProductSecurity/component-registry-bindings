@@ -4,6 +4,7 @@ import requests
 
 from ...client import Client
 from ...models.paginated_component_list import PaginatedComponentList
+from ...models.v1_components_list_namespace import V1ComponentsListNamespace
 from ...models.v1_components_list_type import V1ComponentsListType
 from ...types import UNSET, Response, Unset
 
@@ -16,10 +17,10 @@ def _get_kwargs(
     description: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
+    namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
-    ofuri: Union[Unset, None, str] = UNSET,
     product_streams: Union[Unset, None, str] = UNSET,
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
@@ -42,6 +43,11 @@ def _get_kwargs(
 
     headers: Dict[str, Any] = client.get_headers()
 
+    json_namespace: Union[Unset, None, str] = UNSET
+    if not isinstance(namespace, Unset):
+
+        json_namespace = V1ComponentsListNamespace(namespace).value if namespace else None
+
     json_type: Union[Unset, None, str] = UNSET
     if not isinstance(type, Unset):
 
@@ -53,10 +59,10 @@ def _get_kwargs(
         "description": description,
         "limit": limit,
         "name": name,
+        "namespace": json_namespace,
         "nevra": nevra,
         "nvr": nvr,
         "offset": offset,
-        "ofuri": ofuri,
         "product_streams": product_streams,
         "product_variants": product_variants,
         "product_versions": product_versions,
@@ -112,10 +118,10 @@ def sync_detailed(
     description: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
+    namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
-    ofuri: Union[Unset, None, str] = UNSET,
     product_streams: Union[Unset, None, str] = UNSET,
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
@@ -139,10 +145,10 @@ def sync_detailed(
         description=description,
         limit=limit,
         name=name,
+        namespace=namespace,
         nevra=nevra,
         nvr=nvr,
         offset=offset,
-        ofuri=ofuri,
         product_streams=product_streams,
         product_variants=product_variants,
         product_versions=product_versions,
@@ -179,10 +185,10 @@ def sync(
     description: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
+    namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
-    ofuri: Union[Unset, None, str] = UNSET,
     product_streams: Union[Unset, None, str] = UNSET,
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
@@ -208,10 +214,10 @@ def sync(
         description=description,
         limit=limit,
         name=name,
+        namespace=namespace,
         nevra=nevra,
         nvr=nvr,
         offset=offset,
-        ofuri=ofuri,
         product_streams=product_streams,
         product_variants=product_variants,
         product_versions=product_versions,

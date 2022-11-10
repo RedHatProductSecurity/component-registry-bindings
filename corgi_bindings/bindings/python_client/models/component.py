@@ -1,4 +1,5 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+import json
+from typing import Any, Dict, List, Tuple, Type, TypeVar, Union, cast
 
 import attr
 
@@ -10,6 +11,7 @@ from ..models.component_provides_item import ComponentProvidesItem
 from ..models.component_sources_item import ComponentSourcesItem
 from ..models.component_type_enum import ComponentTypeEnum
 from ..models.component_upstreams_item import ComponentUpstreamsItem
+from ..models.namespace_enum import NamespaceEnum
 from ..models.software_build_summary import SoftwareBuildSummary
 from ..models.tag import Tag
 from ..types import UNSET, Unset
@@ -25,12 +27,16 @@ class Component:
     download_url: str
     uuid: str
     type: ComponentTypeEnum
+    namespace: NamespaceEnum
     name: str
     description: str
     tags: List[Tag]
     version: str
     epoch: str
-    license_list: List[str]
+    license_concluded: str
+    license_concluded_list: List[str]
+    license_declared: str
+    license_declared_list: List[str]
     software_build: SoftwareBuildSummary
     errata: List[str]
     products: List[ComponentProductsItem]
@@ -41,12 +47,14 @@ class Component:
     provides: List[ComponentProvidesItem]
     upstreams: List[ComponentUpstreamsItem]
     purl: Union[Unset, str] = UNSET
-    related_url: Union[Unset, None, str] = UNSET
+    related_url: Union[Unset, str] = UNSET
     release: Union[Unset, str] = UNSET
     arch: Union[Unset, str] = UNSET
     nvr: Union[Unset, str] = UNSET
     nevra: Union[Unset, str] = UNSET
-    license_: Union[Unset, str] = UNSET
+    copyright_text: Union[Unset, str] = UNSET
+    openlcs_scan_url: Union[Unset, str] = UNSET
+    openlcs_scan_version: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -57,6 +65,11 @@ class Component:
         if not isinstance(self.type, Unset):
 
             type = ComponentTypeEnum(self.type).value
+
+        namespace: str = UNSET
+        if not isinstance(self.namespace, Unset):
+
+            namespace = NamespaceEnum(self.namespace).value
 
         name = self.name
         description = self.description
@@ -72,9 +85,15 @@ class Component:
 
         version = self.version
         epoch = self.epoch
-        license_list: List[str] = UNSET
-        if not isinstance(self.license_list, Unset):
-            license_list = self.license_list
+        license_concluded = self.license_concluded
+        license_concluded_list: List[str] = UNSET
+        if not isinstance(self.license_concluded_list, Unset):
+            license_concluded_list = self.license_concluded_list
+
+        license_declared = self.license_declared
+        license_declared_list: List[str] = UNSET
+        if not isinstance(self.license_declared_list, Unset):
+            license_declared_list = self.license_declared_list
 
         software_build: Dict[str, Any] = UNSET
         if not isinstance(self.software_build, Unset):
@@ -160,7 +179,9 @@ class Component:
         arch = self.arch
         nvr = self.nvr
         nevra = self.nevra
-        license_ = self.license_
+        copyright_text = self.copyright_text
+        openlcs_scan_url = self.openlcs_scan_url
+        openlcs_scan_version = self.openlcs_scan_version
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -172,6 +193,8 @@ class Component:
             field_dict["uuid"] = uuid
         if type is not UNSET:
             field_dict["type"] = type
+        if namespace is not UNSET:
+            field_dict["namespace"] = namespace
         if name is not UNSET:
             field_dict["name"] = name
         if description is not UNSET:
@@ -182,8 +205,14 @@ class Component:
             field_dict["version"] = version
         if epoch is not UNSET:
             field_dict["epoch"] = epoch
-        if license_list is not UNSET:
-            field_dict["license_list"] = license_list
+        if license_concluded is not UNSET:
+            field_dict["license_concluded"] = license_concluded
+        if license_concluded_list is not UNSET:
+            field_dict["license_concluded_list"] = license_concluded_list
+        if license_declared is not UNSET:
+            field_dict["license_declared"] = license_declared
+        if license_declared_list is not UNSET:
+            field_dict["license_declared_list"] = license_declared_list
         if software_build is not UNSET:
             field_dict["software_build"] = software_build
         if errata is not UNSET:
@@ -214,8 +243,236 @@ class Component:
             field_dict["nvr"] = nvr
         if nevra is not UNSET:
             field_dict["nevra"] = nevra
-        if license_ is not UNSET:
-            field_dict["license"] = license_
+        if copyright_text is not UNSET:
+            field_dict["copyright_text"] = copyright_text
+        if openlcs_scan_url is not UNSET:
+            field_dict["openlcs_scan_url"] = openlcs_scan_url
+        if openlcs_scan_version is not UNSET:
+            field_dict["openlcs_scan_version"] = openlcs_scan_version
+
+        return field_dict
+
+    def to_multipart(self) -> Dict[str, Any]:
+        link = self.link if self.link is UNSET else (None, str(self.link), "text/plain")
+        download_url = self.download_url if self.download_url is UNSET else (None, str(self.download_url), "text/plain")
+        uuid = self.uuid if self.uuid is UNSET else (None, str(self.uuid), "text/plain")
+        type: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.type, Unset):
+
+            type = ComponentTypeEnum(self.type).value
+
+        namespace: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.namespace, Unset):
+
+            namespace = NamespaceEnum(self.namespace).value
+
+        name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
+        description = self.description if self.description is UNSET else (None, str(self.description), "text/plain")
+        tags: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.tags, Unset):
+            _temp_tags = []
+            for tags_item_data in self.tags:
+                tags_item: Dict[str, Any] = UNSET
+                if not isinstance(tags_item_data, Unset):
+                    tags_item = tags_item_data.to_dict()
+
+                _temp_tags.append(tags_item)
+            tags = (None, json.dumps(_temp_tags), "application/json")
+
+        version = self.version if self.version is UNSET else (None, str(self.version), "text/plain")
+        epoch = self.epoch if self.epoch is UNSET else (None, str(self.epoch), "text/plain")
+        license_concluded = (
+            self.license_concluded
+            if self.license_concluded is UNSET
+            else (None, str(self.license_concluded), "text/plain")
+        )
+        license_concluded_list: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.license_concluded_list, Unset):
+            _temp_license_concluded_list = self.license_concluded_list
+            license_concluded_list = (None, json.dumps(_temp_license_concluded_list), "application/json")
+
+        license_declared = (
+            self.license_declared
+            if self.license_declared is UNSET
+            else (None, str(self.license_declared), "text/plain")
+        )
+        license_declared_list: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.license_declared_list, Unset):
+            _temp_license_declared_list = self.license_declared_list
+            license_declared_list = (None, json.dumps(_temp_license_declared_list), "application/json")
+
+        software_build: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.software_build, Unset):
+            software_build = (None, json.dumps(self.software_build.to_dict()), "application/json")
+
+        errata: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.errata, Unset):
+            _temp_errata = self.errata
+            errata = (None, json.dumps(_temp_errata), "application/json")
+
+        products: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.products, Unset):
+            _temp_products = []
+            for products_item_data in self.products:
+                products_item: Dict[str, Any] = UNSET
+                if not isinstance(products_item_data, Unset):
+                    products_item = products_item_data.to_dict()
+
+                _temp_products.append(products_item)
+            products = (None, json.dumps(_temp_products), "application/json")
+
+        product_versions: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.product_versions, Unset):
+            _temp_product_versions = []
+            for product_versions_item_data in self.product_versions:
+                product_versions_item: Dict[str, Any] = UNSET
+                if not isinstance(product_versions_item_data, Unset):
+                    product_versions_item = product_versions_item_data.to_dict()
+
+                _temp_product_versions.append(product_versions_item)
+            product_versions = (None, json.dumps(_temp_product_versions), "application/json")
+
+        product_streams: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.product_streams, Unset):
+            _temp_product_streams = []
+            for product_streams_item_data in self.product_streams:
+                product_streams_item: Dict[str, Any] = UNSET
+                if not isinstance(product_streams_item_data, Unset):
+                    product_streams_item = product_streams_item_data.to_dict()
+
+                _temp_product_streams.append(product_streams_item)
+            product_streams = (None, json.dumps(_temp_product_streams), "application/json")
+
+        product_variants: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.product_variants, Unset):
+            _temp_product_variants = []
+            for product_variants_item_data in self.product_variants:
+                product_variants_item: Dict[str, Any] = UNSET
+                if not isinstance(product_variants_item_data, Unset):
+                    product_variants_item = product_variants_item_data.to_dict()
+
+                _temp_product_variants.append(product_variants_item)
+            product_variants = (None, json.dumps(_temp_product_variants), "application/json")
+
+        sources: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.sources, Unset):
+            _temp_sources = []
+            for sources_item_data in self.sources:
+                sources_item: Dict[str, Any] = UNSET
+                if not isinstance(sources_item_data, Unset):
+                    sources_item = sources_item_data.to_dict()
+
+                _temp_sources.append(sources_item)
+            sources = (None, json.dumps(_temp_sources), "application/json")
+
+        provides: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.provides, Unset):
+            _temp_provides = []
+            for provides_item_data in self.provides:
+                provides_item: Dict[str, Any] = UNSET
+                if not isinstance(provides_item_data, Unset):
+                    provides_item = provides_item_data.to_dict()
+
+                _temp_provides.append(provides_item)
+            provides = (None, json.dumps(_temp_provides), "application/json")
+
+        upstreams: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.upstreams, Unset):
+            _temp_upstreams = []
+            for upstreams_item_data in self.upstreams:
+                upstreams_item: Dict[str, Any] = UNSET
+                if not isinstance(upstreams_item_data, Unset):
+                    upstreams_item = upstreams_item_data.to_dict()
+
+                _temp_upstreams.append(upstreams_item)
+            upstreams = (None, json.dumps(_temp_upstreams), "application/json")
+
+        purl = self.purl if self.purl is UNSET else (None, str(self.purl), "text/plain")
+        related_url = self.related_url if self.related_url is UNSET else (None, str(self.related_url), "text/plain")
+        release = self.release if self.release is UNSET else (None, str(self.release), "text/plain")
+        arch = self.arch if self.arch is UNSET else (None, str(self.arch), "text/plain")
+        nvr = self.nvr if self.nvr is UNSET else (None, str(self.nvr), "text/plain")
+        nevra = self.nevra if self.nevra is UNSET else (None, str(self.nevra), "text/plain")
+        copyright_text = (
+            self.copyright_text if self.copyright_text is UNSET else (None, str(self.copyright_text), "text/plain")
+        )
+        openlcs_scan_url = (
+            self.openlcs_scan_url
+            if self.openlcs_scan_url is UNSET
+            else (None, str(self.openlcs_scan_url), "text/plain")
+        )
+        openlcs_scan_version = (
+            self.openlcs_scan_version
+            if self.openlcs_scan_version is UNSET
+            else (None, str(self.openlcs_scan_version), "text/plain")
+        )
+
+        field_dict: Dict[str, Any] = {}
+        field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
+        if link is not UNSET:
+            field_dict["link"] = link
+        if download_url is not UNSET:
+            field_dict["download_url"] = download_url
+        if uuid is not UNSET:
+            field_dict["uuid"] = uuid
+        if type is not UNSET:
+            field_dict["type"] = type
+        if namespace is not UNSET:
+            field_dict["namespace"] = namespace
+        if name is not UNSET:
+            field_dict["name"] = name
+        if description is not UNSET:
+            field_dict["description"] = description
+        if tags is not UNSET:
+            field_dict["tags"] = tags
+        if version is not UNSET:
+            field_dict["version"] = version
+        if epoch is not UNSET:
+            field_dict["epoch"] = epoch
+        if license_concluded is not UNSET:
+            field_dict["license_concluded"] = license_concluded
+        if license_concluded_list is not UNSET:
+            field_dict["license_concluded_list"] = license_concluded_list
+        if license_declared is not UNSET:
+            field_dict["license_declared"] = license_declared
+        if license_declared_list is not UNSET:
+            field_dict["license_declared_list"] = license_declared_list
+        if software_build is not UNSET:
+            field_dict["software_build"] = software_build
+        if errata is not UNSET:
+            field_dict["errata"] = errata
+        if products is not UNSET:
+            field_dict["products"] = products
+        if product_versions is not UNSET:
+            field_dict["product_versions"] = product_versions
+        if product_streams is not UNSET:
+            field_dict["product_streams"] = product_streams
+        if product_variants is not UNSET:
+            field_dict["product_variants"] = product_variants
+        if sources is not UNSET:
+            field_dict["sources"] = sources
+        if provides is not UNSET:
+            field_dict["provides"] = provides
+        if upstreams is not UNSET:
+            field_dict["upstreams"] = upstreams
+        if purl is not UNSET:
+            field_dict["purl"] = purl
+        if related_url is not UNSET:
+            field_dict["related_url"] = related_url
+        if release is not UNSET:
+            field_dict["release"] = release
+        if arch is not UNSET:
+            field_dict["arch"] = arch
+        if nvr is not UNSET:
+            field_dict["nvr"] = nvr
+        if nevra is not UNSET:
+            field_dict["nevra"] = nevra
+        if copyright_text is not UNSET:
+            field_dict["copyright_text"] = copyright_text
+        if openlcs_scan_url is not UNSET:
+            field_dict["openlcs_scan_url"] = openlcs_scan_url
+        if openlcs_scan_version is not UNSET:
+            field_dict["openlcs_scan_version"] = openlcs_scan_version
 
         return field_dict
 
@@ -234,6 +491,13 @@ class Component:
             type = UNSET
         else:
             type = ComponentTypeEnum(_type)
+
+        _namespace = d.pop("namespace", UNSET)
+        namespace: NamespaceEnum
+        if isinstance(_namespace, Unset):
+            namespace = UNSET
+        else:
+            namespace = NamespaceEnum(_namespace)
 
         name = d.pop("name", UNSET)
 
@@ -258,7 +522,13 @@ class Component:
 
         epoch = d.pop("epoch", UNSET)
 
-        license_list = cast(List[str], d.pop("license_list", UNSET))
+        license_concluded = d.pop("license_concluded", UNSET)
+
+        license_concluded_list = cast(List[str], d.pop("license_concluded_list", UNSET))
+
+        license_declared = d.pop("license_declared", UNSET)
+
+        license_declared_list = cast(List[str], d.pop("license_declared_list", UNSET))
 
         _software_build = d.pop("software_build", UNSET)
         software_build: SoftwareBuildSummary
@@ -386,19 +656,27 @@ class Component:
 
         nevra = d.pop("nevra", UNSET)
 
-        license_ = d.pop("license", UNSET)
+        copyright_text = d.pop("copyright_text", UNSET)
+
+        openlcs_scan_url = d.pop("openlcs_scan_url", UNSET)
+
+        openlcs_scan_version = d.pop("openlcs_scan_version", UNSET)
 
         component = cls(
             link=link,
             download_url=download_url,
             uuid=uuid,
             type=type,
+            namespace=namespace,
             name=name,
             description=description,
             tags=tags,
             version=version,
             epoch=epoch,
-            license_list=license_list,
+            license_concluded=license_concluded,
+            license_concluded_list=license_concluded_list,
+            license_declared=license_declared,
+            license_declared_list=license_declared_list,
             software_build=software_build,
             errata=errata,
             products=products,
@@ -414,7 +692,9 @@ class Component:
             arch=arch,
             nvr=nvr,
             nevra=nevra,
-            license_=license_,
+            copyright_text=copyright_text,
+            openlcs_scan_url=openlcs_scan_url,
+            openlcs_scan_version=openlcs_scan_version,
         )
 
         component.additional_properties = d

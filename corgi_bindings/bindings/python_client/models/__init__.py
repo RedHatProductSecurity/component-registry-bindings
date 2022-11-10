@@ -12,6 +12,7 @@ from .component_provides_item import ComponentProvidesItem
 from .component_sources_item import ComponentSourcesItem
 from .component_type_enum import ComponentTypeEnum
 from .component_upstreams_item import ComponentUpstreamsItem
+from .namespace_enum import NamespaceEnum
 from .paginated_channel_list import PaginatedChannelList
 from .paginated_component_list import PaginatedComponentList
 from .paginated_product_list import PaginatedProductList
@@ -43,9 +44,10 @@ from .software_build import SoftwareBuild
 from .software_build_components_item import SoftwareBuildComponentsItem
 from .software_build_summary import SoftwareBuildSummary
 from .tag import Tag
-from .type_f2c_enum import TypeF2CEnum
+from .type_111_enum import Type111Enum
 from .v1_builds_list_type import V1BuildsListType
 from .v1_channels_list_type import V1ChannelsListType
+from .v1_components_list_namespace import V1ComponentsListNamespace
 from .v1_components_list_type import V1ComponentsListType
 from .v1_schema_retrieve_format import V1SchemaRetrieveFormat
 from .v1_schema_retrieve_response_200 import V1SchemaRetrieveResponse200
