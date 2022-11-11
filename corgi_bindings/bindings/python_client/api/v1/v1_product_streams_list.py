@@ -10,6 +10,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     client: Client,
+    active: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
@@ -30,6 +31,7 @@ def _get_kwargs(
     headers: Dict[str, Any] = client.get_headers()
 
     params: Dict[str, Any] = {
+        "active": active,
         "channels": channels,
         "limit": limit,
         "name": name,
@@ -77,6 +79,7 @@ def _build_response(*, response: requests.Response) -> Response[PaginatedProduct
 def sync_detailed(
     *,
     client: Client,
+    active: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
@@ -92,6 +95,7 @@ def sync_detailed(
 ) -> Response[PaginatedProductStreamList]:
     kwargs = _get_kwargs(
         client=client,
+        active=active,
         channels=channels,
         limit=limit,
         name=name,
@@ -120,6 +124,7 @@ def sync_detailed(
 def sync(
     *,
     client: Client,
+    active: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
@@ -137,6 +142,7 @@ def sync(
 
     return sync_detailed(
         client=client,
+        active=active,
         channels=channels,
         limit=limit,
         name=name,

@@ -23,22 +23,22 @@ class ProductStream:
     name: str
     build_count: int
     builds: str
-    manifest: str
     components: str
     upstreams: str
-    relations: List[ProductStreamRelationsItem]
     tags: List[Tag]
+    manifest: str
+    relations: List[ProductStreamRelationsItem]
     products: List[ProductStreamProductsItem]
     product_versions: List[ProductStreamProductVersionsItem]
     product_variants: List[ProductStreamProductVariantsItem]
     ofuri: Union[Unset, str] = UNSET
+    description: Union[Unset, str] = UNSET
     cpe: Union[Unset, str] = UNSET
     active: Union[Unset, bool] = UNSET
     brew_tags: Union[Unset, ProductStreamBrewTags] = UNSET
     yum_repositories: Union[Unset, List[str]] = UNSET
     composes: Union[Unset, ProductStreamComposes] = UNSET
     et_product_versions: Union[Unset, List[str]] = UNSET
-    description: Union[Unset, str] = UNSET
     channels: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -48,19 +48,8 @@ class ProductStream:
         name = self.name
         build_count = self.build_count
         builds = self.builds
-        manifest = self.manifest
         components = self.components
         upstreams = self.upstreams
-        relations: List[Dict[str, Any]] = UNSET
-        if not isinstance(self.relations, Unset):
-            relations = []
-            for relations_item_data in self.relations:
-                relations_item: Dict[str, Any] = UNSET
-                if not isinstance(relations_item_data, Unset):
-                    relations_item = relations_item_data.to_dict()
-
-                relations.append(relations_item)
-
         tags: List[Dict[str, Any]] = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
@@ -70,6 +59,17 @@ class ProductStream:
                     tags_item = tags_item_data.to_dict()
 
                 tags.append(tags_item)
+
+        manifest = self.manifest
+        relations: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.relations, Unset):
+            relations = []
+            for relations_item_data in self.relations:
+                relations_item: Dict[str, Any] = UNSET
+                if not isinstance(relations_item_data, Unset):
+                    relations_item = relations_item_data.to_dict()
+
+                relations.append(relations_item)
 
         products: List[Dict[str, Any]] = UNSET
         if not isinstance(self.products, Unset):
@@ -102,6 +102,7 @@ class ProductStream:
                 product_variants.append(product_variants_item)
 
         ofuri = self.ofuri
+        description = self.description
         cpe = self.cpe
         active = self.active
         brew_tags: Union[Unset, Dict[str, Any]] = UNSET
@@ -120,7 +121,6 @@ class ProductStream:
         if not isinstance(self.et_product_versions, Unset):
             et_product_versions = self.et_product_versions
 
-        description = self.description
         channels: Union[Unset, List[str]] = UNSET
         if not isinstance(self.channels, Unset):
             channels = self.channels
@@ -137,16 +137,16 @@ class ProductStream:
             field_dict["build_count"] = build_count
         if builds is not UNSET:
             field_dict["builds"] = builds
-        if manifest is not UNSET:
-            field_dict["manifest"] = manifest
         if components is not UNSET:
             field_dict["components"] = components
         if upstreams is not UNSET:
             field_dict["upstreams"] = upstreams
-        if relations is not UNSET:
-            field_dict["relations"] = relations
         if tags is not UNSET:
             field_dict["tags"] = tags
+        if manifest is not UNSET:
+            field_dict["manifest"] = manifest
+        if relations is not UNSET:
+            field_dict["relations"] = relations
         if products is not UNSET:
             field_dict["products"] = products
         if product_versions is not UNSET:
@@ -155,6 +155,8 @@ class ProductStream:
             field_dict["product_variants"] = product_variants
         if ofuri is not UNSET:
             field_dict["ofuri"] = ofuri
+        if description is not UNSET:
+            field_dict["description"] = description
         if cpe is not UNSET:
             field_dict["cpe"] = cpe
         if active is not UNSET:
@@ -167,8 +169,6 @@ class ProductStream:
             field_dict["composes"] = composes
         if et_product_versions is not UNSET:
             field_dict["et_product_versions"] = et_product_versions
-        if description is not UNSET:
-            field_dict["description"] = description
         if channels is not UNSET:
             field_dict["channels"] = channels
 
@@ -187,26 +187,9 @@ class ProductStream:
 
         builds = d.pop("builds", UNSET)
 
-        manifest = d.pop("manifest", UNSET)
-
         components = d.pop("components", UNSET)
 
         upstreams = d.pop("upstreams", UNSET)
-
-        relations = []
-        _relations = d.pop("relations", UNSET)
-        if _relations is UNSET:
-            relations = UNSET
-        else:
-            for relations_item_data in _relations or []:
-                _relations_item = relations_item_data
-                relations_item: ProductStreamRelationsItem
-                if isinstance(_relations_item, Unset):
-                    relations_item = UNSET
-                else:
-                    relations_item = ProductStreamRelationsItem.from_dict(_relations_item)
-
-                relations.append(relations_item)
 
         tags = []
         _tags = d.pop("tags", UNSET)
@@ -222,6 +205,23 @@ class ProductStream:
                     tags_item = Tag.from_dict(_tags_item)
 
                 tags.append(tags_item)
+
+        manifest = d.pop("manifest", UNSET)
+
+        relations = []
+        _relations = d.pop("relations", UNSET)
+        if _relations is UNSET:
+            relations = UNSET
+        else:
+            for relations_item_data in _relations or []:
+                _relations_item = relations_item_data
+                relations_item: ProductStreamRelationsItem
+                if isinstance(_relations_item, Unset):
+                    relations_item = UNSET
+                else:
+                    relations_item = ProductStreamRelationsItem.from_dict(_relations_item)
+
+                relations.append(relations_item)
 
         products = []
         _products = d.pop("products", UNSET)
@@ -270,6 +270,8 @@ class ProductStream:
 
         ofuri = d.pop("ofuri", UNSET)
 
+        description = d.pop("description", UNSET)
+
         cpe = d.pop("cpe", UNSET)
 
         active = d.pop("active", UNSET)
@@ -292,8 +294,6 @@ class ProductStream:
 
         et_product_versions = cast(List[str], d.pop("et_product_versions", UNSET))
 
-        description = d.pop("description", UNSET)
-
         channels = cast(List[str], d.pop("channels", UNSET))
 
         product_stream = cls(
@@ -302,22 +302,22 @@ class ProductStream:
             name=name,
             build_count=build_count,
             builds=builds,
-            manifest=manifest,
             components=components,
             upstreams=upstreams,
-            relations=relations,
             tags=tags,
+            manifest=manifest,
+            relations=relations,
             products=products,
             product_versions=product_versions,
             product_variants=product_variants,
             ofuri=ofuri,
+            description=description,
             cpe=cpe,
             active=active,
             brew_tags=brew_tags,
             yum_repositories=yum_repositories,
             composes=composes,
             et_product_versions=et_product_versions,
-            description=description,
             channels=channels,
         )
 

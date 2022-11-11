@@ -402,6 +402,10 @@ paths:
       description: View for api/v1/product_streams
       parameters:
       - in: query
+        name: active
+        schema:
+          type: string
+      - in: query
         name: channels
         schema:
           type: string
@@ -1449,6 +1453,25 @@ components:
           maxLength: 1024
         name:
           type: string
+        description:
+          type: string
+        build_count:
+          type: integer
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        components:
+          type: string
+          readOnly: true
+        upstreams:
+          type: string
+          readOnly: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          readOnly: true
         cpe:
           type: string
           maxLength: 1000
@@ -1470,21 +1493,7 @@ components:
           items:
             type: string
             maxLength: 200
-        description:
-          type: string
-        build_count:
-          type: integer
-          readOnly: true
-        builds:
-          type: string
-          readOnly: true
         manifest:
-          type: string
-          readOnly: true
-        components:
-          type: string
-          readOnly: true
-        upstreams:
           type: string
           readOnly: true
         relations:
@@ -1493,11 +1502,6 @@ components:
             type: object
             additionalProperties:
               type: string
-          readOnly: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
           readOnly: true
         products:
           type: array
@@ -1562,9 +1566,6 @@ components:
         builds:
           type: string
           readOnly: true
-        manifest:
-          type: string
-          readOnly: true
         components:
           type: string
           readOnly: true
@@ -1614,7 +1615,6 @@ components:
       - builds
       - components
       - link
-      - manifest
       - name
       - product_streams
       - product_versions

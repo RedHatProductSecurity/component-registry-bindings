@@ -21,7 +21,6 @@ class ProductVariant:
     name: str
     build_count: int
     builds: str
-    manifest: str
     components: str
     upstreams: str
     tags: List[Tag]
@@ -40,7 +39,6 @@ class ProductVariant:
         name = self.name
         build_count = self.build_count
         builds = self.builds
-        manifest = self.manifest
         components = self.components
         upstreams = self.upstreams
         tags: List[Dict[str, Any]] = UNSET
@@ -111,8 +109,6 @@ class ProductVariant:
             field_dict["build_count"] = build_count
         if builds is not UNSET:
             field_dict["builds"] = builds
-        if manifest is not UNSET:
-            field_dict["manifest"] = manifest
         if components is not UNSET:
             field_dict["components"] = components
         if upstreams is not UNSET:
@@ -148,8 +144,6 @@ class ProductVariant:
         build_count = d.pop("build_count", UNSET)
 
         builds = d.pop("builds", UNSET)
-
-        manifest = d.pop("manifest", UNSET)
 
         components = d.pop("components", UNSET)
 
@@ -242,7 +236,6 @@ class ProductVariant:
             name=name,
             build_count=build_count,
             builds=builds,
-            manifest=manifest,
             components=components,
             upstreams=upstreams,
             tags=tags,
