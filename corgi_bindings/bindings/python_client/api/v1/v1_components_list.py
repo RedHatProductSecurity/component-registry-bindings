@@ -21,11 +21,13 @@ def _get_kwargs(
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
+    ofuri: Union[Unset, None, str] = UNSET,
     product_streams: Union[Unset, None, str] = UNSET,
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
     provides: Union[Unset, None, str] = UNSET,
+    purl: Union[Unset, None, str] = UNSET,
     re_name: Union[Unset, None, str] = UNSET,
     re_purl: Union[Unset, None, str] = UNSET,
     re_upstream: Union[Unset, None, str] = UNSET,
@@ -36,6 +38,7 @@ def _get_kwargs(
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
     upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
+    view: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1/components".format(
         client.base_url,
@@ -63,11 +66,13 @@ def _get_kwargs(
         "nevra": nevra,
         "nvr": nvr,
         "offset": offset,
+        "ofuri": ofuri,
         "product_streams": product_streams,
         "product_variants": product_variants,
         "product_versions": product_versions,
         "products": products,
         "provides": provides,
+        "purl": purl,
         "re_name": re_name,
         "re_purl": re_purl,
         "re_upstream": re_upstream,
@@ -78,6 +83,7 @@ def _get_kwargs(
         "type": json_type,
         "upstreams": upstreams,
         "version": version,
+        "view": view,
     }
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -122,11 +128,13 @@ def sync_detailed(
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
+    ofuri: Union[Unset, None, str] = UNSET,
     product_streams: Union[Unset, None, str] = UNSET,
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
     provides: Union[Unset, None, str] = UNSET,
+    purl: Union[Unset, None, str] = UNSET,
     re_name: Union[Unset, None, str] = UNSET,
     re_purl: Union[Unset, None, str] = UNSET,
     re_upstream: Union[Unset, None, str] = UNSET,
@@ -137,6 +145,7 @@ def sync_detailed(
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
     upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
+    view: Union[Unset, None, str] = UNSET,
 ) -> Response[PaginatedComponentList]:
     kwargs = _get_kwargs(
         client=client,
@@ -149,11 +158,13 @@ def sync_detailed(
         nevra=nevra,
         nvr=nvr,
         offset=offset,
+        ofuri=ofuri,
         product_streams=product_streams,
         product_variants=product_variants,
         product_versions=product_versions,
         products=products,
         provides=provides,
+        purl=purl,
         re_name=re_name,
         re_purl=re_purl,
         re_upstream=re_upstream,
@@ -164,6 +175,7 @@ def sync_detailed(
         type=type,
         upstreams=upstreams,
         version=version,
+        view=view,
     )
 
     response = requests.get(
@@ -189,11 +201,13 @@ def sync(
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
+    ofuri: Union[Unset, None, str] = UNSET,
     product_streams: Union[Unset, None, str] = UNSET,
     product_variants: Union[Unset, None, str] = UNSET,
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
     provides: Union[Unset, None, str] = UNSET,
+    purl: Union[Unset, None, str] = UNSET,
     re_name: Union[Unset, None, str] = UNSET,
     re_purl: Union[Unset, None, str] = UNSET,
     re_upstream: Union[Unset, None, str] = UNSET,
@@ -204,6 +218,7 @@ def sync(
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
     upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
+    view: Union[Unset, None, str] = UNSET,
 ) -> Optional[PaginatedComponentList]:
     """View for api/v1/components"""
 
@@ -218,11 +233,13 @@ def sync(
         nevra=nevra,
         nvr=nvr,
         offset=offset,
+        ofuri=ofuri,
         product_streams=product_streams,
         product_variants=product_variants,
         product_versions=product_versions,
         products=products,
         provides=provides,
+        purl=purl,
         re_name=re_name,
         re_purl=re_purl,
         re_upstream=re_upstream,
@@ -233,4 +250,5 @@ def sync(
         type=type,
         upstreams=upstreams,
         version=version,
+        view=view,
     ).parsed
