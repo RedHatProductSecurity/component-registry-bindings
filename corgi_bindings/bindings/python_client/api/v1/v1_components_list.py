@@ -4,6 +4,7 @@ import requests
 
 from ...client import Client
 from ...models.paginated_component_list import PaginatedComponentList
+from ...models.v1_components_list_namespace import V1ComponentsListNamespace
 from ...models.v1_components_list_type import V1ComponentsListType
 from ...types import UNSET, Response, Unset
 
@@ -16,6 +17,7 @@ def _get_kwargs(
     description: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
+    namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
@@ -25,6 +27,7 @@ def _get_kwargs(
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
     provides: Union[Unset, None, str] = UNSET,
+    purl: Union[Unset, None, str] = UNSET,
     re_name: Union[Unset, None, str] = UNSET,
     re_purl: Union[Unset, None, str] = UNSET,
     re_upstream: Union[Unset, None, str] = UNSET,
@@ -35,12 +38,18 @@ def _get_kwargs(
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
     upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
+    view: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1/components".format(
         client.base_url,
     )
 
     headers: Dict[str, Any] = client.get_headers()
+
+    json_namespace: Union[Unset, None, str] = UNSET
+    if not isinstance(namespace, Unset):
+
+        json_namespace = V1ComponentsListNamespace(namespace).value if namespace else None
 
     json_type: Union[Unset, None, str] = UNSET
     if not isinstance(type, Unset):
@@ -53,6 +62,7 @@ def _get_kwargs(
         "description": description,
         "limit": limit,
         "name": name,
+        "namespace": json_namespace,
         "nevra": nevra,
         "nvr": nvr,
         "offset": offset,
@@ -62,6 +72,7 @@ def _get_kwargs(
         "product_versions": product_versions,
         "products": products,
         "provides": provides,
+        "purl": purl,
         "re_name": re_name,
         "re_purl": re_purl,
         "re_upstream": re_upstream,
@@ -72,6 +83,7 @@ def _get_kwargs(
         "type": json_type,
         "upstreams": upstreams,
         "version": version,
+        "view": view,
     }
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -112,6 +124,7 @@ def sync_detailed(
     description: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
+    namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
@@ -121,6 +134,7 @@ def sync_detailed(
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
     provides: Union[Unset, None, str] = UNSET,
+    purl: Union[Unset, None, str] = UNSET,
     re_name: Union[Unset, None, str] = UNSET,
     re_purl: Union[Unset, None, str] = UNSET,
     re_upstream: Union[Unset, None, str] = UNSET,
@@ -131,6 +145,7 @@ def sync_detailed(
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
     upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
+    view: Union[Unset, None, str] = UNSET,
 ) -> Response[PaginatedComponentList]:
     kwargs = _get_kwargs(
         client=client,
@@ -139,6 +154,7 @@ def sync_detailed(
         description=description,
         limit=limit,
         name=name,
+        namespace=namespace,
         nevra=nevra,
         nvr=nvr,
         offset=offset,
@@ -148,6 +164,7 @@ def sync_detailed(
         product_versions=product_versions,
         products=products,
         provides=provides,
+        purl=purl,
         re_name=re_name,
         re_purl=re_purl,
         re_upstream=re_upstream,
@@ -158,6 +175,7 @@ def sync_detailed(
         type=type,
         upstreams=upstreams,
         version=version,
+        view=view,
     )
 
     response = requests.get(
@@ -179,6 +197,7 @@ def sync(
     description: Union[Unset, None, str] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
+    namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
     nvr: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
@@ -188,6 +207,7 @@ def sync(
     product_versions: Union[Unset, None, str] = UNSET,
     products: Union[Unset, None, str] = UNSET,
     provides: Union[Unset, None, str] = UNSET,
+    purl: Union[Unset, None, str] = UNSET,
     re_name: Union[Unset, None, str] = UNSET,
     re_purl: Union[Unset, None, str] = UNSET,
     re_upstream: Union[Unset, None, str] = UNSET,
@@ -198,6 +218,7 @@ def sync(
     type: Union[Unset, None, V1ComponentsListType] = UNSET,
     upstreams: Union[Unset, None, str] = UNSET,
     version: Union[Unset, None, str] = UNSET,
+    view: Union[Unset, None, str] = UNSET,
 ) -> Optional[PaginatedComponentList]:
     """View for api/v1/components"""
 
@@ -208,6 +229,7 @@ def sync(
         description=description,
         limit=limit,
         name=name,
+        namespace=namespace,
         nevra=nevra,
         nvr=nvr,
         offset=offset,
@@ -217,6 +239,7 @@ def sync(
         product_versions=product_versions,
         products=products,
         provides=provides,
+        purl=purl,
         re_name=re_name,
         re_purl=re_purl,
         re_upstream=re_upstream,
@@ -227,4 +250,5 @@ def sync(
         type=type,
         upstreams=upstreams,
         version=version,
+        view=view,
     ).parsed

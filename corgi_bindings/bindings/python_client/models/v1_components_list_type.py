@@ -2,16 +2,17 @@ from enum import Enum
 
 
 class V1ComponentsListType(str, Enum):
-    CONTAINER_IMAGE = "CONTAINER_IMAGE"
+    CARGO = "CARGO"
+    GEM = "GEM"
+    GENERIC = "GENERIC"
+    GITHUB = "GITHUB"
     GOLANG = "GOLANG"
     MAVEN = "MAVEN"
     NPM = "NPM"
+    OCI = "OCI"
     PYPI = "PYPI"
-    RHEL_MODULE = "RHEL_MODULE"
     RPM = "RPM"
-    SRPM = "SRPM"
-    UNKNOWN = "UNKNOWN"
-    UPSTREAM = "UPSTREAM"
+    RPMMOD = "RPMMOD"
 
     def __str__(self) -> str:
         return str(self.value)

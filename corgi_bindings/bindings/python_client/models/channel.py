@@ -21,6 +21,7 @@ class Channel:
     created_at: datetime.datetime
     name: str
     type: ChannelTypeEnum
+    relative_url: Union[Unset, str] = UNSET
     description: Union[Unset, str] = UNSET
     meta_attr: Union[Unset, ChannelMetaAttr] = UNSET
     products: Union[Unset, List[str]] = UNSET
@@ -46,6 +47,7 @@ class Channel:
 
             type = ChannelTypeEnum(self.type).value
 
+        relative_url = self.relative_url
         description = self.description
         meta_attr: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.meta_attr, Unset):
@@ -81,6 +83,8 @@ class Channel:
             field_dict["name"] = name
         if type is not UNSET:
             field_dict["type"] = type
+        if relative_url is not UNSET:
+            field_dict["relative_url"] = relative_url
         if description is not UNSET:
             field_dict["description"] = description
         if meta_attr is not UNSET:
@@ -126,6 +130,8 @@ class Channel:
         else:
             type = ChannelTypeEnum(_type)
 
+        relative_url = d.pop("relative_url", UNSET)
+
         description = d.pop("description", UNSET)
 
         _meta_attr = d.pop("meta_attr", UNSET)
@@ -150,6 +156,7 @@ class Channel:
             created_at=created_at,
             name=name,
             type=type,
+            relative_url=relative_url,
             description=description,
             meta_attr=meta_attr,
             products=products,

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Component Registry API
-  version: 1.0.0
+  version: 1.1.0
   description: REST API auto-generated docs for Component Registry
 paths:
   /api/healthy:
@@ -52,7 +52,6 @@ paths:
           enum:
           - BREW
           - KOJI
-          - PNC
       tags:
       - v1
       responses:
@@ -176,6 +175,13 @@ paths:
         schema:
           type: string
       - in: query
+        name: namespace
+        schema:
+          type: string
+          enum:
+          - REDHAT
+          - UPSTREAM
+      - in: query
         name: nevra
         schema:
           type: string
@@ -214,6 +220,10 @@ paths:
         schema:
           type: string
       - in: query
+        name: purl
+        schema:
+          type: string
+      - in: query
         name: re_name
         schema:
           type: string
@@ -248,22 +258,27 @@ paths:
         schema:
           type: string
           enum:
-          - CONTAINER_IMAGE
+          - CARGO
+          - GEM
+          - GENERIC
+          - GITHUB
           - GOLANG
           - MAVEN
           - NPM
+          - OCI
           - PYPI
-          - RHEL_MODULE
           - RPM
-          - SRPM
-          - UNKNOWN
-          - UPSTREAM
+          - RPMMOD
       - in: query
         name: upstreams
         schema:
           type: string
       - in: query
         name: version
+        schema:
+          type: string
+      - in: query
+        name: view
         schema:
           type: string
       tags:
@@ -285,10 +300,65 @@ paths:
         schema:
           type: string
           format: uuid
-        description: A UUID string identifying this Component(<class 'type'>).
+        description: A UUID string identifying this component.
         required: true
       tags:
       - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+  /api/v1/components/{uuid}/manifest:
+    get:
+      operationId: v1_components_manifest_retrieve
+      description: View for api/v1/components
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this component.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+  /api/v1/components/{uuid}/olcs_test:
+    put:
+      operationId: v1_components_olcs_test_update
+      description: Allow OpenLCS to upload copyright text / license scan results for
+        a component
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this component.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Component'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Component'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Component'
+        required: true
       responses:
         '200':
           content:
@@ -306,7 +376,7 @@ paths:
         schema:
           type: string
           format: uuid
-        description: A UUID string identifying this Component(<class 'type'>).
+        description: A UUID string identifying this component.
         required: true
       tags:
       - v1
@@ -327,7 +397,7 @@ paths:
         schema:
           type: string
           format: uuid
-        description: A UUID string identifying this Component(<class 'type'>).
+        description: A UUID string identifying this component.
         required: true
       tags:
       - v1
@@ -343,6 +413,10 @@ paths:
       operationId: v1_product_streams_list
       description: View for api/v1/product_streams
       parameters:
+      - in: query
+        name: active
+        schema:
+          type: string
       - in: query
         name: channels
         schema:
@@ -558,27 +632,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductVariant'
           description: ''
-  /api/v1/product_variants/{uuid}/manifest:
-    get:
-      operationId: v1_product_variants_manifest_retrieve
-      description: View for api/v1/product_variants
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product variant.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductVariant'
-          description: ''
   /api/v1/product_variants/{uuid}/taxonomy:
     get:
       operationId: v1_product_variants_taxonomy_retrieve
@@ -689,27 +742,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductVersion'
           description: ''
-  /api/v1/product_versions/{uuid}/manifest:
-    get:
-      operationId: v1_product_versions_manifest_retrieve
-      description: View for api/v1/product_versions
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product version.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductVersion'
-          description: ''
   /api/v1/product_versions/{uuid}/taxonomy:
     get:
       operationId: v1_product_versions_taxonomy_retrieve
@@ -802,27 +834,6 @@ paths:
   /api/v1/products/{uuid}:
     get:
       operationId: v1_products_retrieve
-      description: View for api/v1/products
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-          description: ''
-  /api/v1/products/{uuid}/manifest:
-    get:
-      operationId: v1_products_manifest_retrieve
       description: View for api/v1/products
       parameters:
       - in: path
@@ -1019,6 +1030,9 @@ components:
           readOnly: true
         name:
           type: string
+        relative_url:
+          type: string
+          maxLength: 200
         type:
           $ref: '#/components/schemas/ChannelTypeEnum'
         description:
@@ -1073,6 +1087,8 @@ components:
           readOnly: true
         type:
           $ref: '#/components/schemas/ComponentTypeEnum'
+        namespace:
+          $ref: '#/components/schemas/NamespaceEnum'
         purl:
           type: string
           maxLength: 1024
@@ -1082,7 +1098,6 @@ components:
           type: string
         related_url:
           type: string
-          nullable: true
           maxLength: 1024
         tags:
           type: array
@@ -1107,13 +1122,28 @@ components:
         epoch:
           type: string
           readOnly: true
-        license:
+        copyright_text:
           type: string
-        license_list:
+        license_concluded:
+          type: string
+          readOnly: true
+        license_concluded_list:
           type: array
           items:
             type: string
           readOnly: true
+        license_declared:
+          type: string
+          readOnly: true
+        license_declared_list:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        openlcs_scan_url:
+          type: string
+        openlcs_scan_version:
+          type: string
         software_build:
           $ref: '#/components/schemas/SoftwareBuildSummary'
         errata:
@@ -1175,9 +1205,13 @@ components:
       - download_url
       - epoch
       - errata
-      - license_list
+      - license_concluded
+      - license_concluded_list
+      - license_declared
+      - license_declared_list
       - link
       - name
+      - namespace
       - product_streams
       - product_variants
       - product_versions
@@ -1192,16 +1226,22 @@ components:
       - version
     ComponentTypeEnum:
       enum:
-      - CONTAINER_IMAGE
+      - CARGO
+      - OCI
+      - GEM
+      - GENERIC
+      - GITHUB
       - GOLANG
       - MAVEN
       - NPM
-      - RHEL_MODULE
+      - RPMMOD
       - RPM
-      - SRPM
       - PYPI
-      - UNKNOWN
+      type: string
+    NamespaceEnum:
+      enum:
       - UPSTREAM
+      - REDHAT
       type: string
     PaginatedChannelList:
       type: object
@@ -1425,6 +1465,25 @@ components:
           maxLength: 1024
         name:
           type: string
+        description:
+          type: string
+        build_count:
+          type: integer
+          readOnly: true
+        builds:
+          type: string
+          readOnly: true
+        components:
+          type: string
+          readOnly: true
+        upstreams:
+          type: string
+          readOnly: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          readOnly: true
         cpe:
           type: string
           maxLength: 1000
@@ -1446,21 +1505,7 @@ components:
           items:
             type: string
             maxLength: 200
-        description:
-          type: string
-        build_count:
-          type: integer
-          readOnly: true
-        builds:
-          type: string
-          readOnly: true
         manifest:
-          type: string
-          readOnly: true
-        components:
-          type: string
-          readOnly: true
-        upstreams:
           type: string
           readOnly: true
         relations:
@@ -1469,11 +1514,6 @@ components:
             type: object
             additionalProperties:
               type: string
-          readOnly: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
           readOnly: true
         products:
           type: array
@@ -1538,9 +1578,6 @@ components:
         builds:
           type: string
           readOnly: true
-        manifest:
-          type: string
-          readOnly: true
         components:
           type: string
           readOnly: true
@@ -1590,7 +1627,6 @@ components:
       - builds
       - components
       - link
-      - manifest
       - name
       - product_streams
       - product_versions
@@ -1680,7 +1716,7 @@ components:
           maximum: 2147483647
           minimum: -2147483648
         type:
-          $ref: '#/components/schemas/TypeF2cEnum'
+          $ref: '#/components/schemas/Type111Enum'
         name:
           type: string
         source:
@@ -1727,7 +1763,7 @@ components:
           maximum: 2147483647
           minimum: -2147483648
         type:
-          $ref: '#/components/schemas/TypeF2cEnum'
+          $ref: '#/components/schemas/Type111Enum'
         name:
           type: string
         source:
@@ -1755,9 +1791,8 @@ components:
       required:
       - created_at
       - name
-    TypeF2cEnum:
+    Type111Enum:
       enum:
       - BREW
-      - PNC
       - KOJI
       type: string
