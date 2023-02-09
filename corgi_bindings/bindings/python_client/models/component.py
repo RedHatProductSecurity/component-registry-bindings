@@ -1,8 +1,9 @@
 import json
-from typing import Any, Dict, List, Tuple, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Tuple, Type, TypeVar, cast
 
 import attr
 
+from ..models.component_channels_item import ComponentChannelsItem
 from ..models.component_product_streams_item import ComponentProductStreamsItem
 from ..models.component_product_variants_item import ComponentProductVariantsItem
 from ..models.component_product_versions_item import ComponentProductVersionsItem
@@ -21,40 +22,45 @@ T = TypeVar("T", bound="Component")
 
 @attr.s(auto_attribs=True)
 class Component:
-    """ """
+    """Show detailed information for a Component.
+    Add or remove fields using ?include_fields=&exclude_fields="""
 
     link: str
     download_url: str
     uuid: str
     type: ComponentTypeEnum
     namespace: NamespaceEnum
+    purl: str
     name: str
     description: str
+    related_url: str
     tags: List[Tag]
     version: str
+    release: str
+    el_match: List[str]
+    arch: str
+    nvr: str
+    nevra: str
     epoch: str
+    copyright_text: str
     license_concluded: str
     license_concluded_list: List[str]
     license_declared: str
     license_declared_list: List[str]
+    openlcs_scan_url: str
+    openlcs_scan_version: str
     software_build: SoftwareBuildSummary
     errata: List[str]
     products: List[ComponentProductsItem]
     product_versions: List[ComponentProductVersionsItem]
     product_streams: List[ComponentProductStreamsItem]
     product_variants: List[ComponentProductVariantsItem]
+    channels: List[ComponentChannelsItem]
     sources: List[ComponentSourcesItem]
     provides: List[ComponentProvidesItem]
     upstreams: List[ComponentUpstreamsItem]
-    purl: Union[Unset, str] = UNSET
-    related_url: Union[Unset, str] = UNSET
-    release: Union[Unset, str] = UNSET
-    arch: Union[Unset, str] = UNSET
-    nvr: Union[Unset, str] = UNSET
-    nevra: Union[Unset, str] = UNSET
-    copyright_text: Union[Unset, str] = UNSET
-    openlcs_scan_url: Union[Unset, str] = UNSET
-    openlcs_scan_version: Union[Unset, str] = UNSET
+    manifest: str
+    filename: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,8 +77,10 @@ class Component:
 
             namespace = NamespaceEnum(self.namespace).value
 
+        purl = self.purl
         name = self.name
         description = self.description
+        related_url = self.related_url
         tags: List[Dict[str, Any]] = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
@@ -84,7 +92,16 @@ class Component:
                 tags.append(tags_item)
 
         version = self.version
+        release = self.release
+        el_match: List[str] = UNSET
+        if not isinstance(self.el_match, Unset):
+            el_match = self.el_match
+
+        arch = self.arch
+        nvr = self.nvr
+        nevra = self.nevra
         epoch = self.epoch
+        copyright_text = self.copyright_text
         license_concluded = self.license_concluded
         license_concluded_list: List[str] = UNSET
         if not isinstance(self.license_concluded_list, Unset):
@@ -95,6 +112,8 @@ class Component:
         if not isinstance(self.license_declared_list, Unset):
             license_declared_list = self.license_declared_list
 
+        openlcs_scan_url = self.openlcs_scan_url
+        openlcs_scan_version = self.openlcs_scan_version
         software_build: Dict[str, Any] = UNSET
         if not isinstance(self.software_build, Unset):
             software_build = self.software_build.to_dict()
@@ -143,6 +162,16 @@ class Component:
 
                 product_variants.append(product_variants_item)
 
+        channels: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.channels, Unset):
+            channels = []
+            for channels_item_data in self.channels:
+                channels_item: Dict[str, Any] = UNSET
+                if not isinstance(channels_item_data, Unset):
+                    channels_item = channels_item_data.to_dict()
+
+                channels.append(channels_item)
+
         sources: List[Dict[str, Any]] = UNSET
         if not isinstance(self.sources, Unset):
             sources = []
@@ -173,15 +202,8 @@ class Component:
 
                 upstreams.append(upstreams_item)
 
-        purl = self.purl
-        related_url = self.related_url
-        release = self.release
-        arch = self.arch
-        nvr = self.nvr
-        nevra = self.nevra
-        copyright_text = self.copyright_text
-        openlcs_scan_url = self.openlcs_scan_url
-        openlcs_scan_version = self.openlcs_scan_version
+        manifest = self.manifest
+        filename = self.filename
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -195,16 +217,32 @@ class Component:
             field_dict["type"] = type
         if namespace is not UNSET:
             field_dict["namespace"] = namespace
+        if purl is not UNSET:
+            field_dict["purl"] = purl
         if name is not UNSET:
             field_dict["name"] = name
         if description is not UNSET:
             field_dict["description"] = description
+        if related_url is not UNSET:
+            field_dict["related_url"] = related_url
         if tags is not UNSET:
             field_dict["tags"] = tags
         if version is not UNSET:
             field_dict["version"] = version
+        if release is not UNSET:
+            field_dict["release"] = release
+        if el_match is not UNSET:
+            field_dict["el_match"] = el_match
+        if arch is not UNSET:
+            field_dict["arch"] = arch
+        if nvr is not UNSET:
+            field_dict["nvr"] = nvr
+        if nevra is not UNSET:
+            field_dict["nevra"] = nevra
         if epoch is not UNSET:
             field_dict["epoch"] = epoch
+        if copyright_text is not UNSET:
+            field_dict["copyright_text"] = copyright_text
         if license_concluded is not UNSET:
             field_dict["license_concluded"] = license_concluded
         if license_concluded_list is not UNSET:
@@ -213,6 +251,10 @@ class Component:
             field_dict["license_declared"] = license_declared
         if license_declared_list is not UNSET:
             field_dict["license_declared_list"] = license_declared_list
+        if openlcs_scan_url is not UNSET:
+            field_dict["openlcs_scan_url"] = openlcs_scan_url
+        if openlcs_scan_version is not UNSET:
+            field_dict["openlcs_scan_version"] = openlcs_scan_version
         if software_build is not UNSET:
             field_dict["software_build"] = software_build
         if errata is not UNSET:
@@ -225,30 +267,18 @@ class Component:
             field_dict["product_streams"] = product_streams
         if product_variants is not UNSET:
             field_dict["product_variants"] = product_variants
+        if channels is not UNSET:
+            field_dict["channels"] = channels
         if sources is not UNSET:
             field_dict["sources"] = sources
         if provides is not UNSET:
             field_dict["provides"] = provides
         if upstreams is not UNSET:
             field_dict["upstreams"] = upstreams
-        if purl is not UNSET:
-            field_dict["purl"] = purl
-        if related_url is not UNSET:
-            field_dict["related_url"] = related_url
-        if release is not UNSET:
-            field_dict["release"] = release
-        if arch is not UNSET:
-            field_dict["arch"] = arch
-        if nvr is not UNSET:
-            field_dict["nvr"] = nvr
-        if nevra is not UNSET:
-            field_dict["nevra"] = nevra
-        if copyright_text is not UNSET:
-            field_dict["copyright_text"] = copyright_text
-        if openlcs_scan_url is not UNSET:
-            field_dict["openlcs_scan_url"] = openlcs_scan_url
-        if openlcs_scan_version is not UNSET:
-            field_dict["openlcs_scan_version"] = openlcs_scan_version
+        if manifest is not UNSET:
+            field_dict["manifest"] = manifest
+        if filename is not UNSET:
+            field_dict["filename"] = filename
 
         return field_dict
 
@@ -266,8 +296,10 @@ class Component:
 
             namespace = NamespaceEnum(self.namespace).value
 
+        purl = self.purl if self.purl is UNSET else (None, str(self.purl), "text/plain")
         name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
         description = self.description if self.description is UNSET else (None, str(self.description), "text/plain")
+        related_url = self.related_url if self.related_url is UNSET else (None, str(self.related_url), "text/plain")
         tags: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.tags, Unset):
             _temp_tags = []
@@ -280,7 +312,19 @@ class Component:
             tags = (None, json.dumps(_temp_tags), "application/json")
 
         version = self.version if self.version is UNSET else (None, str(self.version), "text/plain")
+        release = self.release if self.release is UNSET else (None, str(self.release), "text/plain")
+        el_match: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.el_match, Unset):
+            _temp_el_match = self.el_match
+            el_match = (None, json.dumps(_temp_el_match), "application/json")
+
+        arch = self.arch if self.arch is UNSET else (None, str(self.arch), "text/plain")
+        nvr = self.nvr if self.nvr is UNSET else (None, str(self.nvr), "text/plain")
+        nevra = self.nevra if self.nevra is UNSET else (None, str(self.nevra), "text/plain")
         epoch = self.epoch if self.epoch is UNSET else (None, str(self.epoch), "text/plain")
+        copyright_text = (
+            self.copyright_text if self.copyright_text is UNSET else (None, str(self.copyright_text), "text/plain")
+        )
         license_concluded = (
             self.license_concluded
             if self.license_concluded is UNSET
@@ -301,6 +345,16 @@ class Component:
             _temp_license_declared_list = self.license_declared_list
             license_declared_list = (None, json.dumps(_temp_license_declared_list), "application/json")
 
+        openlcs_scan_url = (
+            self.openlcs_scan_url
+            if self.openlcs_scan_url is UNSET
+            else (None, str(self.openlcs_scan_url), "text/plain")
+        )
+        openlcs_scan_version = (
+            self.openlcs_scan_version
+            if self.openlcs_scan_version is UNSET
+            else (None, str(self.openlcs_scan_version), "text/plain")
+        )
         software_build: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.software_build, Unset):
             software_build = (None, json.dumps(self.software_build.to_dict()), "application/json")
@@ -354,6 +408,17 @@ class Component:
                 _temp_product_variants.append(product_variants_item)
             product_variants = (None, json.dumps(_temp_product_variants), "application/json")
 
+        channels: Union[Unset, Tuple[None, str, str]] = UNSET
+        if not isinstance(self.channels, Unset):
+            _temp_channels = []
+            for channels_item_data in self.channels:
+                channels_item: Dict[str, Any] = UNSET
+                if not isinstance(channels_item_data, Unset):
+                    channels_item = channels_item_data.to_dict()
+
+                _temp_channels.append(channels_item)
+            channels = (None, json.dumps(_temp_channels), "application/json")
+
         sources: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.sources, Unset):
             _temp_sources = []
@@ -387,25 +452,8 @@ class Component:
                 _temp_upstreams.append(upstreams_item)
             upstreams = (None, json.dumps(_temp_upstreams), "application/json")
 
-        purl = self.purl if self.purl is UNSET else (None, str(self.purl), "text/plain")
-        related_url = self.related_url if self.related_url is UNSET else (None, str(self.related_url), "text/plain")
-        release = self.release if self.release is UNSET else (None, str(self.release), "text/plain")
-        arch = self.arch if self.arch is UNSET else (None, str(self.arch), "text/plain")
-        nvr = self.nvr if self.nvr is UNSET else (None, str(self.nvr), "text/plain")
-        nevra = self.nevra if self.nevra is UNSET else (None, str(self.nevra), "text/plain")
-        copyright_text = (
-            self.copyright_text if self.copyright_text is UNSET else (None, str(self.copyright_text), "text/plain")
-        )
-        openlcs_scan_url = (
-            self.openlcs_scan_url
-            if self.openlcs_scan_url is UNSET
-            else (None, str(self.openlcs_scan_url), "text/plain")
-        )
-        openlcs_scan_version = (
-            self.openlcs_scan_version
-            if self.openlcs_scan_version is UNSET
-            else (None, str(self.openlcs_scan_version), "text/plain")
-        )
+        manifest = self.manifest if self.manifest is UNSET else (None, str(self.manifest), "text/plain")
+        filename = self.filename if self.filename is UNSET else (None, str(self.filename), "text/plain")
 
         field_dict: Dict[str, Any] = {}
         field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
@@ -419,16 +467,32 @@ class Component:
             field_dict["type"] = type
         if namespace is not UNSET:
             field_dict["namespace"] = namespace
+        if purl is not UNSET:
+            field_dict["purl"] = purl
         if name is not UNSET:
             field_dict["name"] = name
         if description is not UNSET:
             field_dict["description"] = description
+        if related_url is not UNSET:
+            field_dict["related_url"] = related_url
         if tags is not UNSET:
             field_dict["tags"] = tags
         if version is not UNSET:
             field_dict["version"] = version
+        if release is not UNSET:
+            field_dict["release"] = release
+        if el_match is not UNSET:
+            field_dict["el_match"] = el_match
+        if arch is not UNSET:
+            field_dict["arch"] = arch
+        if nvr is not UNSET:
+            field_dict["nvr"] = nvr
+        if nevra is not UNSET:
+            field_dict["nevra"] = nevra
         if epoch is not UNSET:
             field_dict["epoch"] = epoch
+        if copyright_text is not UNSET:
+            field_dict["copyright_text"] = copyright_text
         if license_concluded is not UNSET:
             field_dict["license_concluded"] = license_concluded
         if license_concluded_list is not UNSET:
@@ -437,6 +501,10 @@ class Component:
             field_dict["license_declared"] = license_declared
         if license_declared_list is not UNSET:
             field_dict["license_declared_list"] = license_declared_list
+        if openlcs_scan_url is not UNSET:
+            field_dict["openlcs_scan_url"] = openlcs_scan_url
+        if openlcs_scan_version is not UNSET:
+            field_dict["openlcs_scan_version"] = openlcs_scan_version
         if software_build is not UNSET:
             field_dict["software_build"] = software_build
         if errata is not UNSET:
@@ -449,30 +517,18 @@ class Component:
             field_dict["product_streams"] = product_streams
         if product_variants is not UNSET:
             field_dict["product_variants"] = product_variants
+        if channels is not UNSET:
+            field_dict["channels"] = channels
         if sources is not UNSET:
             field_dict["sources"] = sources
         if provides is not UNSET:
             field_dict["provides"] = provides
         if upstreams is not UNSET:
             field_dict["upstreams"] = upstreams
-        if purl is not UNSET:
-            field_dict["purl"] = purl
-        if related_url is not UNSET:
-            field_dict["related_url"] = related_url
-        if release is not UNSET:
-            field_dict["release"] = release
-        if arch is not UNSET:
-            field_dict["arch"] = arch
-        if nvr is not UNSET:
-            field_dict["nvr"] = nvr
-        if nevra is not UNSET:
-            field_dict["nevra"] = nevra
-        if copyright_text is not UNSET:
-            field_dict["copyright_text"] = copyright_text
-        if openlcs_scan_url is not UNSET:
-            field_dict["openlcs_scan_url"] = openlcs_scan_url
-        if openlcs_scan_version is not UNSET:
-            field_dict["openlcs_scan_version"] = openlcs_scan_version
+        if manifest is not UNSET:
+            field_dict["manifest"] = manifest
+        if filename is not UNSET:
+            field_dict["filename"] = filename
 
         return field_dict
 
@@ -499,9 +555,13 @@ class Component:
         else:
             namespace = NamespaceEnum(_namespace)
 
+        purl = d.pop("purl", UNSET)
+
         name = d.pop("name", UNSET)
 
         description = d.pop("description", UNSET)
+
+        related_url = d.pop("related_url", UNSET)
 
         tags = []
         _tags = d.pop("tags", UNSET)
@@ -520,7 +580,19 @@ class Component:
 
         version = d.pop("version", UNSET)
 
+        release = d.pop("release", UNSET)
+
+        el_match = cast(List[str], d.pop("el_match", UNSET))
+
+        arch = d.pop("arch", UNSET)
+
+        nvr = d.pop("nvr", UNSET)
+
+        nevra = d.pop("nevra", UNSET)
+
         epoch = d.pop("epoch", UNSET)
+
+        copyright_text = d.pop("copyright_text", UNSET)
 
         license_concluded = d.pop("license_concluded", UNSET)
 
@@ -529,6 +601,10 @@ class Component:
         license_declared = d.pop("license_declared", UNSET)
 
         license_declared_list = cast(List[str], d.pop("license_declared_list", UNSET))
+
+        openlcs_scan_url = d.pop("openlcs_scan_url", UNSET)
+
+        openlcs_scan_version = d.pop("openlcs_scan_version", UNSET)
 
         _software_build = d.pop("software_build", UNSET)
         software_build: SoftwareBuildSummary
@@ -599,6 +675,21 @@ class Component:
 
                 product_variants.append(product_variants_item)
 
+        channels = []
+        _channels = d.pop("channels", UNSET)
+        if _channels is UNSET:
+            channels = UNSET
+        else:
+            for channels_item_data in _channels or []:
+                _channels_item = channels_item_data
+                channels_item: ComponentChannelsItem
+                if isinstance(_channels_item, Unset):
+                    channels_item = UNSET
+                else:
+                    channels_item = ComponentChannelsItem.from_dict(_channels_item)
+
+                channels.append(channels_item)
+
         sources = []
         _sources = d.pop("sources", UNSET)
         if _sources is UNSET:
@@ -644,23 +735,9 @@ class Component:
 
                 upstreams.append(upstreams_item)
 
-        purl = d.pop("purl", UNSET)
+        manifest = d.pop("manifest", UNSET)
 
-        related_url = d.pop("related_url", UNSET)
-
-        release = d.pop("release", UNSET)
-
-        arch = d.pop("arch", UNSET)
-
-        nvr = d.pop("nvr", UNSET)
-
-        nevra = d.pop("nevra", UNSET)
-
-        copyright_text = d.pop("copyright_text", UNSET)
-
-        openlcs_scan_url = d.pop("openlcs_scan_url", UNSET)
-
-        openlcs_scan_version = d.pop("openlcs_scan_version", UNSET)
+        filename = d.pop("filename", UNSET)
 
         component = cls(
             link=link,
@@ -668,33 +745,37 @@ class Component:
             uuid=uuid,
             type=type,
             namespace=namespace,
+            purl=purl,
             name=name,
             description=description,
+            related_url=related_url,
             tags=tags,
             version=version,
+            release=release,
+            el_match=el_match,
+            arch=arch,
+            nvr=nvr,
+            nevra=nevra,
             epoch=epoch,
+            copyright_text=copyright_text,
             license_concluded=license_concluded,
             license_concluded_list=license_concluded_list,
             license_declared=license_declared,
             license_declared_list=license_declared_list,
+            openlcs_scan_url=openlcs_scan_url,
+            openlcs_scan_version=openlcs_scan_version,
             software_build=software_build,
             errata=errata,
             products=products,
             product_versions=product_versions,
             product_streams=product_streams,
             product_variants=product_variants,
+            channels=channels,
             sources=sources,
             provides=provides,
             upstreams=upstreams,
-            purl=purl,
-            related_url=related_url,
-            release=release,
-            arch=arch,
-            nvr=nvr,
-            nevra=nevra,
-            copyright_text=copyright_text,
-            openlcs_scan_url=openlcs_scan_url,
-            openlcs_scan_version=openlcs_scan_version,
+            manifest=manifest,
+            filename=filename,
         )
 
         component.additional_properties = d

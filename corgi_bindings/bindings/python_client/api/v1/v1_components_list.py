@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 
 import requests
 
@@ -15,7 +15,12 @@ def _get_kwargs(
     arch: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
     description: Union[Unset, None, str] = UNSET,
+    el_match: Union[Unset, None, str] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
+    missing_copyright: Union[Unset, None, bool] = UNSET,
+    missing_license: Union[Unset, None, bool] = UNSET,
     name: Union[Unset, None, str] = UNSET,
     namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
@@ -46,6 +51,20 @@ def _get_kwargs(
 
     headers: Dict[str, Any] = client.get_headers()
 
+    json_exclude_fields: Union[Unset, None, List[str]] = UNSET
+    if not isinstance(exclude_fields, Unset):
+        if exclude_fields is None:
+            json_exclude_fields = None
+        else:
+            json_exclude_fields = exclude_fields
+
+    json_include_fields: Union[Unset, None, List[str]] = UNSET
+    if not isinstance(include_fields, Unset):
+        if include_fields is None:
+            json_include_fields = None
+        else:
+            json_include_fields = include_fields
+
     json_namespace: Union[Unset, None, str] = UNSET
     if not isinstance(namespace, Unset):
 
@@ -60,7 +79,12 @@ def _get_kwargs(
         "arch": arch,
         "channels": channels,
         "description": description,
+        "el_match": el_match,
+        "exclude_fields": json_exclude_fields,
+        "include_fields": json_include_fields,
         "limit": limit,
+        "missing_copyright": missing_copyright,
+        "missing_license": missing_license,
         "name": name,
         "namespace": json_namespace,
         "nevra": nevra,
@@ -122,7 +146,12 @@ def sync_detailed(
     arch: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
     description: Union[Unset, None, str] = UNSET,
+    el_match: Union[Unset, None, str] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
+    missing_copyright: Union[Unset, None, bool] = UNSET,
+    missing_license: Union[Unset, None, bool] = UNSET,
     name: Union[Unset, None, str] = UNSET,
     namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
@@ -152,7 +181,12 @@ def sync_detailed(
         arch=arch,
         channels=channels,
         description=description,
+        el_match=el_match,
+        exclude_fields=exclude_fields,
+        include_fields=include_fields,
         limit=limit,
+        missing_copyright=missing_copyright,
+        missing_license=missing_license,
         name=name,
         namespace=namespace,
         nevra=nevra,
@@ -195,7 +229,12 @@ def sync(
     arch: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
     description: Union[Unset, None, str] = UNSET,
+    el_match: Union[Unset, None, str] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
+    missing_copyright: Union[Unset, None, bool] = UNSET,
+    missing_license: Union[Unset, None, bool] = UNSET,
     name: Union[Unset, None, str] = UNSET,
     namespace: Union[Unset, None, V1ComponentsListNamespace] = UNSET,
     nevra: Union[Unset, None, str] = UNSET,
@@ -227,7 +266,12 @@ def sync(
         arch=arch,
         channels=channels,
         description=description,
+        el_match=el_match,
+        exclude_fields=exclude_fields,
+        include_fields=include_fields,
         limit=limit,
+        missing_copyright=missing_copyright,
+        missing_license=missing_license,
         name=name,
         namespace=namespace,
         nevra=nevra,

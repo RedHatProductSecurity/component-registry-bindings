@@ -2,14 +2,14 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-T = TypeVar("T", bound="ChannelMetaAttr")
+T = TypeVar("T", bound="ProductVersionChannelsItem")
 
 
 @attr.s(auto_attribs=True)
-class ChannelMetaAttr:
+class ProductVersionChannelsItem:
     """ """
 
-    additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
+    additional_properties: Dict[str, str] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
 
@@ -21,19 +21,19 @@ class ChannelMetaAttr:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if isinstance(src_dict, dict) else {}
-        channel_meta_attr = cls()
+        product_version_channels_item = cls()
 
-        channel_meta_attr.additional_properties = d
-        return channel_meta_attr
+        product_version_channels_item.additional_properties = d
+        return product_version_channels_item
 
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> str:
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: Any) -> None:
+    def __setitem__(self, key: str, value: str) -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

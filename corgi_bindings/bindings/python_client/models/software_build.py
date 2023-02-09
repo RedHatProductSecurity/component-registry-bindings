@@ -4,9 +4,9 @@ from typing import Any, Dict, List, Type, TypeVar
 import attr
 from dateutil.parser import isoparse
 
+from ..models.build_type_enum import BuildTypeEnum
 from ..models.software_build_components_item import SoftwareBuildComponentsItem
 from ..models.tag import Tag
-from ..models.type_111_enum import Type111Enum
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="SoftwareBuild")
@@ -14,12 +14,13 @@ T = TypeVar("T", bound="SoftwareBuild")
 
 @attr.s(auto_attribs=True)
 class SoftwareBuild:
-    """ """
+    """Show detailed information for SoftwareBuild(s).
+    Add or remove fields using ?include_fields=&exclude_fields="""
 
     link: str
     web_url: str
     build_id: int
-    type: Type111Enum
+    build_type: BuildTypeEnum
     name: str
     source: str
     tags: List[Tag]
@@ -32,10 +33,10 @@ class SoftwareBuild:
         link = self.link
         web_url = self.web_url
         build_id = self.build_id
-        type: str = UNSET
-        if not isinstance(self.type, Unset):
+        build_type: str = UNSET
+        if not isinstance(self.build_type, Unset):
 
-            type = Type111Enum(self.type).value
+            build_type = BuildTypeEnum(self.build_type).value
 
         name = self.name
         source = self.source
@@ -75,8 +76,8 @@ class SoftwareBuild:
             field_dict["web_url"] = web_url
         if build_id is not UNSET:
             field_dict["build_id"] = build_id
-        if type is not UNSET:
-            field_dict["type"] = type
+        if build_type is not UNSET:
+            field_dict["build_type"] = build_type
         if name is not UNSET:
             field_dict["name"] = name
         if source is not UNSET:
@@ -101,12 +102,12 @@ class SoftwareBuild:
 
         build_id = d.pop("build_id", UNSET)
 
-        _type = d.pop("type", UNSET)
-        type: Type111Enum
-        if isinstance(_type, Unset):
-            type = UNSET
+        _build_type = d.pop("build_type", UNSET)
+        build_type: BuildTypeEnum
+        if isinstance(_build_type, Unset):
+            build_type = UNSET
         else:
-            type = Type111Enum(_type)
+            build_type = BuildTypeEnum(_build_type)
 
         name = d.pop("name", UNSET)
 
@@ -160,7 +161,7 @@ class SoftwareBuild:
             link=link,
             web_url=web_url,
             build_id=build_id,
-            type=type,
+            build_type=build_type,
             name=name,
             source=source,
             tags=tags,

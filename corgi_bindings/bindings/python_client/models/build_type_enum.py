@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Type111Enum(str, Enum):
+class BuildTypeEnum(str, Enum):
     BREW = "BREW"
     KOJI = "KOJI"
 

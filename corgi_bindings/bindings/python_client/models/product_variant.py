@@ -1,7 +1,8 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
+from ..models.product_variant_channels_item import ProductVariantChannelsItem
 from ..models.product_variant_product_streams_item import ProductVariantProductStreamsItem
 from ..models.product_variant_product_versions_item import ProductVariantProductVersionsItem
 from ..models.product_variant_products_item import ProductVariantProductsItem
@@ -14,29 +15,32 @@ T = TypeVar("T", bound="ProductVariant")
 
 @attr.s(auto_attribs=True)
 class ProductVariant:
-    """ """
+    """Show detailed information for ProductVariant(s).
+    Add or remove fields using ?include_fields=&exclude_fields="""
 
     link: str
     uuid: str
+    ofuri: str
     name: str
+    description: str
     build_count: int
     builds: str
     components: str
     upstreams: str
     tags: List[Tag]
+    channels: List[ProductVariantChannelsItem]
     relations: List[ProductVariantRelationsItem]
     products: List[ProductVariantProductsItem]
     product_versions: List[ProductVariantProductVersionsItem]
     product_streams: List[ProductVariantProductStreamsItem]
-    ofuri: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
-    channels: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         link = self.link
         uuid = self.uuid
+        ofuri = self.ofuri
         name = self.name
+        description = self.description
         build_count = self.build_count
         builds = self.builds
         components = self.components
@@ -50,6 +54,16 @@ class ProductVariant:
                     tags_item = tags_item_data.to_dict()
 
                 tags.append(tags_item)
+
+        channels: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.channels, Unset):
+            channels = []
+            for channels_item_data in self.channels:
+                channels_item: Dict[str, Any] = UNSET
+                if not isinstance(channels_item_data, Unset):
+                    channels_item = channels_item_data.to_dict()
+
+                channels.append(channels_item)
 
         relations: List[Dict[str, Any]] = UNSET
         if not isinstance(self.relations, Unset):
@@ -91,20 +105,18 @@ class ProductVariant:
 
                 product_streams.append(product_streams_item)
 
-        ofuri = self.ofuri
-        description = self.description
-        channels: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.channels, Unset):
-            channels = self.channels
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         if link is not UNSET:
             field_dict["link"] = link
         if uuid is not UNSET:
             field_dict["uuid"] = uuid
+        if ofuri is not UNSET:
+            field_dict["ofuri"] = ofuri
         if name is not UNSET:
             field_dict["name"] = name
+        if description is not UNSET:
+            field_dict["description"] = description
         if build_count is not UNSET:
             field_dict["build_count"] = build_count
         if builds is not UNSET:
@@ -115,6 +127,8 @@ class ProductVariant:
             field_dict["upstreams"] = upstreams
         if tags is not UNSET:
             field_dict["tags"] = tags
+        if channels is not UNSET:
+            field_dict["channels"] = channels
         if relations is not UNSET:
             field_dict["relations"] = relations
         if products is not UNSET:
@@ -123,12 +137,6 @@ class ProductVariant:
             field_dict["product_versions"] = product_versions
         if product_streams is not UNSET:
             field_dict["product_streams"] = product_streams
-        if ofuri is not UNSET:
-            field_dict["ofuri"] = ofuri
-        if description is not UNSET:
-            field_dict["description"] = description
-        if channels is not UNSET:
-            field_dict["channels"] = channels
 
         return field_dict
 
@@ -139,7 +147,11 @@ class ProductVariant:
 
         uuid = d.pop("uuid", UNSET)
 
+        ofuri = d.pop("ofuri", UNSET)
+
         name = d.pop("name", UNSET)
+
+        description = d.pop("description", UNSET)
 
         build_count = d.pop("build_count", UNSET)
 
@@ -163,6 +175,21 @@ class ProductVariant:
                     tags_item = Tag.from_dict(_tags_item)
 
                 tags.append(tags_item)
+
+        channels = []
+        _channels = d.pop("channels", UNSET)
+        if _channels is UNSET:
+            channels = UNSET
+        else:
+            for channels_item_data in _channels or []:
+                _channels_item = channels_item_data
+                channels_item: ProductVariantChannelsItem
+                if isinstance(_channels_item, Unset):
+                    channels_item = UNSET
+                else:
+                    channels_item = ProductVariantChannelsItem.from_dict(_channels_item)
+
+                channels.append(channels_item)
 
         relations = []
         _relations = d.pop("relations", UNSET)
@@ -224,28 +251,22 @@ class ProductVariant:
 
                 product_streams.append(product_streams_item)
 
-        ofuri = d.pop("ofuri", UNSET)
-
-        description = d.pop("description", UNSET)
-
-        channels = cast(List[str], d.pop("channels", UNSET))
-
         product_variant = cls(
             link=link,
             uuid=uuid,
+            ofuri=ofuri,
             name=name,
+            description=description,
             build_count=build_count,
             builds=builds,
             components=components,
             upstreams=upstreams,
             tags=tags,
+            channels=channels,
             relations=relations,
             products=products,
             product_versions=product_versions,
             product_streams=product_streams,
-            ofuri=ofuri,
-            description=description,
-            channels=channels,
         )
 
         product_variant.additional_properties = d

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Component Registry API
-  version: 1.1.0
+  version: 1.2.1
   description: REST API auto-generated docs for Component Registry
 paths:
   /api/healthy:
@@ -19,6 +19,29 @@ paths:
       operationId: v1_builds_list
       description: View for api/v1/builds
       parameters:
+      - in: query
+        name: build_type
+        schema:
+          type: string
+          enum:
+          - BREW
+          - KOJI
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=build_id,name`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=build_id,name`'
       - name: limit
         required: false
         in: query
@@ -45,13 +68,6 @@ paths:
         name: tags
         schema:
           type: integer
-      - in: query
-        name: type
-        schema:
-          type: string
-          enum:
-          - BREW
-          - KOJI
       tags:
       - v1
       responses:
@@ -74,6 +90,22 @@ paths:
           minimum: -2147483648
         description: A unique value identifying this software build.
         required: true
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=build_id,name`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=build_id,name`'
       tags:
       - v1
       responses:
@@ -88,6 +120,22 @@ paths:
       operationId: v1_channels_list
       description: View for api/v1/channels
       parameters:
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - name: limit
         required: false
         in: query
@@ -131,6 +179,22 @@ paths:
       operationId: v1_channels_retrieve
       description: View for api/v1/channels
       parameters:
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - in: path
         name: uuid
         schema:
@@ -164,12 +228,43 @@ paths:
         name: description
         schema:
           type: string
+      - in: query
+        name: el_match
+        schema:
+          type: string
+        description: RHEL version for layered products
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,version`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,version`'
       - name: limit
         required: false
         in: query
         description: Number of results to return per page.
         schema:
           type: integer
+      - in: query
+        name: missing_copyright
+        schema:
+          type: boolean
+        description: Show only unscanned components (where copyright text is empty)
+      - in: query
+        name: missing_license
+        schema:
+          type: boolean
+        description: Show only unscanned components (where license concluded is empty)
       - in: query
         name: name
         schema:
@@ -295,6 +390,22 @@ paths:
       operationId: v1_components_retrieve
       description: View for api/v1/components
       parameters:
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,version`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,version`'
       - in: path
         name: uuid
         schema:
@@ -358,7 +469,6 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/Component'
-        required: true
       responses:
         '200':
           content:
@@ -421,6 +531,22 @@ paths:
         name: channels
         schema:
           type: string
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - name: limit
         required: false
         in: query
@@ -485,6 +611,22 @@ paths:
       operationId: v1_product_streams_retrieve
       description: View for api/v1/product_streams
       parameters:
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - in: path
         name: uuid
         schema:
@@ -522,27 +664,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductStream'
           description: ''
-  /api/v1/product_streams/{uuid}/taxonomy:
-    get:
-      operationId: v1_product_streams_taxonomy_retrieve
-      description: View for api/v1/product_streams
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product stream.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductStream'
-          description: ''
   /api/v1/product_variants:
     get:
       operationId: v1_product_variants_list
@@ -552,6 +673,22 @@ paths:
         name: channels
         schema:
           type: string
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - name: limit
         required: false
         in: query
@@ -616,27 +753,22 @@ paths:
       operationId: v1_product_variants_retrieve
       description: View for api/v1/product_variants
       parameters:
-      - in: path
-        name: uuid
+      - in: query
+        name: exclude_fields
         schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product variant.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductVariant'
-          description: ''
-  /api/v1/product_variants/{uuid}/taxonomy:
-    get:
-      operationId: v1_product_variants_taxonomy_retrieve
-      description: View for api/v1/product_variants
-      parameters:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - in: path
         name: uuid
         schema:
@@ -662,6 +794,22 @@ paths:
         name: channels
         schema:
           type: string
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - name: limit
         required: false
         in: query
@@ -726,27 +874,22 @@ paths:
       operationId: v1_product_versions_retrieve
       description: View for api/v1/product_versions
       parameters:
-      - in: path
-        name: uuid
+      - in: query
+        name: exclude_fields
         schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product version.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductVersion'
-          description: ''
-  /api/v1/product_versions/{uuid}/taxonomy:
-    get:
-      operationId: v1_product_versions_taxonomy_retrieve
-      description: View for api/v1/product_versions
-      parameters:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - in: path
         name: uuid
         schema:
@@ -772,6 +915,22 @@ paths:
         name: channels
         schema:
           type: string
+      - in: query
+        name: exclude_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - name: limit
         required: false
         in: query
@@ -836,27 +995,22 @@ paths:
       operationId: v1_products_retrieve
       description: View for api/v1/products
       parameters:
-      - in: path
-        name: uuid
+      - in: query
+        name: exclude_fields
         schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this product.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-          description: ''
-  /api/v1/products/{uuid}/taxonomy:
-    get:
-      operationId: v1_products_taxonomy_retrieve
-      description: View for api/v1/products
-      parameters:
+          type: array
+          items:
+            type: string
+        description: 'Exclude only specified fields in the response. Multiple values
+          may be separated by commas.Example: `exclude_fields=name,ofuri`'
+      - in: query
+        name: include_fields
+        schema:
+          type: array
+          items:
+            type: string
+        description: 'Include only specified fields in the response. Multiple values
+          may be separated by commas.Example: `include_fields=name,ofuri`'
       - in: path
         name: uuid
         schema:
@@ -1010,8 +1164,16 @@ paths:
           description: ''
 components:
   schemas:
+    BuildTypeEnum:
+      enum:
+      - BREW
+      - KOJI
+      type: string
     Channel:
       type: object
+      description: |-
+        Show detailed information for Channel(s).
+        Add or remove fields using ?include_fields=&exclude_fields=
       properties:
         uuid:
           type: string
@@ -1030,41 +1192,56 @@ components:
           readOnly: true
         name:
           type: string
+          readOnly: true
         relative_url:
           type: string
-          maxLength: 200
+          readOnly: true
         type:
-          $ref: '#/components/schemas/ChannelTypeEnum'
+          allOf:
+          - $ref: '#/components/schemas/ChannelTypeEnum'
+          readOnly: true
         description:
           type: string
-        meta_attr:
-          type: object
-          additionalProperties: {}
+          readOnly: true
         products:
           type: array
           items:
-            type: string
-            maxLength: 200
+            type: object
+            additionalProperties:
+              type: string
+          readOnly: true
         product_versions:
           type: array
           items:
-            type: string
-            maxLength: 200
+            type: object
+            additionalProperties:
+              type: string
+          readOnly: true
         product_streams:
           type: array
           items:
-            type: string
-            maxLength: 200
+            type: object
+            additionalProperties:
+              type: string
+          readOnly: true
         product_variants:
           type: array
           items:
-            type: string
-            maxLength: 200
+            type: object
+            additionalProperties:
+              type: string
+          readOnly: true
       required:
       - created_at
+      - description
       - last_changed
       - link
       - name
+      - product_streams
+      - product_variants
+      - product_versions
+      - products
+      - relative_url
       - type
       - uuid
     ChannelTypeEnum:
@@ -1074,6 +1251,9 @@ components:
       type: string
     Component:
       type: object
+      description: |-
+        Show detailed information for a Component.
+        Add or remove fields using ?include_fields=&exclude_fields=
       properties:
         link:
           type: string
@@ -1086,19 +1266,25 @@ components:
           format: uuid
           readOnly: true
         type:
-          $ref: '#/components/schemas/ComponentTypeEnum'
+          allOf:
+          - $ref: '#/components/schemas/ComponentTypeEnum'
+          readOnly: true
         namespace:
-          $ref: '#/components/schemas/NamespaceEnum'
+          allOf:
+          - $ref: '#/components/schemas/NamespaceEnum'
+          readOnly: true
         purl:
           type: string
-          maxLength: 1024
+          readOnly: true
         name:
           type: string
+          readOnly: true
         description:
           type: string
+          readOnly: true
         related_url:
           type: string
-          maxLength: 1024
+          readOnly: true
         tags:
           type: array
           items:
@@ -1106,24 +1292,31 @@ components:
           readOnly: true
         version:
           type: string
-          maxLength: 1024
+          readOnly: true
         release:
           type: string
-          maxLength: 1024
+          readOnly: true
+        el_match:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          readOnly: true
         arch:
           type: string
-          maxLength: 1024
+          readOnly: true
         nvr:
           type: string
-          maxLength: 1024
+          readOnly: true
         nevra:
           type: string
-          maxLength: 1024
+          readOnly: true
         epoch:
           type: string
           readOnly: true
         copyright_text:
           type: string
+          readOnly: true
         license_concluded:
           type: string
           readOnly: true
@@ -1142,10 +1335,14 @@ components:
           readOnly: true
         openlcs_scan_url:
           type: string
+          readOnly: true
         openlcs_scan_version:
           type: string
+          readOnly: true
         software_build:
-          $ref: '#/components/schemas/SoftwareBuildSummary'
+          allOf:
+          - $ref: '#/components/schemas/SoftwareBuildSummary'
+          readOnly: true
         errata:
           type: array
           items:
@@ -1179,6 +1376,13 @@ components:
             additionalProperties:
               type: string
           readOnly: true
+        channels:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+          readOnly: true
         sources:
           type: array
           items:
@@ -1200,23 +1404,42 @@ components:
             additionalProperties:
               type: string
           readOnly: true
+        manifest:
+          type: string
+          readOnly: true
+        filename:
+          type: string
+          readOnly: true
       required:
+      - arch
+      - channels
+      - copyright_text
       - description
       - download_url
+      - el_match
       - epoch
       - errata
+      - filename
       - license_concluded
       - license_concluded_list
       - license_declared
       - license_declared_list
       - link
+      - manifest
       - name
       - namespace
+      - nevra
+      - nvr
+      - openlcs_scan_url
+      - openlcs_scan_version
       - product_streams
       - product_variants
       - product_versions
       - products
       - provides
+      - purl
+      - related_url
+      - release
       - software_build
       - sources
       - tags
@@ -1385,6 +1608,9 @@ components:
             $ref: '#/components/schemas/SoftwareBuild'
     Product:
       type: object
+      description: |-
+        Show detailed information for Product(s).
+        Add or remove fields using ?include_fields=&exclude_fields=
       properties:
         link:
           type: string
@@ -1395,11 +1621,13 @@ components:
           readOnly: true
         ofuri:
           type: string
-          maxLength: 1024
+          readOnly: true
         name:
           type: string
+          readOnly: true
         description:
           type: string
+          readOnly: true
         build_count:
           type: integer
           readOnly: true
@@ -1416,6 +1644,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+          readOnly: true
+        channels:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         product_versions:
           type: array
@@ -1441,9 +1676,12 @@ components:
       required:
       - build_count
       - builds
+      - channels
       - components
+      - description
       - link
       - name
+      - ofuri
       - product_streams
       - product_variants
       - product_versions
@@ -1452,6 +1690,9 @@ components:
       - uuid
     ProductStream:
       type: object
+      description: |-
+        Show detailed information for ProductStream(s).
+        Add or remove fields using ?include_fields=&exclude_fields=
       properties:
         link:
           type: string
@@ -1462,11 +1703,13 @@ components:
           readOnly: true
         ofuri:
           type: string
-          maxLength: 1024
+          readOnly: true
         name:
           type: string
+          readOnly: true
         description:
           type: string
+          readOnly: true
         build_count:
           type: integer
           readOnly: true
@@ -1484,27 +1727,39 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
           readOnly: true
+        channels:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+          readOnly: true
         cpe:
           type: string
-          maxLength: 1000
+          readOnly: true
         active:
           type: boolean
+          readOnly: true
         brew_tags:
           type: object
           additionalProperties: {}
+          readOnly: true
         yum_repositories:
           type: array
           items:
             type: string
             maxLength: 200
+          readOnly: true
         composes:
           type: object
           additionalProperties: {}
+          readOnly: true
         et_product_versions:
           type: array
           items:
             type: string
             maxLength: 200
+          readOnly: true
         manifest:
           type: string
           readOnly: true
@@ -1536,18 +1791,21 @@ components:
             additionalProperties:
               type: string
           readOnly: true
-        channels:
-          type: array
-          items:
-            type: string
-            maxLength: 200
       required:
+      - active
+      - brew_tags
       - build_count
       - builds
+      - channels
       - components
+      - composes
+      - cpe
+      - description
+      - et_product_versions
       - link
       - manifest
       - name
+      - ofuri
       - product_variants
       - product_versions
       - products
@@ -1555,8 +1813,12 @@ components:
       - tags
       - upstreams
       - uuid
+      - yum_repositories
     ProductVariant:
       type: object
+      description: |-
+        Show detailed information for ProductVariant(s).
+        Add or remove fields using ?include_fields=&exclude_fields=
       properties:
         link:
           type: string
@@ -1567,11 +1829,13 @@ components:
           readOnly: true
         ofuri:
           type: string
-          maxLength: 1024
+          readOnly: true
         name:
           type: string
+          readOnly: true
         description:
           type: string
+          readOnly: true
         build_count:
           type: integer
           readOnly: true
@@ -1588,6 +1852,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+          readOnly: true
+        channels:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         relations:
           type: array
@@ -1617,17 +1888,15 @@ components:
             additionalProperties:
               type: string
           readOnly: true
-        channels:
-          type: array
-          items:
-            type: string
-            maxLength: 200
       required:
       - build_count
       - builds
+      - channels
       - components
+      - description
       - link
       - name
+      - ofuri
       - product_streams
       - product_versions
       - products
@@ -1637,6 +1906,9 @@ components:
       - uuid
     ProductVersion:
       type: object
+      description: |-
+        Show detailed information for ProductVersion(s).
+        Add or remove fields using ?include_fields=&exclude_fields=
       properties:
         link:
           type: string
@@ -1647,11 +1919,13 @@ components:
           readOnly: true
         ofuri:
           type: string
-          maxLength: 1024
+          readOnly: true
         name:
           type: string
+          readOnly: true
         description:
           type: string
+          readOnly: true
         build_count:
           type: integer
           readOnly: true
@@ -1668,6 +1942,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+          readOnly: true
+        channels:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
           readOnly: true
         products:
           type: array
@@ -1693,9 +1974,12 @@ components:
       required:
       - build_count
       - builds
+      - channels
       - components
+      - description
       - link
       - name
+      - ofuri
       - product_streams
       - product_variants
       - products
@@ -1704,6 +1988,9 @@ components:
       - uuid
     SoftwareBuild:
       type: object
+      description: |-
+        Show detailed information for SoftwareBuild(s).
+        Add or remove fields using ?include_fields=&exclude_fields=
       properties:
         link:
           type: string
@@ -1713,14 +2000,17 @@ components:
           readOnly: true
         build_id:
           type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        type:
-          $ref: '#/components/schemas/Type111Enum'
+          readOnly: true
+        build_type:
+          allOf:
+          - $ref: '#/components/schemas/BuildTypeEnum'
+          readOnly: true
         name:
           type: string
+          readOnly: true
         source:
           type: string
+          readOnly: true
         tags:
           type: array
           items:
@@ -1743,6 +2033,7 @@ components:
           readOnly: true
       required:
       - build_id
+      - build_type
       - components
       - created_at
       - last_changed
@@ -1750,30 +2041,35 @@ components:
       - name
       - source
       - tags
-      - type
       - web_url
     SoftwareBuildSummary:
       type: object
+      description: |-
+        Show summary information for a SoftwareBuild.
+        Add or remove fields using ?include_fields=&exclude_fields=
       properties:
         link:
           type: string
           readOnly: true
         build_id:
           type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        type:
-          $ref: '#/components/schemas/Type111Enum'
+          readOnly: true
+        build_type:
+          allOf:
+          - $ref: '#/components/schemas/BuildTypeEnum'
+          readOnly: true
         name:
           type: string
+          readOnly: true
         source:
           type: string
+          readOnly: true
       required:
       - build_id
+      - build_type
       - link
       - name
       - source
-      - type
     Tag:
       type: object
       properties:
@@ -1791,8 +2087,3 @@ components:
       required:
       - created_at
       - name
-    Type111Enum:
-      enum:
-      - BREW
-      - KOJI
-      type: string
