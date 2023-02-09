@@ -140,7 +140,7 @@ class SessionOperationsGroup:
             return sync_fn(id, client=self.client, **kwargs)
         else:
             raise OperationUnsupported(
-                'Operation "update" is not supported for the '
+                'Operation "retrieve" is not supported for the '
                 f'"{self.resource_name}" resource.'
             )
 
@@ -153,14 +153,13 @@ class SessionOperationsGroup:
             return sync_fn(client=self.client, **kwargs)
         else:
             raise OperationUnsupported(
-                'Operation "update" is not supported for the '
+                'Operation "retrieve_list" is not supported for the '
                 f'"{self.resource_name}" resource.'
             )
 
     def create(self, form_data: Dict[str, Any]):
         if "create" in self.allowed_operations:
-            model = getattr(models, self.model_name)
-            transformed_data = model.from_dict(form_data)
+            transformed_data = self.model.from_dict(form_data)
 
             method_module = self.__get_method_module(
                 resource_name=self.resource_name, method="create"
@@ -174,7 +173,7 @@ class SessionOperationsGroup:
             )
         else:
             raise OperationUnsupported(
-                'Operation "update" is not supported for the '
+                'Operation "create" is not supported for the '
                 f'"{self.resource_name}" resource.'
             )
 
