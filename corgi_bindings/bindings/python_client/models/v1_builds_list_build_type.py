@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class V1BuildsListType(str, Enum):
+class V1BuildsListBuildType(str, Enum):
     BREW = "BREW"
     KOJI = "KOJI"
 

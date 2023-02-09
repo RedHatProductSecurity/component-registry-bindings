@@ -1,8 +1,9 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Type, TypeVar, cast
 
 import attr
 
 from ..models.product_stream_brew_tags import ProductStreamBrewTags
+from ..models.product_stream_channels_item import ProductStreamChannelsItem
 from ..models.product_stream_composes import ProductStreamComposes
 from ..models.product_stream_product_variants_item import ProductStreamProductVariantsItem
 from ..models.product_stream_product_versions_item import ProductStreamProductVersionsItem
@@ -16,36 +17,39 @@ T = TypeVar("T", bound="ProductStream")
 
 @attr.s(auto_attribs=True)
 class ProductStream:
-    """ """
+    """Show detailed information for ProductStream(s).
+    Add or remove fields using ?include_fields=&exclude_fields="""
 
     link: str
     uuid: str
+    ofuri: str
     name: str
+    description: str
     build_count: int
     builds: str
     components: str
     upstreams: str
     tags: List[Tag]
+    channels: List[ProductStreamChannelsItem]
+    cpe: str
+    active: bool
+    brew_tags: ProductStreamBrewTags
+    yum_repositories: List[str]
+    composes: ProductStreamComposes
+    et_product_versions: List[str]
     manifest: str
     relations: List[ProductStreamRelationsItem]
     products: List[ProductStreamProductsItem]
     product_versions: List[ProductStreamProductVersionsItem]
     product_variants: List[ProductStreamProductVariantsItem]
-    ofuri: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
-    cpe: Union[Unset, str] = UNSET
-    active: Union[Unset, bool] = UNSET
-    brew_tags: Union[Unset, ProductStreamBrewTags] = UNSET
-    yum_repositories: Union[Unset, List[str]] = UNSET
-    composes: Union[Unset, ProductStreamComposes] = UNSET
-    et_product_versions: Union[Unset, List[str]] = UNSET
-    channels: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         link = self.link
         uuid = self.uuid
+        ofuri = self.ofuri
         name = self.name
+        description = self.description
         build_count = self.build_count
         builds = self.builds
         components = self.components
@@ -59,6 +63,34 @@ class ProductStream:
                     tags_item = tags_item_data.to_dict()
 
                 tags.append(tags_item)
+
+        channels: List[Dict[str, Any]] = UNSET
+        if not isinstance(self.channels, Unset):
+            channels = []
+            for channels_item_data in self.channels:
+                channels_item: Dict[str, Any] = UNSET
+                if not isinstance(channels_item_data, Unset):
+                    channels_item = channels_item_data.to_dict()
+
+                channels.append(channels_item)
+
+        cpe = self.cpe
+        active = self.active
+        brew_tags: Dict[str, Any] = UNSET
+        if not isinstance(self.brew_tags, Unset):
+            brew_tags = self.brew_tags.to_dict()
+
+        yum_repositories: List[str] = UNSET
+        if not isinstance(self.yum_repositories, Unset):
+            yum_repositories = self.yum_repositories
+
+        composes: Dict[str, Any] = UNSET
+        if not isinstance(self.composes, Unset):
+            composes = self.composes.to_dict()
+
+        et_product_versions: List[str] = UNSET
+        if not isinstance(self.et_product_versions, Unset):
+            et_product_versions = self.et_product_versions
 
         manifest = self.manifest
         relations: List[Dict[str, Any]] = UNSET
@@ -101,38 +133,18 @@ class ProductStream:
 
                 product_variants.append(product_variants_item)
 
-        ofuri = self.ofuri
-        description = self.description
-        cpe = self.cpe
-        active = self.active
-        brew_tags: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.brew_tags, Unset):
-            brew_tags = self.brew_tags.to_dict()
-
-        yum_repositories: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.yum_repositories, Unset):
-            yum_repositories = self.yum_repositories
-
-        composes: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.composes, Unset):
-            composes = self.composes.to_dict()
-
-        et_product_versions: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.et_product_versions, Unset):
-            et_product_versions = self.et_product_versions
-
-        channels: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.channels, Unset):
-            channels = self.channels
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         if link is not UNSET:
             field_dict["link"] = link
         if uuid is not UNSET:
             field_dict["uuid"] = uuid
+        if ofuri is not UNSET:
+            field_dict["ofuri"] = ofuri
         if name is not UNSET:
             field_dict["name"] = name
+        if description is not UNSET:
+            field_dict["description"] = description
         if build_count is not UNSET:
             field_dict["build_count"] = build_count
         if builds is not UNSET:
@@ -143,20 +155,8 @@ class ProductStream:
             field_dict["upstreams"] = upstreams
         if tags is not UNSET:
             field_dict["tags"] = tags
-        if manifest is not UNSET:
-            field_dict["manifest"] = manifest
-        if relations is not UNSET:
-            field_dict["relations"] = relations
-        if products is not UNSET:
-            field_dict["products"] = products
-        if product_versions is not UNSET:
-            field_dict["product_versions"] = product_versions
-        if product_variants is not UNSET:
-            field_dict["product_variants"] = product_variants
-        if ofuri is not UNSET:
-            field_dict["ofuri"] = ofuri
-        if description is not UNSET:
-            field_dict["description"] = description
+        if channels is not UNSET:
+            field_dict["channels"] = channels
         if cpe is not UNSET:
             field_dict["cpe"] = cpe
         if active is not UNSET:
@@ -169,8 +169,16 @@ class ProductStream:
             field_dict["composes"] = composes
         if et_product_versions is not UNSET:
             field_dict["et_product_versions"] = et_product_versions
-        if channels is not UNSET:
-            field_dict["channels"] = channels
+        if manifest is not UNSET:
+            field_dict["manifest"] = manifest
+        if relations is not UNSET:
+            field_dict["relations"] = relations
+        if products is not UNSET:
+            field_dict["products"] = products
+        if product_versions is not UNSET:
+            field_dict["product_versions"] = product_versions
+        if product_variants is not UNSET:
+            field_dict["product_variants"] = product_variants
 
         return field_dict
 
@@ -181,7 +189,11 @@ class ProductStream:
 
         uuid = d.pop("uuid", UNSET)
 
+        ofuri = d.pop("ofuri", UNSET)
+
         name = d.pop("name", UNSET)
+
+        description = d.pop("description", UNSET)
 
         build_count = d.pop("build_count", UNSET)
 
@@ -205,6 +217,43 @@ class ProductStream:
                     tags_item = Tag.from_dict(_tags_item)
 
                 tags.append(tags_item)
+
+        channels = []
+        _channels = d.pop("channels", UNSET)
+        if _channels is UNSET:
+            channels = UNSET
+        else:
+            for channels_item_data in _channels or []:
+                _channels_item = channels_item_data
+                channels_item: ProductStreamChannelsItem
+                if isinstance(_channels_item, Unset):
+                    channels_item = UNSET
+                else:
+                    channels_item = ProductStreamChannelsItem.from_dict(_channels_item)
+
+                channels.append(channels_item)
+
+        cpe = d.pop("cpe", UNSET)
+
+        active = d.pop("active", UNSET)
+
+        _brew_tags = d.pop("brew_tags", UNSET)
+        brew_tags: ProductStreamBrewTags
+        if isinstance(_brew_tags, Unset):
+            brew_tags = UNSET
+        else:
+            brew_tags = ProductStreamBrewTags.from_dict(_brew_tags)
+
+        yum_repositories = cast(List[str], d.pop("yum_repositories", UNSET))
+
+        _composes = d.pop("composes", UNSET)
+        composes: ProductStreamComposes
+        if isinstance(_composes, Unset):
+            composes = UNSET
+        else:
+            composes = ProductStreamComposes.from_dict(_composes)
+
+        et_product_versions = cast(List[str], d.pop("et_product_versions", UNSET))
 
         manifest = d.pop("manifest", UNSET)
 
@@ -268,57 +317,29 @@ class ProductStream:
 
                 product_variants.append(product_variants_item)
 
-        ofuri = d.pop("ofuri", UNSET)
-
-        description = d.pop("description", UNSET)
-
-        cpe = d.pop("cpe", UNSET)
-
-        active = d.pop("active", UNSET)
-
-        _brew_tags = d.pop("brew_tags", UNSET)
-        brew_tags: Union[Unset, ProductStreamBrewTags]
-        if isinstance(_brew_tags, Unset):
-            brew_tags = UNSET
-        else:
-            brew_tags = ProductStreamBrewTags.from_dict(_brew_tags)
-
-        yum_repositories = cast(List[str], d.pop("yum_repositories", UNSET))
-
-        _composes = d.pop("composes", UNSET)
-        composes: Union[Unset, ProductStreamComposes]
-        if isinstance(_composes, Unset):
-            composes = UNSET
-        else:
-            composes = ProductStreamComposes.from_dict(_composes)
-
-        et_product_versions = cast(List[str], d.pop("et_product_versions", UNSET))
-
-        channels = cast(List[str], d.pop("channels", UNSET))
-
         product_stream = cls(
             link=link,
             uuid=uuid,
+            ofuri=ofuri,
             name=name,
+            description=description,
             build_count=build_count,
             builds=builds,
             components=components,
             upstreams=upstreams,
             tags=tags,
-            manifest=manifest,
-            relations=relations,
-            products=products,
-            product_versions=product_versions,
-            product_variants=product_variants,
-            ofuri=ofuri,
-            description=description,
+            channels=channels,
             cpe=cpe,
             active=active,
             brew_tags=brew_tags,
             yum_repositories=yum_repositories,
             composes=composes,
             et_product_versions=et_product_versions,
-            channels=channels,
+            manifest=manifest,
+            relations=relations,
+            products=products,
+            product_versions=product_versions,
+            product_variants=product_variants,
         )
 
         product_stream.additional_properties = d

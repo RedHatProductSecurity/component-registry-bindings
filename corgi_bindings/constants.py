@@ -16,7 +16,5 @@ ALL_SESSION_OPERATIONS: List[str] = (
 
 # mapping for resources which model names are different from the endpoint name
 RESOURCE_TO_MODEL_MAPPING: Dict[str, str] = {
-    "lifecycles": "AppStreamLifeCycle",
-    "components": "ComponentDetail",
     "builds": "SoftwareBuild",
 }

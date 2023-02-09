@@ -1,10 +1,13 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 from dateutil.parser import isoparse
 
-from ..models.channel_meta_attr import ChannelMetaAttr
+from ..models.channel_product_streams_item import ChannelProductStreamsItem
+from ..models.channel_product_variants_item import ChannelProductVariantsItem
+from ..models.channel_product_versions_item import ChannelProductVersionsItem
+from ..models.channel_products_item import ChannelProductsItem
 from ..models.channel_type_enum import ChannelTypeEnum
 from ..types import UNSET, Unset
 
@@ -13,21 +16,21 @@ T = TypeVar("T", bound="Channel")
 
 @attr.s(auto_attribs=True)
 class Channel:
-    """ """
+    """Show detailed information for Channel(s).
+    Add or remove fields using ?include_fields=&exclude_fields="""
 
     uuid: str
     link: str
     last_changed: datetime.datetime
     created_at: datetime.datetime
     name: str
+    relative_url: str
     type: ChannelTypeEnum
-    relative_url: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
-    meta_attr: Union[Unset, ChannelMetaAttr] = UNSET
-    products: Union[Unset, List[str]] = UNSET
-    product_versions: Union[Unset, List[str]] = UNSET
-    product_streams: Union[Unset, List[str]] = UNSET
-    product_variants: Union[Unset, List[str]] = UNSET
+    description: str
+    products: List[ChannelProductsItem]
+    product_versions: List[ChannelProductVersionsItem]
+    product_streams: List[ChannelProductStreamsItem]
+    product_variants: List[ChannelProductVariantsItem]
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -42,32 +45,52 @@ class Channel:
             created_at = self.created_at.isoformat()
 
         name = self.name
+        relative_url = self.relative_url
         type: str = UNSET
         if not isinstance(self.type, Unset):
 
             type = ChannelTypeEnum(self.type).value
 
-        relative_url = self.relative_url
         description = self.description
-        meta_attr: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.meta_attr, Unset):
-            meta_attr = self.meta_attr.to_dict()
-
-        products: Union[Unset, List[str]] = UNSET
+        products: List[Dict[str, Any]] = UNSET
         if not isinstance(self.products, Unset):
-            products = self.products
+            products = []
+            for products_item_data in self.products:
+                products_item: Dict[str, Any] = UNSET
+                if not isinstance(products_item_data, Unset):
+                    products_item = products_item_data.to_dict()
 
-        product_versions: Union[Unset, List[str]] = UNSET
+                products.append(products_item)
+
+        product_versions: List[Dict[str, Any]] = UNSET
         if not isinstance(self.product_versions, Unset):
-            product_versions = self.product_versions
+            product_versions = []
+            for product_versions_item_data in self.product_versions:
+                product_versions_item: Dict[str, Any] = UNSET
+                if not isinstance(product_versions_item_data, Unset):
+                    product_versions_item = product_versions_item_data.to_dict()
 
-        product_streams: Union[Unset, List[str]] = UNSET
+                product_versions.append(product_versions_item)
+
+        product_streams: List[Dict[str, Any]] = UNSET
         if not isinstance(self.product_streams, Unset):
-            product_streams = self.product_streams
+            product_streams = []
+            for product_streams_item_data in self.product_streams:
+                product_streams_item: Dict[str, Any] = UNSET
+                if not isinstance(product_streams_item_data, Unset):
+                    product_streams_item = product_streams_item_data.to_dict()
 
-        product_variants: Union[Unset, List[str]] = UNSET
+                product_streams.append(product_streams_item)
+
+        product_variants: List[Dict[str, Any]] = UNSET
         if not isinstance(self.product_variants, Unset):
-            product_variants = self.product_variants
+            product_variants = []
+            for product_variants_item_data in self.product_variants:
+                product_variants_item: Dict[str, Any] = UNSET
+                if not isinstance(product_variants_item_data, Unset):
+                    product_variants_item = product_variants_item_data.to_dict()
+
+                product_variants.append(product_variants_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -81,14 +104,12 @@ class Channel:
             field_dict["created_at"] = created_at
         if name is not UNSET:
             field_dict["name"] = name
-        if type is not UNSET:
-            field_dict["type"] = type
         if relative_url is not UNSET:
             field_dict["relative_url"] = relative_url
+        if type is not UNSET:
+            field_dict["type"] = type
         if description is not UNSET:
             field_dict["description"] = description
-        if meta_attr is not UNSET:
-            field_dict["meta_attr"] = meta_attr
         if products is not UNSET:
             field_dict["products"] = products
         if product_versions is not UNSET:
@@ -123,6 +144,8 @@ class Channel:
 
         name = d.pop("name", UNSET)
 
+        relative_url = d.pop("relative_url", UNSET)
+
         _type = d.pop("type", UNSET)
         type: ChannelTypeEnum
         if isinstance(_type, Unset):
@@ -130,24 +153,67 @@ class Channel:
         else:
             type = ChannelTypeEnum(_type)
 
-        relative_url = d.pop("relative_url", UNSET)
-
         description = d.pop("description", UNSET)
 
-        _meta_attr = d.pop("meta_attr", UNSET)
-        meta_attr: Union[Unset, ChannelMetaAttr]
-        if isinstance(_meta_attr, Unset):
-            meta_attr = UNSET
+        products = []
+        _products = d.pop("products", UNSET)
+        if _products is UNSET:
+            products = UNSET
         else:
-            meta_attr = ChannelMetaAttr.from_dict(_meta_attr)
+            for products_item_data in _products or []:
+                _products_item = products_item_data
+                products_item: ChannelProductsItem
+                if isinstance(_products_item, Unset):
+                    products_item = UNSET
+                else:
+                    products_item = ChannelProductsItem.from_dict(_products_item)
 
-        products = cast(List[str], d.pop("products", UNSET))
+                products.append(products_item)
 
-        product_versions = cast(List[str], d.pop("product_versions", UNSET))
+        product_versions = []
+        _product_versions = d.pop("product_versions", UNSET)
+        if _product_versions is UNSET:
+            product_versions = UNSET
+        else:
+            for product_versions_item_data in _product_versions or []:
+                _product_versions_item = product_versions_item_data
+                product_versions_item: ChannelProductVersionsItem
+                if isinstance(_product_versions_item, Unset):
+                    product_versions_item = UNSET
+                else:
+                    product_versions_item = ChannelProductVersionsItem.from_dict(_product_versions_item)
 
-        product_streams = cast(List[str], d.pop("product_streams", UNSET))
+                product_versions.append(product_versions_item)
 
-        product_variants = cast(List[str], d.pop("product_variants", UNSET))
+        product_streams = []
+        _product_streams = d.pop("product_streams", UNSET)
+        if _product_streams is UNSET:
+            product_streams = UNSET
+        else:
+            for product_streams_item_data in _product_streams or []:
+                _product_streams_item = product_streams_item_data
+                product_streams_item: ChannelProductStreamsItem
+                if isinstance(_product_streams_item, Unset):
+                    product_streams_item = UNSET
+                else:
+                    product_streams_item = ChannelProductStreamsItem.from_dict(_product_streams_item)
+
+                product_streams.append(product_streams_item)
+
+        product_variants = []
+        _product_variants = d.pop("product_variants", UNSET)
+        if _product_variants is UNSET:
+            product_variants = UNSET
+        else:
+            for product_variants_item_data in _product_variants or []:
+                _product_variants_item = product_variants_item_data
+                product_variants_item: ChannelProductVariantsItem
+                if isinstance(_product_variants_item, Unset):
+                    product_variants_item = UNSET
+                else:
+                    product_variants_item = ChannelProductVariantsItem.from_dict(_product_variants_item)
+
+                product_variants.append(product_variants_item)
 
         channel = cls(
             uuid=uuid,
@@ -155,10 +221,9 @@ class Channel:
             last_changed=last_changed,
             created_at=created_at,
             name=name,
-            type=type,
             relative_url=relative_url,
+            type=type,
             description=description,
-            meta_attr=meta_attr,
             products=products,
             product_versions=product_versions,
             product_streams=product_streams,

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 
 import requests
 
@@ -12,6 +12,8 @@ def _get_kwargs(
     client: Client,
     active: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
@@ -30,9 +32,25 @@ def _get_kwargs(
 
     headers: Dict[str, Any] = client.get_headers()
 
+    json_exclude_fields: Union[Unset, None, List[str]] = UNSET
+    if not isinstance(exclude_fields, Unset):
+        if exclude_fields is None:
+            json_exclude_fields = None
+        else:
+            json_exclude_fields = exclude_fields
+
+    json_include_fields: Union[Unset, None, List[str]] = UNSET
+    if not isinstance(include_fields, Unset):
+        if include_fields is None:
+            json_include_fields = None
+        else:
+            json_include_fields = include_fields
+
     params: Dict[str, Any] = {
         "active": active,
         "channels": channels,
+        "exclude_fields": json_exclude_fields,
+        "include_fields": json_include_fields,
         "limit": limit,
         "name": name,
         "offset": offset,
@@ -81,6 +99,8 @@ def sync_detailed(
     client: Client,
     active: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
@@ -97,6 +117,8 @@ def sync_detailed(
         client=client,
         active=active,
         channels=channels,
+        exclude_fields=exclude_fields,
+        include_fields=include_fields,
         limit=limit,
         name=name,
         offset=offset,
@@ -126,6 +148,8 @@ def sync(
     client: Client,
     active: Union[Unset, None, str] = UNSET,
     channels: Union[Unset, None, str] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
     limit: Union[Unset, None, int] = UNSET,
     name: Union[Unset, None, str] = UNSET,
     offset: Union[Unset, None, int] = UNSET,
@@ -144,6 +168,8 @@ def sync(
         client=client,
         active=active,
         channels=channels,
+        exclude_fields=exclude_fields,
+        include_fields=include_fields,
         limit=limit,
         name=name,
         offset=offset,
