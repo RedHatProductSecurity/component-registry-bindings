@@ -4,12 +4,12 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="corgi-bindings",
+    name="component-registry-bindings",
     version="1.1.0",
     author="Jakub Frejlach, Red Hat Product Security",
     author_email="jfrejlac@redhat.com",
-    description="Python bindings for accessing Component Registry (Corgi) API",
-    # url="https://github.com/RedHatProductSecurity/corgi-bindings", TODO: no github repo
+    description="Python bindings for accessing Component Registry API",
+    url="https://github.com/RedHatProductSecurity/component-registry-bindings",
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[

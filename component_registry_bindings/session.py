@@ -6,15 +6,15 @@ from .bindings.python_client import AuthenticatedClient, models
 from .bindings.python_client.types import UNSET
 from .constants import (
     ALL_SESSION_OPERATIONS,
-    CORGI_API_VERSION,
-    CORGI_BINDINGS_API_PATH,
-    CORGI_BINDINGS_USERAGENT,
+    COMPONENT_REGISTRY_API_VERSION,
+    COMPONENT_REGISTRY_BINDINGS_API_PATH,
+    COMPONENT_REGISTRY_BINDINGS_USERAGENT,
     RESOURCE_TO_MODEL_MAPPING,
 )
 
-corgi_status_retrieve = importlib.import_module(
-    f"{CORGI_BINDINGS_API_PATH}.{CORGI_API_VERSION}_status_list",
-    package="corgi_bindings",
+component_registry_status_retrieve = importlib.import_module(
+    f"{COMPONENT_REGISTRY_BINDINGS_API_PATH}.{COMPONENT_REGISTRY_API_VERSION}_status_list",
+    package="component_registry_bindings",
 )
 
 
@@ -32,14 +32,16 @@ def get_sync_function(api_module: ModuleType) -> Callable:
     return getattr(api_module, "sync", getattr(api_module, "sync_detailed"))
 
 
-def new_session(corgi_server_uri: str, verify_ssl: Union[str, bool] = True):
-    """Create a new session for selected Component Registry (Corgi) URI"""
+def new_session(
+    component_registry_server_uri: str, verify_ssl: Union[str, bool] = True
+):
+    """Create a new session for selected Component Registry URI"""
 
     # strip trailing slash
-    if corgi_server_uri.endswith("/"):
-        corgi_server_uri = corgi_server_uri[:-1]
+    if component_registry_server_uri.endswith("/"):
+        component_registry_server_uri = component_registry_server_uri[:-1]
 
-    return Session(base_url=corgi_server_uri, verify_ssl=verify_ssl)
+    return Session(base_url=component_registry_server_uri, verify_ssl=verify_ssl)
 
 
 class Session:
@@ -49,7 +51,7 @@ class Session:
 
         self.__client = AuthenticatedClient(
             base_url=base_url,
-            headers={"User-Agent": CORGI_BINDINGS_USERAGENT},
+            headers={"User-Agent": COMPONENT_REGISTRY_BINDINGS_USERAGENT},
             verify_ssl=verify_ssl,
         )
 
@@ -88,7 +90,7 @@ class Session:
         )
 
     def status(self):
-        status_fn = get_sync_function(corgi_status_retrieve)
+        status_fn = get_sync_function(component_registry_status_retrieve)
         return status_fn(client=self.__client)
 
 
@@ -125,8 +127,8 @@ class SessionOperationsGroup:
     def __get_method_module(self, resource_name: str, method: str) -> ModuleType:
         # import endpoint module based on a method
         return importlib.import_module(
-            f"{CORGI_BINDINGS_API_PATH}.{CORGI_API_VERSION}_{resource_name}_{method}",
-            package="corgi_bindings",
+            f"{COMPONENT_REGISTRY_BINDINGS_API_PATH}.{COMPONENT_REGISTRY_API_VERSION}_{resource_name}_{method}",
+            package="component_registry_bindings",
         )
 
     # CRUD operations
@@ -230,7 +232,7 @@ class SessionOperationsGroup:
             )
 
     def retrieve_provides(self, id, **kwargs):
-        # TODO: Once the schema in Corgi is adjusted, allow this for the
+        # TODO: Once the schema in Component Registry is adjusted, allow this for the
         # particular resources
         if "retrieve_provides" in self.allowed_operations:
             method_module = self.__get_method_module(
@@ -245,7 +247,7 @@ class SessionOperationsGroup:
             )
 
     def retrieve_taxonomy(self, id, **kwargs):
-        # TODO: Once the schema in Corgi is adjusted, allow this for the
+        # TODO: Once the schema in Component Registry is adjusted, allow this for the
         # particular resources
         if "retrieve" in self.allowed_operations:
             method_module = self.__get_method_module(
@@ -260,7 +262,7 @@ class SessionOperationsGroup:
             )
 
     def retrieve_manifest(self, id, **kwargs):
-        # TODO: Once the schema in Corgi is adjusted, allow this for the
+        # TODO: Once the schema in Component Registry is adjusted, allow this for the
         # particular resources
         if "retrieve" in self.allowed_operations:
             method_module = self.__get_method_module(

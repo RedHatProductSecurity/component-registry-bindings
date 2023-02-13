@@ -4,7 +4,7 @@
 openapi-python-client=`which openapi-python-client`
 pc=`which pip-compile`
 ps=`which pip-sync`
-package_dir=corgi_bindings/
+package_dir=component_registry_bindings/
 bindings_dir=$(package_dir)bindings/
 
 

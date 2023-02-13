@@ -1,5 +1,5 @@
-# corgi-bindings
-Python bindings for accessing the Corgi data entities in native python.
+# component-registry-bindings
+Python bindings for accessing the Component Registry data entities in native python.
 
 ## Requirements
 
@@ -10,64 +10,45 @@ Python bindings for accessing the Corgi data entities in native python.
 
 You can install the bindings via Python 3 pip:
 
-* directly from the [GitLab](https://git.prodsec.redhat.com/devops/corgi-bindings) repository (will install the version
-    from master branch)
+* directly from the [GitHub](https://github.com/RedHatProductSecurity/component-registry-bindings) repository (will install the version from master branch)
     ```
-    pip install -e git+https://git.prodsec.redhat.com/devops/corgi-bindings.git#egg=corgi_bindings
+    pip install -e git+https://github.com/RedHatProductSecurity/component-registry-bindings#egg=component_registry_bindings
     ```
 
-## Corgi Compatibility
+## Component Registry Compatibility
 
-Corgi and bindings both uses [semantic versioning](https://semver.org/) (eg. MAJOR.MINOR.PATCH, 1.2.3). Bindings are compatible
-with Corgi when MAJOR and MINOR version matches.
+Component Registry and bindings both uses [semantic versioning](https://semver.org/) (eg. MAJOR.MINOR.PATCH, 1.2.3). Bindings are compatible with Component Registry when MAJOR and MINOR version matches.
 
 Eg.
-* Corgi 1.2.0, bindings 1.2.0 - compatible
-* Corgi 1.2.0, bindings 1.2.1 - compatible
-* Corgi 1.2.2, bindings 1.2.1 - compatible
-* Corgi 1.3.0, bindings 1.2.1 - **feature incomplete**
-* Corgi 2.0.0, bindings 1.9.9 - **incompatible**
+* Component Registry 1.2.0, bindings 1.2.0 - compatible
+* Component Registry 1.2.0, bindings 1.2.1 - compatible
+* Component Registry 1.2.2, bindings 1.2.1 - compatible
+* Component Registry 1.3.0, bindings 1.2.1 - **feature incomplete**
+* Component Registry 2.0.0, bindings 1.9.9 - **incompatible**
 
 ## Usage
 
 ### Import the bindings
 
 ```python
-import corgi_bindings
+import component_registry_bindings
 ```
 
 ### Create a session
-Session is the main part of the bindings which you will be using. You can create it using the `corgi_bindings.new_session`. Created session is then used to access the various endpoints.
+Session is the main part of the bindings which you will be using. You can create it using the `component_registry_bindings.new_session`. Created session is then used to access the various endpoints.
 
-You must always specify `corgi_server_uri` of the Corgi instance you want to access.
-
-Authentication is supported via:
-* Basic authentication - `username` and `password`
-
-```python
-    session = corgi_bindings.new_session(corgi_server_uri="https://corgi-stage.prodsec.redhat.com", username="username", password="password")
-```
-  
-* **NOT YET SUPPORTED** Token authentication - `token`
-```python
-    session = corgi_bindings.new_session(corgi_server_uri="https://corgi-stage.prodsec.redhat.com", token="your_crogi_token")
-```
-* 
-* **NOT YET SUPPORTED** - Kerberos authentication - default
-```python
-    session = corgi_bindings.new_session(corgi_server_uri="https://corgi-stage.prodsec.redhat.com")
-```
+You must always specify `component_registry_server_uri` of the Component Registry instance you want to access.
 
 By default, the SSL verification is enabled, you can disable it by passing `verify_ssl` argument
 ```python
-session = corgi_bindings.new_session(corgi_server_uri="https://corgi-stage.prodsec.redhat.com", username="username", password="password", verify_ssl=False)
+session = component_registry_bindings.new_session(component_registry_server_uri="<component registry uri>", username="<username>", password="<password>", verify_ssl=False)
 ```
 
 ### Session operations
 
 This section describes possible session operations. See [response section](#response) to learn how to work with obtained operation responses.
 
-Operations can be performed on the following entities 
+Operations can be performed on the following entities
 * builds
 * channels
 * components
@@ -81,14 +62,14 @@ Operations can be performed on the following entities
   Most basic operation of the session is retrieving the status.
 
   See /GET /api/{api_version}/status` in [API docs](openapi_schema.yml) for more details (query parameters, response format, etc.)
-    
+
 ```python
     status_response = session.status()
 ```
 
 #### builds.retrieve_list
 
-  Retrieve a list of Builds. 
+  Retrieve a list of Builds.
 
   See /GET /api/{api_version}/builds in [API docs](openapi_schema.yml) for more details (query parameters, response format, etc.)
 ```python
@@ -107,7 +88,7 @@ session.builds.retrieve(id="1872838")
 
 #### components.retrieve_list
 
-Retrieve a list of Components. 
+Retrieve a list of Components.
 
 See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for more details (query parameters, response format, etc.)
 ```python
