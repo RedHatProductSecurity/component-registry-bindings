@@ -1,8 +1,8 @@
-# corgi-bindings
-A client library for accessing Component Registry (Corgi) API
+# component-registry-bindings
+A client library for accessing Component Registry API
 
 ## Installation
 
 ```
-pip install -e git+https://git.prodsec.redhat.com/devops/corgi-bindings.git#egg=corgi_bindings
+pip install -e git+https://github.com/RedHatProductSecurity/component-registry-bindings#egg=component_registry_bindings
 ```

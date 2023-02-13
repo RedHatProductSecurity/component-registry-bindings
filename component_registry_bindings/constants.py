@@ -1,8 +1,10 @@
 from typing import Dict, List
 
-CORGI_API_VERSION: str = "v1"
-CORGI_BINDINGS_USERAGENT: str = "corgi-bindings-1.1.0"
-CORGI_BINDINGS_API_PATH: str = f".bindings.python_client.api.{CORGI_API_VERSION}"
+COMPONENT_REGISTRY_API_VERSION: str = "v1"
+COMPONENT_REGISTRY_BINDINGS_USERAGENT: str = "component-registry-bindings-1.1.0"
+COMPONENT_REGISTRY_BINDINGS_API_PATH: str = (
+    f".bindings.python_client.api.{COMPONENT_REGISTRY_API_VERSION}"
+)
 
 # all available session operations
 ALL_SESSION_OPERATIONS: List[str] = (
