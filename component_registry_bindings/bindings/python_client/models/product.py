@@ -188,7 +188,9 @@ class Product:
                 if isinstance(_product_versions_item, Unset):
                     product_versions_item = UNSET
                 else:
-                    product_versions_item = ProductProductVersionsItem.from_dict(_product_versions_item)
+                    product_versions_item = ProductProductVersionsItem.from_dict(
+                        _product_versions_item
+                    )
 
                 product_versions.append(product_versions_item)
 
@@ -203,7 +205,9 @@ class Product:
                 if isinstance(_product_streams_item, Unset):
                     product_streams_item = UNSET
                 else:
-                    product_streams_item = ProductProductStreamsItem.from_dict(_product_streams_item)
+                    product_streams_item = ProductProductStreamsItem.from_dict(
+                        _product_streams_item
+                    )
 
                 product_streams.append(product_streams_item)
 
@@ -218,7 +222,9 @@ class Product:
                 if isinstance(_product_variants_item, Unset):
                     product_variants_item = UNSET
                 else:
-                    product_variants_item = ProductProductVariantsItem.from_dict(_product_variants_item)
+                    product_variants_item = ProductProductVariantsItem.from_dict(
+                        _product_variants_item
+                    )
 
                 product_variants.append(product_variants_item)
 

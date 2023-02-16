@@ -4,9 +4,15 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 import attr
 from dateutil.parser import isoparse
 
-from ..models.v1_status_list_response_200_results_item_builds import V1StatusListResponse200ResultsItemBuilds
-from ..models.v1_status_list_response_200_results_item_channels import V1StatusListResponse200ResultsItemChannels
-from ..models.v1_status_list_response_200_results_item_components import V1StatusListResponse200ResultsItemComponents
+from ..models.v1_status_list_response_200_results_item_builds import (
+    V1StatusListResponse200ResultsItemBuilds,
+)
+from ..models.v1_status_list_response_200_results_item_channels import (
+    V1StatusListResponse200ResultsItemChannels,
+)
+from ..models.v1_status_list_response_200_results_item_components import (
+    V1StatusListResponse200ResultsItemComponents,
+)
 from ..models.v1_status_list_response_200_results_item_product_streams import (
     V1StatusListResponse200ResultsItemProductStreams,
 )
@@ -16,8 +22,12 @@ from ..models.v1_status_list_response_200_results_item_product_variants import (
 from ..models.v1_status_list_response_200_results_item_product_versions import (
     V1StatusListResponse200ResultsItemProductVersions,
 )
-from ..models.v1_status_list_response_200_results_item_products import V1StatusListResponse200ResultsItemProducts
-from ..models.v1_status_list_response_200_results_item_relations import V1StatusListResponse200ResultsItemRelations
+from ..models.v1_status_list_response_200_results_item_products import (
+    V1StatusListResponse200ResultsItemProducts,
+)
+from ..models.v1_status_list_response_200_results_item_relations import (
+    V1StatusListResponse200ResultsItemRelations,
+)
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="V1StatusListResponse200ResultsItem")
@@ -34,9 +44,15 @@ class V1StatusListResponse200ResultsItem:
     db_size: Union[Unset, str] = UNSET
     builds: Union[Unset, V1StatusListResponse200ResultsItemBuilds] = UNSET
     products: Union[Unset, V1StatusListResponse200ResultsItemProducts] = UNSET
-    product_versions: Union[Unset, V1StatusListResponse200ResultsItemProductVersions] = UNSET
-    product_streams: Union[Unset, V1StatusListResponse200ResultsItemProductStreams] = UNSET
-    product_variants: Union[Unset, V1StatusListResponse200ResultsItemProductVariants] = UNSET
+    product_versions: Union[
+        Unset, V1StatusListResponse200ResultsItemProductVersions
+    ] = UNSET
+    product_streams: Union[
+        Unset, V1StatusListResponse200ResultsItemProductStreams
+    ] = UNSET
+    product_variants: Union[
+        Unset, V1StatusListResponse200ResultsItemProductVariants
+    ] = UNSET
     channels: Union[Unset, V1StatusListResponse200ResultsItemChannels] = UNSET
     components: Union[Unset, V1StatusListResponse200ResultsItemComponents] = UNSET
     relations: Union[Unset, V1StatusListResponse200ResultsItemRelations] = UNSET
@@ -147,25 +163,41 @@ class V1StatusListResponse200ResultsItem:
             products = V1StatusListResponse200ResultsItemProducts.from_dict(_products)
 
         _product_versions = d.pop("product_versions", UNSET)
-        product_versions: Union[Unset, V1StatusListResponse200ResultsItemProductVersions]
+        product_versions: Union[
+            Unset, V1StatusListResponse200ResultsItemProductVersions
+        ]
         if isinstance(_product_versions, Unset):
             product_versions = UNSET
         else:
-            product_versions = V1StatusListResponse200ResultsItemProductVersions.from_dict(_product_versions)
+            product_versions = (
+                V1StatusListResponse200ResultsItemProductVersions.from_dict(
+                    _product_versions
+                )
+            )
 
         _product_streams = d.pop("product_streams", UNSET)
         product_streams: Union[Unset, V1StatusListResponse200ResultsItemProductStreams]
         if isinstance(_product_streams, Unset):
             product_streams = UNSET
         else:
-            product_streams = V1StatusListResponse200ResultsItemProductStreams.from_dict(_product_streams)
+            product_streams = (
+                V1StatusListResponse200ResultsItemProductStreams.from_dict(
+                    _product_streams
+                )
+            )
 
         _product_variants = d.pop("product_variants", UNSET)
-        product_variants: Union[Unset, V1StatusListResponse200ResultsItemProductVariants]
+        product_variants: Union[
+            Unset, V1StatusListResponse200ResultsItemProductVariants
+        ]
         if isinstance(_product_variants, Unset):
             product_variants = UNSET
         else:
-            product_variants = V1StatusListResponse200ResultsItemProductVariants.from_dict(_product_variants)
+            product_variants = (
+                V1StatusListResponse200ResultsItemProductVariants.from_dict(
+                    _product_variants
+                )
+            )
 
         _channels = d.pop("channels", UNSET)
         channels: Union[Unset, V1StatusListResponse200ResultsItemChannels]
@@ -179,14 +211,18 @@ class V1StatusListResponse200ResultsItem:
         if isinstance(_components, Unset):
             components = UNSET
         else:
-            components = V1StatusListResponse200ResultsItemComponents.from_dict(_components)
+            components = V1StatusListResponse200ResultsItemComponents.from_dict(
+                _components
+            )
 
         _relations = d.pop("relations", UNSET)
         relations: Union[Unset, V1StatusListResponse200ResultsItemRelations]
         if isinstance(_relations, Unset):
             relations = UNSET
         else:
-            relations = V1StatusListResponse200ResultsItemRelations.from_dict(_relations)
+            relations = V1StatusListResponse200ResultsItemRelations.from_dict(
+                _relations
+            )
 
         v1_status_list_response_200_results_item = cls(
             status=status,

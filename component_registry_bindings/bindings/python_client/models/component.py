@@ -284,7 +284,11 @@ class Component:
 
     def to_multipart(self) -> Dict[str, Any]:
         link = self.link if self.link is UNSET else (None, str(self.link), "text/plain")
-        download_url = self.download_url if self.download_url is UNSET else (None, str(self.download_url), "text/plain")
+        download_url = (
+            self.download_url
+            if self.download_url is UNSET
+            else (None, str(self.download_url), "text/plain")
+        )
         uuid = self.uuid if self.uuid is UNSET else (None, str(self.uuid), "text/plain")
         type: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.type, Unset):
@@ -298,8 +302,16 @@ class Component:
 
         purl = self.purl if self.purl is UNSET else (None, str(self.purl), "text/plain")
         name = self.name if self.name is UNSET else (None, str(self.name), "text/plain")
-        description = self.description if self.description is UNSET else (None, str(self.description), "text/plain")
-        related_url = self.related_url if self.related_url is UNSET else (None, str(self.related_url), "text/plain")
+        description = (
+            self.description
+            if self.description is UNSET
+            else (None, str(self.description), "text/plain")
+        )
+        related_url = (
+            self.related_url
+            if self.related_url is UNSET
+            else (None, str(self.related_url), "text/plain")
+        )
         tags: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.tags, Unset):
             _temp_tags = []
@@ -311,8 +323,16 @@ class Component:
                 _temp_tags.append(tags_item)
             tags = (None, json.dumps(_temp_tags), "application/json")
 
-        version = self.version if self.version is UNSET else (None, str(self.version), "text/plain")
-        release = self.release if self.release is UNSET else (None, str(self.release), "text/plain")
+        version = (
+            self.version
+            if self.version is UNSET
+            else (None, str(self.version), "text/plain")
+        )
+        release = (
+            self.release
+            if self.release is UNSET
+            else (None, str(self.release), "text/plain")
+        )
         el_match: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.el_match, Unset):
             _temp_el_match = self.el_match
@@ -320,10 +340,16 @@ class Component:
 
         arch = self.arch if self.arch is UNSET else (None, str(self.arch), "text/plain")
         nvr = self.nvr if self.nvr is UNSET else (None, str(self.nvr), "text/plain")
-        nevra = self.nevra if self.nevra is UNSET else (None, str(self.nevra), "text/plain")
-        epoch = self.epoch if self.epoch is UNSET else (None, str(self.epoch), "text/plain")
+        nevra = (
+            self.nevra if self.nevra is UNSET else (None, str(self.nevra), "text/plain")
+        )
+        epoch = (
+            self.epoch if self.epoch is UNSET else (None, str(self.epoch), "text/plain")
+        )
         copyright_text = (
-            self.copyright_text if self.copyright_text is UNSET else (None, str(self.copyright_text), "text/plain")
+            self.copyright_text
+            if self.copyright_text is UNSET
+            else (None, str(self.copyright_text), "text/plain")
         )
         license_concluded = (
             self.license_concluded
@@ -333,7 +359,11 @@ class Component:
         license_concluded_list: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.license_concluded_list, Unset):
             _temp_license_concluded_list = self.license_concluded_list
-            license_concluded_list = (None, json.dumps(_temp_license_concluded_list), "application/json")
+            license_concluded_list = (
+                None,
+                json.dumps(_temp_license_concluded_list),
+                "application/json",
+            )
 
         license_declared = (
             self.license_declared
@@ -343,7 +373,11 @@ class Component:
         license_declared_list: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.license_declared_list, Unset):
             _temp_license_declared_list = self.license_declared_list
-            license_declared_list = (None, json.dumps(_temp_license_declared_list), "application/json")
+            license_declared_list = (
+                None,
+                json.dumps(_temp_license_declared_list),
+                "application/json",
+            )
 
         openlcs_scan_url = (
             self.openlcs_scan_url
@@ -357,7 +391,11 @@ class Component:
         )
         software_build: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.software_build, Unset):
-            software_build = (None, json.dumps(self.software_build.to_dict()), "application/json")
+            software_build = (
+                None,
+                json.dumps(self.software_build.to_dict()),
+                "application/json",
+            )
 
         errata: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.errata, Unset):
@@ -384,7 +422,11 @@ class Component:
                     product_versions_item = product_versions_item_data.to_dict()
 
                 _temp_product_versions.append(product_versions_item)
-            product_versions = (None, json.dumps(_temp_product_versions), "application/json")
+            product_versions = (
+                None,
+                json.dumps(_temp_product_versions),
+                "application/json",
+            )
 
         product_streams: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.product_streams, Unset):
@@ -395,7 +437,11 @@ class Component:
                     product_streams_item = product_streams_item_data.to_dict()
 
                 _temp_product_streams.append(product_streams_item)
-            product_streams = (None, json.dumps(_temp_product_streams), "application/json")
+            product_streams = (
+                None,
+                json.dumps(_temp_product_streams),
+                "application/json",
+            )
 
         product_variants: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.product_variants, Unset):
@@ -406,7 +452,11 @@ class Component:
                     product_variants_item = product_variants_item_data.to_dict()
 
                 _temp_product_variants.append(product_variants_item)
-            product_variants = (None, json.dumps(_temp_product_variants), "application/json")
+            product_variants = (
+                None,
+                json.dumps(_temp_product_variants),
+                "application/json",
+            )
 
         channels: Union[Unset, Tuple[None, str, str]] = UNSET
         if not isinstance(self.channels, Unset):
@@ -452,11 +502,24 @@ class Component:
                 _temp_upstreams.append(upstreams_item)
             upstreams = (None, json.dumps(_temp_upstreams), "application/json")
 
-        manifest = self.manifest if self.manifest is UNSET else (None, str(self.manifest), "text/plain")
-        filename = self.filename if self.filename is UNSET else (None, str(self.filename), "text/plain")
+        manifest = (
+            self.manifest
+            if self.manifest is UNSET
+            else (None, str(self.manifest), "text/plain")
+        )
+        filename = (
+            self.filename
+            if self.filename is UNSET
+            else (None, str(self.filename), "text/plain")
+        )
 
         field_dict: Dict[str, Any] = {}
-        field_dict.update({key: (None, str(value), "text/plain") for key, value in self.additional_properties.items()})
+        field_dict.update(
+            {
+                key: (None, str(value), "text/plain")
+                for key, value in self.additional_properties.items()
+            }
+        )
         if link is not UNSET:
             field_dict["link"] = link
         if download_url is not UNSET:
@@ -641,7 +704,9 @@ class Component:
                 if isinstance(_product_versions_item, Unset):
                     product_versions_item = UNSET
                 else:
-                    product_versions_item = ComponentProductVersionsItem.from_dict(_product_versions_item)
+                    product_versions_item = ComponentProductVersionsItem.from_dict(
+                        _product_versions_item
+                    )
 
                 product_versions.append(product_versions_item)
 
@@ -656,7 +721,9 @@ class Component:
                 if isinstance(_product_streams_item, Unset):
                     product_streams_item = UNSET
                 else:
-                    product_streams_item = ComponentProductStreamsItem.from_dict(_product_streams_item)
+                    product_streams_item = ComponentProductStreamsItem.from_dict(
+                        _product_streams_item
+                    )
 
                 product_streams.append(product_streams_item)
 
@@ -671,7 +738,9 @@ class Component:
                 if isinstance(_product_variants_item, Unset):
                     product_variants_item = UNSET
                 else:
-                    product_variants_item = ComponentProductVariantsItem.from_dict(_product_variants_item)
+                    product_variants_item = ComponentProductVariantsItem.from_dict(
+                        _product_variants_item
+                    )
 
                 product_variants.append(product_variants_item)
 

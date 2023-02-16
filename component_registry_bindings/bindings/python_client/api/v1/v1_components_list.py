@@ -68,7 +68,9 @@ def _get_kwargs(
     json_namespace: Union[Unset, None, str] = UNSET
     if not isinstance(namespace, Unset):
 
-        json_namespace = V1ComponentsListNamespace(namespace).value if namespace else None
+        json_namespace = (
+            V1ComponentsListNamespace(namespace).value if namespace else None
+        )
 
     json_type: Union[Unset, None, str] = UNSET
     if not isinstance(type, Unset):

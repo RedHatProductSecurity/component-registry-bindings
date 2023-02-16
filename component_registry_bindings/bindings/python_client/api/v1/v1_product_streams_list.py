@@ -72,7 +72,9 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: requests.Response) -> Optional[PaginatedProductStreamList]:
+def _parse_response(
+    *, response: requests.Response
+) -> Optional[PaginatedProductStreamList]:
     if response.status_code == 200:
         _response_200 = response.json()
         response_200: PaginatedProductStreamList
@@ -85,7 +87,9 @@ def _parse_response(*, response: requests.Response) -> Optional[PaginatedProduct
     return None
 
 
-def _build_response(*, response: requests.Response) -> Response[PaginatedProductStreamList]:
+def _build_response(
+    *, response: requests.Response
+) -> Response[PaginatedProductStreamList]:
     return Response(
         status_code=response.status_code,
         content=response.content,

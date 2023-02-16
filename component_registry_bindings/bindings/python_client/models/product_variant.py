@@ -3,8 +3,12 @@ from typing import Any, Dict, List, Type, TypeVar
 import attr
 
 from ..models.product_variant_channels_item import ProductVariantChannelsItem
-from ..models.product_variant_product_streams_item import ProductVariantProductStreamsItem
-from ..models.product_variant_product_versions_item import ProductVariantProductVersionsItem
+from ..models.product_variant_product_streams_item import (
+    ProductVariantProductStreamsItem,
+)
+from ..models.product_variant_product_versions_item import (
+    ProductVariantProductVersionsItem,
+)
 from ..models.product_variant_products_item import ProductVariantProductsItem
 from ..models.product_variant_relations_item import ProductVariantRelationsItem
 from ..models.tag import Tag
@@ -202,7 +206,9 @@ class ProductVariant:
                 if isinstance(_relations_item, Unset):
                     relations_item = UNSET
                 else:
-                    relations_item = ProductVariantRelationsItem.from_dict(_relations_item)
+                    relations_item = ProductVariantRelationsItem.from_dict(
+                        _relations_item
+                    )
 
                 relations.append(relations_item)
 
@@ -232,7 +238,9 @@ class ProductVariant:
                 if isinstance(_product_versions_item, Unset):
                     product_versions_item = UNSET
                 else:
-                    product_versions_item = ProductVariantProductVersionsItem.from_dict(_product_versions_item)
+                    product_versions_item = ProductVariantProductVersionsItem.from_dict(
+                        _product_versions_item
+                    )
 
                 product_versions.append(product_versions_item)
 
@@ -247,7 +255,9 @@ class ProductVariant:
                 if isinstance(_product_streams_item, Unset):
                     product_streams_item = UNSET
                 else:
-                    product_streams_item = ProductVariantProductStreamsItem.from_dict(_product_streams_item)
+                    product_streams_item = ProductVariantProductStreamsItem.from_dict(
+                        _product_streams_item
+                    )
 
                 product_streams.append(product_streams_item)
 

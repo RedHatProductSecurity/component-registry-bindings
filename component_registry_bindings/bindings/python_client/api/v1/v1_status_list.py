@@ -32,7 +32,9 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: requests.Response) -> Optional[V1StatusListResponse200]:
+def _parse_response(
+    *, response: requests.Response
+) -> Optional[V1StatusListResponse200]:
     if response.status_code == 200:
         _response_200 = response.json()
         response_200: V1StatusListResponse200
@@ -45,7 +47,9 @@ def _parse_response(*, response: requests.Response) -> Optional[V1StatusListResp
     return None
 
 
-def _build_response(*, response: requests.Response) -> Response[V1StatusListResponse200]:
+def _build_response(
+    *, response: requests.Response
+) -> Response[V1StatusListResponse200]:
     return Response(
         status_code=response.status_code,
         content=response.content,

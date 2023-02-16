@@ -2,7 +2,9 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
-from ..models.v1_status_list_response_200_results_item import V1StatusListResponse200ResultsItem
+from ..models.v1_status_list_response_200_results_item import (
+    V1StatusListResponse200ResultsItem,
+)
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="V1StatusListResponse200")
@@ -65,7 +67,9 @@ class V1StatusListResponse200:
                 if isinstance(_results_item, Unset):
                     results_item = UNSET
                 else:
-                    results_item = V1StatusListResponse200ResultsItem.from_dict(_results_item)
+                    results_item = V1StatusListResponse200ResultsItem.from_dict(
+                        _results_item
+                    )
 
                 results.append(results_item)
 

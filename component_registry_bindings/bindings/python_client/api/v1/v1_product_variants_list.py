@@ -70,7 +70,9 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: requests.Response) -> Optional[PaginatedProductVariantList]:
+def _parse_response(
+    *, response: requests.Response
+) -> Optional[PaginatedProductVariantList]:
     if response.status_code == 200:
         _response_200 = response.json()
         response_200: PaginatedProductVariantList
@@ -83,7 +85,9 @@ def _parse_response(*, response: requests.Response) -> Optional[PaginatedProduct
     return None
 
 
-def _build_response(*, response: requests.Response) -> Response[PaginatedProductVariantList]:
+def _build_response(
+    *, response: requests.Response
+) -> Response[PaginatedProductVariantList]:
     return Response(
         status_code=response.status_code,
         content=response.content,
