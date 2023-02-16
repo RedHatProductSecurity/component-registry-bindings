@@ -1,0 +1,23 @@
+name: Release to PYPI
+on:
+  release:
+    types: [created]
+jobs:
+  test_build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: python3 -m pip install --upgrade pip build twine
+    - name: Build python package
+      run: python3 -m build
+    # TODO: change to the production PYPI
+    - name: Release python package to PYPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
+        TWINE_REPOSITORY: testpypi
+      run: python3 -m twine upload dist/*
