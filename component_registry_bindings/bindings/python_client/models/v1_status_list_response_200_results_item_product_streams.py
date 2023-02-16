@@ -33,7 +33,9 @@ class V1StatusListResponse200ResultsItemProductStreams:
             count=count,
         )
 
-        v1_status_list_response_200_results_item_product_streams.additional_properties = d
+        v1_status_list_response_200_results_item_product_streams.additional_properties = (
+            d
+        )
         return v1_status_list_response_200_results_item_product_streams
 
     @property

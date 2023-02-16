@@ -3,8 +3,12 @@ from typing import Any, Dict, List, Type, TypeVar
 import attr
 
 from ..models.product_version_channels_item import ProductVersionChannelsItem
-from ..models.product_version_product_streams_item import ProductVersionProductStreamsItem
-from ..models.product_version_product_variants_item import ProductVersionProductVariantsItem
+from ..models.product_version_product_streams_item import (
+    ProductVersionProductStreamsItem,
+)
+from ..models.product_version_product_variants_item import (
+    ProductVersionProductVariantsItem,
+)
 from ..models.product_version_products_item import ProductVersionProductsItem
 from ..models.tag import Tag
 from ..types import UNSET, Unset
@@ -203,7 +207,9 @@ class ProductVersion:
                 if isinstance(_product_streams_item, Unset):
                     product_streams_item = UNSET
                 else:
-                    product_streams_item = ProductVersionProductStreamsItem.from_dict(_product_streams_item)
+                    product_streams_item = ProductVersionProductStreamsItem.from_dict(
+                        _product_streams_item
+                    )
 
                 product_streams.append(product_streams_item)
 
@@ -218,7 +224,9 @@ class ProductVersion:
                 if isinstance(_product_variants_item, Unset):
                     product_variants_item = UNSET
                 else:
-                    product_variants_item = ProductVersionProductVariantsItem.from_dict(_product_variants_item)
+                    product_variants_item = ProductVersionProductVariantsItem.from_dict(
+                        _product_variants_item
+                    )
 
                 product_variants.append(product_variants_item)
 

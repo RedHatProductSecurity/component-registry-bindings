@@ -153,7 +153,9 @@ class SoftwareBuild:
                 if isinstance(_components_item, Unset):
                     components_item = UNSET
                 else:
-                    components_item = SoftwareBuildComponentsItem.from_dict(_components_item)
+                    components_item = SoftwareBuildComponentsItem.from_dict(
+                        _components_item
+                    )
 
                 components.append(components_item)
 

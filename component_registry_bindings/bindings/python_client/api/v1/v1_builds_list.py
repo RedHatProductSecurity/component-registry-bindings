@@ -29,7 +29,9 @@ def _get_kwargs(
     json_build_type: Union[Unset, None, str] = UNSET
     if not isinstance(build_type, Unset):
 
-        json_build_type = V1BuildsListBuildType(build_type).value if build_type else None
+        json_build_type = (
+            V1BuildsListBuildType(build_type).value if build_type else None
+        )
 
     json_exclude_fields: Union[Unset, None, List[str]] = UNSET
     if not isinstance(exclude_fields, Unset):
@@ -64,7 +66,9 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: requests.Response) -> Optional[PaginatedSoftwareBuildList]:
+def _parse_response(
+    *, response: requests.Response
+) -> Optional[PaginatedSoftwareBuildList]:
     if response.status_code == 200:
         _response_200 = response.json()
         response_200: PaginatedSoftwareBuildList
@@ -77,7 +81,9 @@ def _parse_response(*, response: requests.Response) -> Optional[PaginatedSoftwar
     return None
 
 
-def _build_response(*, response: requests.Response) -> Response[PaginatedSoftwareBuildList]:
+def _build_response(
+    *, response: requests.Response
+) -> Response[PaginatedSoftwareBuildList]:
     return Response(
         status_code=response.status_code,
         content=response.content,

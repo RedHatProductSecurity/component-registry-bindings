@@ -33,7 +33,9 @@ class V1StatusListResponse200ResultsItemProductVariants:
             count=count,
         )
 
-        v1_status_list_response_200_results_item_product_variants.additional_properties = d
+        v1_status_list_response_200_results_item_product_variants.additional_properties = (
+            d
+        )
         return v1_status_list_response_200_results_item_product_variants
 
     @property
