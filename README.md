@@ -4,5 +4,9 @@ A client library for accessing Component Registry API
 ## Installation
 
 ```
-pip install -e git+https://github.com/RedHatProductSecurity/component-registry-bindings#egg=component_registry_bindings
+pip install component_registry_bindings
 ```
+
+## For more details read [tutorial](TUTORIAL.md)
+
+## For development details read [developer guide](DEVELOP.md)
