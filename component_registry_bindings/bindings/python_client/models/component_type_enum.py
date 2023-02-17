@@ -13,6 +13,7 @@ class ComponentTypeEnum(str, Enum):
     RPMMOD = "RPMMOD"
     RPM = "RPM"
     PYPI = "PYPI"
+    NONE = ""
 
     def __str__(self) -> str:
         return str(self.value)
