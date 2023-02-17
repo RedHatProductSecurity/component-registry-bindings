@@ -1,4 +1,4 @@
-# Minimal set of dependencies required to use OSIDB bindings
+# Minimal set of dependencies required to use Component Registry bindings
 attrs
 requests
 python-dateutil
