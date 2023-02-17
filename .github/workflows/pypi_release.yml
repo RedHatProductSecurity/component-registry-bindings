@@ -3,7 +3,7 @@ on:
   release:
     types: [created]
 jobs:
-  test_build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -18,6 +18,6 @@ jobs:
     - name: Release python package to PYPI
       env:
         TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
-        TWINE_REPOSITORY: testpypi
+        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        TWINE_REPOSITORY: pypi
       run: python3 -m twine upload dist/*
