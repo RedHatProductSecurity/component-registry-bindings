@@ -14,7 +14,6 @@ jobs:
       run: python3 -m pip install --upgrade pip build twine
     - name: Build python package
       run: python3 -m build
-    # TODO: change to the production PYPI
     - name: Release python package to PYPI
       env:
         TWINE_USERNAME: __token__
