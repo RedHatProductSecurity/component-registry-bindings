@@ -39,3 +39,11 @@ compile-deps:
 sync-deps:
 	@echo ">synchronizing python dependencies"
 	$(ps) requirements.txt devel-requirements.txt $$([ -f local-requirements.txt ] && echo 'local-requirements.txt')
+
+patch-release:
+	@echo ">preparing patch release"
+	scripts/patch_release.sh
+
+release:
+	@echo ">preparing major/minor release"
+	scripts/release.sh
