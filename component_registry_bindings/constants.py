@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 COMPONENT_REGISTRY_API_VERSION: str = "v1"
-COMPONENT_REGISTRY_BINDINGS_USERAGENT: str = "component-registry-bindings-1.2.0-beta"
+COMPONENT_REGISTRY_BINDINGS_USERAGENT: str = "component-registry-bindings-1.3.0"
 COMPONENT_REGISTRY_BINDINGS_API_PATH: str = (
     f".bindings.python_client.api.{COMPONENT_REGISTRY_API_VERSION}"
 )
