@@ -13,6 +13,8 @@ class V1ComponentsListType(str, Enum):
     PYPI = "PYPI"
     RPM = "RPM"
     RPMMOD = "RPMMOD"
+    # This is a temporary tweak to accept empty Enum
+    NONE = ""
 
     def __str__(self) -> str:
         return str(self.value)

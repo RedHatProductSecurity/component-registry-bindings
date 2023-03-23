@@ -79,6 +79,15 @@ class PaginatedProductList:
         paginated_product_list.additional_properties = d
         return paginated_product_list
 
+    @staticmethod
+    def get_fields():
+        return {
+            "count": int,
+            "next": str,
+            "previous": str,
+            "results": List[Product],
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

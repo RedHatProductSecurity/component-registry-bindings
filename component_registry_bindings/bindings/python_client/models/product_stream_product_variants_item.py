@@ -26,6 +26,10 @@ class ProductStreamProductVariantsItem:
         product_stream_product_variants_item.additional_properties = d
         return product_stream_product_variants_item
 
+    @staticmethod
+    def get_fields():
+        return {}
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

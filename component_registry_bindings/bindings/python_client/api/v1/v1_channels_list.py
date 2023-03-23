@@ -140,3 +140,14 @@ def sync(
         search=search,
         type=type,
     ).parsed
+
+
+QUERY_PARAMS = {
+    "exclude_fields": List[str],
+    "include_fields": List[str],
+    "limit": int,
+    "name": str,
+    "offset": int,
+    "search": str,
+    "type": V1ChannelsListType,
+}

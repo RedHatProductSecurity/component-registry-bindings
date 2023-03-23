@@ -97,3 +97,8 @@ def sync(
         client=client,
         format_=format_,
     ).parsed
+
+
+QUERY_PARAMS = {
+    "format": V1SchemaRetrieveFormat,
+}

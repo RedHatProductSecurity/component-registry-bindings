@@ -94,3 +94,9 @@ def sync(
         limit=limit,
         offset=offset,
     ).parsed
+
+
+QUERY_PARAMS = {
+    "limit": int,
+    "offset": int,
+}

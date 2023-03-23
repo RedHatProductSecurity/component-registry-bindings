@@ -110,3 +110,9 @@ def sync(
         exclude_fields=exclude_fields,
         include_fields=include_fields,
     ).parsed
+
+
+QUERY_PARAMS = {
+    "exclude_fields": List[str],
+    "include_fields": List[str],
+}

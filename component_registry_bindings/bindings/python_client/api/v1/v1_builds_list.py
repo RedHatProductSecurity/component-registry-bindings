@@ -152,3 +152,15 @@ def sync(
         search=search,
         tags=tags,
     ).parsed
+
+
+QUERY_PARAMS = {
+    "build_type": V1BuildsListBuildType,
+    "exclude_fields": List[str],
+    "include_fields": List[str],
+    "limit": int,
+    "name": str,
+    "offset": int,
+    "search": str,
+    "tags": int,
+}
