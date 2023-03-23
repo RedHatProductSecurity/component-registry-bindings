@@ -160,4 +160,4 @@ Which can then be converted to a dictionary.
 single_response_dict = single_response.to_dict()
 ```
 
-Each paginated response comes also with pagination helpers which allows user to conveniently browse through all the pages without the need to adjust offset or limit. These methods are `.next()`, `.prev()` for basic navigation in both directions and .iterator()` which returns iterable enabling looping through the responses in for loop.
+Each paginated response comes also with pagination helpers which allows user to conveniently browse through all the pages without the need to adjust offset or limit. These methods are `.next()`, `.prev()` for basic navigation in both directions and `.iterator` which returns iterable enabling looping through the responses in for loop.
