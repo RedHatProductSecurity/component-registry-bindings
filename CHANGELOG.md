@@ -11,12 +11,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- fix pagination handling when next/previous are missing
 
 ## [1.3.0] - 2023-03-23
 ### Added
 - add `next()`, `prev()` and `iterator()` methods for paginated
   responses to make page browsing easier
-  
+
 ## [1.2.0-beta] - 2023-02-17
 ### Added
 - first experimental release to the PyPI - versioning not yet fully synced with Component Registry

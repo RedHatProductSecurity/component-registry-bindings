@@ -144,7 +144,7 @@ class SessionOperationsGroup:
             kwargs.pop("limit", None)
             kwargs.pop("offset", None)
             param = getattr(response, param_name, None)
-            if param is None:
+            if param in (None, UNSET):
                 setattr(response, func_name, lambda: None)
             else:
                 limit = re.search("limit=(\d+)", param)
