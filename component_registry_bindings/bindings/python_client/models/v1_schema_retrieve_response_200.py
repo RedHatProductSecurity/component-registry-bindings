@@ -26,6 +26,10 @@ class V1SchemaRetrieveResponse200:
         v1_schema_retrieve_response_200.additional_properties = d
         return v1_schema_retrieve_response_200
 
+    @staticmethod
+    def get_fields():
+        return {}
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

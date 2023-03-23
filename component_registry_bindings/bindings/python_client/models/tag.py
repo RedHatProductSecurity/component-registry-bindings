@@ -60,6 +60,14 @@ class Tag:
         tag.additional_properties = d
         return tag
 
+    @staticmethod
+    def get_fields():
+        return {
+            "name": str,
+            "created_at": datetime.datetime,
+            "value": str,
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

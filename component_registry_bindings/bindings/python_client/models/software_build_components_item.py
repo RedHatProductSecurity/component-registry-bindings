@@ -26,6 +26,10 @@ class SoftwareBuildComponentsItem:
         software_build_components_item.additional_properties = d
         return software_build_components_item
 
+    @staticmethod
+    def get_fields():
+        return {}
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

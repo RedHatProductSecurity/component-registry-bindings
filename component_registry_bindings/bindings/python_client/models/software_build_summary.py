@@ -75,6 +75,16 @@ class SoftwareBuildSummary:
         software_build_summary.additional_properties = d
         return software_build_summary
 
+    @staticmethod
+    def get_fields():
+        return {
+            "link": str,
+            "build_id": int,
+            "build_type": BuildTypeEnum,
+            "name": str,
+            "source": str,
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

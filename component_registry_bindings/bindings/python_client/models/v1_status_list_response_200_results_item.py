@@ -243,6 +243,24 @@ class V1StatusListResponse200ResultsItem:
         v1_status_list_response_200_results_item.additional_properties = d
         return v1_status_list_response_200_results_item
 
+    @staticmethod
+    def get_fields():
+        return {
+            "status": str,
+            "dt": datetime.datetime,
+            "service_version": str,
+            "rest_api_version": str,
+            "db_size": str,
+            "builds": V1StatusListResponse200ResultsItemBuilds,
+            "products": V1StatusListResponse200ResultsItemProducts,
+            "product_versions": V1StatusListResponse200ResultsItemProductVersions,
+            "product_streams": V1StatusListResponse200ResultsItemProductStreams,
+            "product_variants": V1StatusListResponse200ResultsItemProductVariants,
+            "channels": V1StatusListResponse200ResultsItemChannels,
+            "components": V1StatusListResponse200ResultsItemComponents,
+            "relations": V1StatusListResponse200ResultsItemRelations,
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

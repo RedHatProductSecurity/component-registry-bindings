@@ -26,6 +26,10 @@ class ProductStreamComposes:
         product_stream_composes.additional_properties = d
         return product_stream_composes
 
+    @staticmethod
+    def get_fields():
+        return {}
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

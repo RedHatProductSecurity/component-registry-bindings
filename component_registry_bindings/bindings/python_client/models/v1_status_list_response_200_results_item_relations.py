@@ -36,6 +36,12 @@ class V1StatusListResponse200ResultsItemRelations:
         v1_status_list_response_200_results_item_relations.additional_properties = d
         return v1_status_list_response_200_results_item_relations
 
+    @staticmethod
+    def get_fields():
+        return {
+            "count": int,
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

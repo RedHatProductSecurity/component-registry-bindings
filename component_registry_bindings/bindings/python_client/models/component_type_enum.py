@@ -13,6 +13,7 @@ class ComponentTypeEnum(str, Enum):
     RPMMOD = "RPMMOD"
     RPM = "RPM"
     PYPI = "PYPI"
+    # This is a temporary tweak to accept empty Enum
     NONE = ""
 
     def __str__(self) -> str:

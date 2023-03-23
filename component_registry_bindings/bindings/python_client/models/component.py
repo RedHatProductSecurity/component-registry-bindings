@@ -850,6 +850,47 @@ class Component:
         component.additional_properties = d
         return component
 
+    @staticmethod
+    def get_fields():
+        return {
+            "link": str,
+            "download_url": str,
+            "uuid": str,
+            "type": ComponentTypeEnum,
+            "namespace": NamespaceEnum,
+            "purl": str,
+            "name": str,
+            "description": str,
+            "related_url": str,
+            "tags": List[Tag],
+            "version": str,
+            "release": str,
+            "el_match": List[str],
+            "arch": str,
+            "nvr": str,
+            "nevra": str,
+            "epoch": str,
+            "copyright_text": str,
+            "license_concluded": str,
+            "license_concluded_list": List[str],
+            "license_declared": str,
+            "license_declared_list": List[str],
+            "openlcs_scan_url": str,
+            "openlcs_scan_version": str,
+            "software_build": SoftwareBuildSummary,
+            "errata": List[str],
+            "products": List[ComponentProductsItem],
+            "product_versions": List[ComponentProductVersionsItem],
+            "product_streams": List[ComponentProductStreamsItem],
+            "product_variants": List[ComponentProductVariantsItem],
+            "channels": List[ComponentChannelsItem],
+            "sources": List[ComponentSourcesItem],
+            "provides": List[ComponentProvidesItem],
+            "upstreams": List[ComponentUpstreamsItem],
+            "manifest": str,
+            "filename": str,
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

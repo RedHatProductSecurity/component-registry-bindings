@@ -250,6 +250,25 @@ class ProductVersion:
         product_version.additional_properties = d
         return product_version
 
+    @staticmethod
+    def get_fields():
+        return {
+            "link": str,
+            "uuid": str,
+            "ofuri": str,
+            "name": str,
+            "description": str,
+            "build_count": int,
+            "builds": str,
+            "components": str,
+            "upstreams": str,
+            "tags": List[Tag],
+            "channels": List[ProductVersionChannelsItem],
+            "products": List[ProductVersionProductsItem],
+            "product_streams": List[ProductVersionProductStreamsItem],
+            "product_variants": List[ProductVersionProductVariantsItem],
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

@@ -355,6 +355,33 @@ class ProductStream:
         product_stream.additional_properties = d
         return product_stream
 
+    @staticmethod
+    def get_fields():
+        return {
+            "link": str,
+            "uuid": str,
+            "ofuri": str,
+            "name": str,
+            "description": str,
+            "build_count": int,
+            "builds": str,
+            "components": str,
+            "upstreams": str,
+            "tags": List[Tag],
+            "channels": List[ProductStreamChannelsItem],
+            "cpe": str,
+            "active": bool,
+            "brew_tags": ProductStreamBrewTags,
+            "yum_repositories": List[str],
+            "composes": ProductStreamComposes,
+            "et_product_versions": List[str],
+            "manifest": str,
+            "relations": List[ProductStreamRelationsItem],
+            "products": List[ProductStreamProductsItem],
+            "product_versions": List[ProductStreamProductVersionsItem],
+            "product_variants": List[ProductStreamProductVariantsItem],
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

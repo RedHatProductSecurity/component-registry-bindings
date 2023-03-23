@@ -175,6 +175,21 @@ class SoftwareBuild:
         software_build.additional_properties = d
         return software_build
 
+    @staticmethod
+    def get_fields():
+        return {
+            "link": str,
+            "web_url": str,
+            "build_id": int,
+            "build_type": BuildTypeEnum,
+            "name": str,
+            "source": str,
+            "tags": List[Tag],
+            "created_at": datetime.datetime,
+            "last_changed": datetime.datetime,
+            "components": List[SoftwareBuildComponentsItem],
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

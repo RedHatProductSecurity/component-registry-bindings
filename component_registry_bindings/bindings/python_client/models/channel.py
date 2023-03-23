@@ -239,6 +239,23 @@ class Channel:
         channel.additional_properties = d
         return channel
 
+    @staticmethod
+    def get_fields():
+        return {
+            "uuid": str,
+            "link": str,
+            "last_changed": datetime.datetime,
+            "created_at": datetime.datetime,
+            "name": str,
+            "relative_url": str,
+            "type": ChannelTypeEnum,
+            "description": str,
+            "products": List[ChannelProductsItem],
+            "product_versions": List[ChannelProductVersionsItem],
+            "product_streams": List[ChannelProductStreamsItem],
+            "product_variants": List[ChannelProductVariantsItem],
+        }
+
     @property
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())

@@ -180,3 +180,21 @@ def sync(
         search=search,
         tags=tags,
     ).parsed
+
+
+QUERY_PARAMS = {
+    "channels": str,
+    "exclude_fields": List[str],
+    "include_fields": List[str],
+    "limit": int,
+    "name": str,
+    "offset": int,
+    "product_streams": str,
+    "product_variants": str,
+    "product_versions": str,
+    "products": str,
+    "re_name": str,
+    "re_ofuri": str,
+    "search": str,
+    "tags": int,
+}
