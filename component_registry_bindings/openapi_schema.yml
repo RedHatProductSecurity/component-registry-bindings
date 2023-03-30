@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Component Registry API
-  version: 1.3.2
+  version: 1.3.3
   description: REST API auto-generated docs for Component Registry
 paths:
   /api/healthy:
@@ -323,11 +323,23 @@ paths:
         schema:
           type: string
       - in: query
+        name: re_provides
+        schema:
+          type: string
+      - in: query
         name: re_purl
         schema:
           type: string
       - in: query
-        name: re_upstream
+        name: re_sources
+        schema:
+          type: string
+      - in: query
+        name: re_upstreams
+        schema:
+          type: string
+      - in: query
+        name: related_url
         schema:
           type: string
       - in: query
