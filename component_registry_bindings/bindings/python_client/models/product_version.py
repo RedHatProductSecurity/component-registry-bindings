@@ -11,13 +11,13 @@ from ..models.product_version_product_variants_item import (
 )
 from ..models.product_version_products_item import ProductVersionProductsItem
 from ..models.tag import Tag
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="ProductVersion")
 
 
 @attr.s(auto_attribs=True)
-class ProductVersion:
+class ProductVersion(ComponentRegistryModel):
     """Show detailed information for ProductVersion(s).
     Add or remove fields using ?include_fields=&exclude_fields="""
 

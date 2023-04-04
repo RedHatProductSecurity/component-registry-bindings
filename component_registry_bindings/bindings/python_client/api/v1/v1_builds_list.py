@@ -7,6 +7,17 @@ from ...models.paginated_software_build_list import PaginatedSoftwareBuildList
 from ...models.v1_builds_list_build_type import V1BuildsListBuildType
 from ...types import UNSET, Response, Unset
 
+QUERY_PARAMS = {
+    "build_type": V1BuildsListBuildType,
+    "exclude_fields": List[str],
+    "include_fields": List[str],
+    "limit": int,
+    "name": str,
+    "offset": int,
+    "search": str,
+    "tags": int,
+}
+
 
 def _get_kwargs(
     *,
@@ -152,15 +163,3 @@ def sync(
         search=search,
         tags=tags,
     ).parsed
-
-
-QUERY_PARAMS = {
-    "build_type": V1BuildsListBuildType,
-    "exclude_fields": List[str],
-    "include_fields": List[str],
-    "limit": int,
-    "name": str,
-    "offset": int,
-    "search": str,
-    "tags": int,
-}

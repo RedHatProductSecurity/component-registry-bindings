@@ -7,6 +7,10 @@ from ...models.v1_schema_retrieve_format import V1SchemaRetrieveFormat
 from ...models.v1_schema_retrieve_response_200 import V1SchemaRetrieveResponse200
 from ...types import UNSET, Response, Unset
 
+QUERY_PARAMS = {
+    "format": V1SchemaRetrieveFormat,
+}
+
 
 def _get_kwargs(
     *,
@@ -97,8 +101,3 @@ def sync(
         client=client,
         format_=format_,
     ).parsed
-
-
-QUERY_PARAMS = {
-    "format": V1SchemaRetrieveFormat,
-}

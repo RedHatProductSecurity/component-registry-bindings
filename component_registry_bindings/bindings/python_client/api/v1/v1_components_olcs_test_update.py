@@ -6,6 +6,9 @@ from ...client import Client
 from ...models.component import Component
 from ...types import UNSET, Response, Unset
 
+QUERY_PARAMS = {}
+REQUEST_BODY_TYPE = Component
+
 
 def _get_kwargs(
     uuid: str,
@@ -103,6 +106,3 @@ def sync(
         multipart_data=multipart_data,
         json_body=json_body,
     ).parsed
-
-
-QUERY_PARAMS = {}

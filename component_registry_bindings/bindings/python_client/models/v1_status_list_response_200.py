@@ -5,13 +5,13 @@ import attr
 from ..models.v1_status_list_response_200_results_item import (
     V1StatusListResponse200ResultsItem,
 )
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="V1StatusListResponse200")
 
 
 @attr.s(auto_attribs=True)
-class V1StatusListResponse200:
+class V1StatusListResponse200(ComponentRegistryModel):
     """ """
 
     count: Union[Unset, int] = UNSET

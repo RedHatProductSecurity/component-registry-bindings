@@ -7,6 +7,16 @@ from ...models.paginated_channel_list import PaginatedChannelList
 from ...models.v1_channels_list_type import V1ChannelsListType
 from ...types import UNSET, Response, Unset
 
+QUERY_PARAMS = {
+    "exclude_fields": List[str],
+    "include_fields": List[str],
+    "limit": int,
+    "name": str,
+    "offset": int,
+    "search": str,
+    "type": V1ChannelsListType,
+}
+
 
 def _get_kwargs(
     *,
@@ -140,14 +150,3 @@ def sync(
         search=search,
         type=type,
     ).parsed
-
-
-QUERY_PARAMS = {
-    "exclude_fields": List[str],
-    "include_fields": List[str],
-    "limit": int,
-    "name": str,
-    "offset": int,
-    "search": str,
-    "type": V1ChannelsListType,
-}

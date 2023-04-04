@@ -6,6 +6,8 @@ from ...client import Client
 from ...models.product_stream import ProductStream
 from ...types import UNSET, Response, Unset
 
+QUERY_PARAMS = {}
+
 
 def _get_kwargs(
     uuid: str,
@@ -79,6 +81,3 @@ def sync(
         uuid=uuid,
         client=client,
     ).parsed
-
-
-QUERY_PARAMS = {}

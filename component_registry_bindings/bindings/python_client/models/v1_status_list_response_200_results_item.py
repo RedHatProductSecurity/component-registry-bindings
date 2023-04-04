@@ -28,13 +28,13 @@ from ..models.v1_status_list_response_200_results_item_products import (
 from ..models.v1_status_list_response_200_results_item_relations import (
     V1StatusListResponse200ResultsItemRelations,
 )
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="V1StatusListResponse200ResultsItem")
 
 
 @attr.s(auto_attribs=True)
-class V1StatusListResponse200ResultsItem:
+class V1StatusListResponse200ResultsItem(ComponentRegistryModel):
     """ """
 
     status: Union[Unset, str] = UNSET

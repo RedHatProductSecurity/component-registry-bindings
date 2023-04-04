@@ -7,13 +7,13 @@ from ..models.product_product_streams_item import ProductProductStreamsItem
 from ..models.product_product_variants_item import ProductProductVariantsItem
 from ..models.product_product_versions_item import ProductProductVersionsItem
 from ..models.tag import Tag
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="Product")
 
 
 @attr.s(auto_attribs=True)
-class Product:
+class Product(ComponentRegistryModel):
     """Show detailed information for Product(s).
     Add or remove fields using ?include_fields=&exclude_fields="""
 

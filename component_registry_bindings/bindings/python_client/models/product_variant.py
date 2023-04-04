@@ -12,13 +12,13 @@ from ..models.product_variant_product_versions_item import (
 from ..models.product_variant_products_item import ProductVariantProductsItem
 from ..models.product_variant_relations_item import ProductVariantRelationsItem
 from ..models.tag import Tag
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="ProductVariant")
 
 
 @attr.s(auto_attribs=True)
-class ProductVariant:
+class ProductVariant(ComponentRegistryModel):
     """Show detailed information for ProductVariant(s).
     Add or remove fields using ?include_fields=&exclude_fields="""
 

@@ -2,13 +2,13 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="V1StatusListResponse200ResultsItemChannels")
 
 
 @attr.s(auto_attribs=True)
-class V1StatusListResponse200ResultsItemChannels:
+class V1StatusListResponse200ResultsItemChannels(ComponentRegistryModel):
     """ """
 
     count: Union[Unset, int] = UNSET
