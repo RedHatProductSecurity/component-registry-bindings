@@ -14,13 +14,13 @@ from ..models.product_stream_product_versions_item import (
 from ..models.product_stream_products_item import ProductStreamProductsItem
 from ..models.product_stream_relations_item import ProductStreamRelationsItem
 from ..models.tag import Tag
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="ProductStream")
 
 
 @attr.s(auto_attribs=True)
-class ProductStream:
+class ProductStream(ComponentRegistryModel):
     """Show detailed information for ProductStream(s).
     Add or remove fields using ?include_fields=&exclude_fields="""
 

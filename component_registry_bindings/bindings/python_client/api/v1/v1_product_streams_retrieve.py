@@ -6,6 +6,11 @@ from ...client import Client
 from ...models.product_stream import ProductStream
 from ...types import UNSET, Response, Unset
 
+QUERY_PARAMS = {
+    "exclude_fields": List[str],
+    "include_fields": List[str],
+}
+
 
 def _get_kwargs(
     uuid: str,
@@ -110,9 +115,3 @@ def sync(
         exclude_fields=exclude_fields,
         include_fields=include_fields,
     ).parsed
-
-
-QUERY_PARAMS = {
-    "exclude_fields": List[str],
-    "include_fields": List[str],
-}

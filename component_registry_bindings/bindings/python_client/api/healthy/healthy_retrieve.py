@@ -5,6 +5,8 @@ import requests
 from ...client import Client
 from ...types import Response
 
+QUERY_PARAMS = {}
+
 
 def _get_kwargs(
     *,

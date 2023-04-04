@@ -3,13 +3,13 @@ from typing import Any, Dict, List, Type, TypeVar
 import attr
 
 from ..models.build_type_enum import BuildTypeEnum
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="SoftwareBuildSummary")
 
 
 @attr.s(auto_attribs=True)
-class SoftwareBuildSummary:
+class SoftwareBuildSummary(ComponentRegistryModel):
     """Show summary information for a SoftwareBuild.
     Add or remove fields using ?include_fields=&exclude_fields="""
 

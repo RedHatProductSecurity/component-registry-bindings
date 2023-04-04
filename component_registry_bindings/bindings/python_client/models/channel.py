@@ -9,13 +9,13 @@ from ..models.channel_product_variants_item import ChannelProductVariantsItem
 from ..models.channel_product_versions_item import ChannelProductVersionsItem
 from ..models.channel_products_item import ChannelProductsItem
 from ..models.channel_type_enum import ChannelTypeEnum
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="Channel")
 
 
 @attr.s(auto_attribs=True)
-class Channel:
+class Channel(ComponentRegistryModel):
     """Show detailed information for Channel(s).
     Add or remove fields using ?include_fields=&exclude_fields="""
 

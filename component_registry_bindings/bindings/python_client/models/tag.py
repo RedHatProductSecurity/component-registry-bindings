@@ -4,13 +4,13 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 import attr
 from dateutil.parser import isoparse
 
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="Tag")
 
 
 @attr.s(auto_attribs=True)
-class Tag:
+class Tag(ComponentRegistryModel):
     """ """
 
     name: str

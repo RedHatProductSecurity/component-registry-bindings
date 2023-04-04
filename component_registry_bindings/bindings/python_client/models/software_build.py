@@ -7,13 +7,13 @@ from dateutil.parser import isoparse
 from ..models.build_type_enum import BuildTypeEnum
 from ..models.software_build_components_item import SoftwareBuildComponentsItem
 from ..models.tag import Tag
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="SoftwareBuild")
 
 
 @attr.s(auto_attribs=True)
-class SoftwareBuild:
+class SoftwareBuild(ComponentRegistryModel):
     """Show detailed information for SoftwareBuild(s).
     Add or remove fields using ?include_fields=&exclude_fields="""
 

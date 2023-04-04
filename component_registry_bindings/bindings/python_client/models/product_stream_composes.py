@@ -2,11 +2,13 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
+from ..types import ComponentRegistryModel
+
 T = TypeVar("T", bound="ProductStreamComposes")
 
 
 @attr.s(auto_attribs=True)
-class ProductStreamComposes:
+class ProductStreamComposes(ComponentRegistryModel):
     """ """
 
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)

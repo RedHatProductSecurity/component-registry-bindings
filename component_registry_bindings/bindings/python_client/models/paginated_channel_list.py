@@ -3,13 +3,13 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 import attr
 
 from ..models.channel import Channel
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="PaginatedChannelList")
 
 
 @attr.s(auto_attribs=True)
-class PaginatedChannelList:
+class PaginatedChannelList(ComponentRegistryModel):
     """ """
 
     count: Union[Unset, int] = UNSET

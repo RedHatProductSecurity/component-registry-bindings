@@ -3,13 +3,13 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 import attr
 
 from ..models.software_build import SoftwareBuild
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="PaginatedSoftwareBuildList")
 
 
 @attr.s(auto_attribs=True)
-class PaginatedSoftwareBuildList:
+class PaginatedSoftwareBuildList(ComponentRegistryModel):
     """ """
 
     count: Union[Unset, int] = UNSET

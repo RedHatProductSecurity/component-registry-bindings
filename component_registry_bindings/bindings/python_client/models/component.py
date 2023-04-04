@@ -15,13 +15,13 @@ from ..models.component_upstreams_item import ComponentUpstreamsItem
 from ..models.namespace_enum import NamespaceEnum
 from ..models.software_build_summary import SoftwareBuildSummary
 from ..models.tag import Tag
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="Component")
 
 
 @attr.s(auto_attribs=True)
-class Component:
+class Component(ComponentRegistryModel):
     """Show detailed information for a Component.
     Add or remove fields using ?include_fields=&exclude_fields="""
 

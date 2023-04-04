@@ -1,14 +1,9 @@
+{#
+    This is a custom template derived from:
+    https://github.com/openapi-generators/openapi-python-client/blob/v.0.10.7/openapi_python_client/templates/types.py.jinja
+#}
 """ Contains some shared types for properties """
-from typing import (
-    BinaryIO,
-    Generic,
-    MutableMapping,
-    Optional,
-    TextIO,
-    Tuple,
-    TypeVar,
-    Union,
-)
+from typing import Any, BinaryIO, Generic, MutableMapping, Optional, TextIO, Tuple, TypeVar, Union
 
 import attr
 
@@ -20,19 +15,20 @@ class Unset:
 
 UNSET: Unset = Unset()
 
+{# Used as `FileProperty._json_type_string` #}
 FileJsonType = Tuple[Optional[str], Union[BinaryIO, TextIO], Optional[str]]
 
 
 @attr.s(auto_attribs=True)
 class File:
-    """Contains information for file uploads"""
+    """ Contains information for file uploads """
 
     payload: Union[BinaryIO, TextIO]
     file_name: Optional[str] = None
     mime_type: Optional[str] = None
 
     def to_tuple(self) -> FileJsonType:
-        """Return a tuple representation that httpx will accept for multipart/form-data"""
+        """ Return a tuple representation that httpx will accept for multipart/form-data """
         return self.file_name, self.payload, self.mime_type
 
 
@@ -41,7 +37,7 @@ T = TypeVar("T")
 
 @attr.s(auto_attribs=True)
 class Response(Generic[T]):
-    """A response from an endpoint"""
+    """ A response from an endpoint """
 
     status_code: int
     content: bytes
@@ -53,4 +49,5 @@ __all__ = ["File", "Response", "FileJsonType"]
 
 
 class ComponentRegistryModel:
-    """Base class for all 'non-primitive' and 'non-enum' models"""
+    """ Base class for all 'non-primitive' and 'non-enum' models  """
+    pass

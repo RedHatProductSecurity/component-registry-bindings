@@ -6,6 +6,11 @@ from ...client import Client
 from ...models.v1_status_list_response_200 import V1StatusListResponse200
 from ...types import UNSET, Response, Unset
 
+QUERY_PARAMS = {
+    "limit": int,
+    "offset": int,
+}
+
 
 def _get_kwargs(
     *,
@@ -94,9 +99,3 @@ def sync(
         limit=limit,
         offset=offset,
     ).parsed
-
-
-QUERY_PARAMS = {
-    "limit": int,
-    "offset": int,
-}

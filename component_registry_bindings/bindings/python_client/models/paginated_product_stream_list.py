@@ -3,13 +3,13 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 import attr
 
 from ..models.product_stream import ProductStream
-from ..types import UNSET, Unset
+from ..types import UNSET, ComponentRegistryModel, Unset
 
 T = TypeVar("T", bound="PaginatedProductStreamList")
 
 
 @attr.s(auto_attribs=True)
-class PaginatedProductStreamList:
+class PaginatedProductStreamList(ComponentRegistryModel):
     """ """
 
     count: Union[Unset, int] = UNSET
