@@ -17,9 +17,10 @@ class SoftwareBuild(ComponentRegistryModel):
     """Show detailed information for SoftwareBuild(s).
     Add or remove fields using ?include_fields=&exclude_fields="""
 
+    uuid: str
     link: str
     web_url: str
-    build_id: int
+    build_id: str
     build_type: BuildTypeEnum
     name: str
     source: str
@@ -30,6 +31,7 @@ class SoftwareBuild(ComponentRegistryModel):
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        uuid = self.uuid
         link = self.link
         web_url = self.web_url
         build_id = self.build_id
@@ -70,6 +72,8 @@ class SoftwareBuild(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
+        if uuid is not UNSET:
+            field_dict["uuid"] = uuid
         if link is not UNSET:
             field_dict["link"] = link
         if web_url is not UNSET:
@@ -96,6 +100,8 @@ class SoftwareBuild(ComponentRegistryModel):
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if isinstance(src_dict, dict) else {}
+        uuid = d.pop("uuid", UNSET)
+
         link = d.pop("link", UNSET)
 
         web_url = d.pop("web_url", UNSET)
@@ -160,6 +166,7 @@ class SoftwareBuild(ComponentRegistryModel):
                 components.append(components_item)
 
         software_build = cls(
+            uuid=uuid,
             link=link,
             web_url=web_url,
             build_id=build_id,
@@ -178,9 +185,10 @@ class SoftwareBuild(ComponentRegistryModel):
     @staticmethod
     def get_fields():
         return {
+            "uuid": str,
             "link": str,
             "web_url": str,
-            "build_id": int,
+            "build_id": str,
             "build_type": BuildTypeEnum,
             "name": str,
             "source": str,
