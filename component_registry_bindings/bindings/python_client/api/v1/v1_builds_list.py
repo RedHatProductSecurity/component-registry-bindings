@@ -8,6 +8,7 @@ from ...models.v1_builds_list_build_type import V1BuildsListBuildType
 from ...types import UNSET, Response, Unset
 
 QUERY_PARAMS = {
+    "build_id": str,
     "build_type": V1BuildsListBuildType,
     "exclude_fields": List[str],
     "include_fields": List[str],
@@ -22,6 +23,7 @@ QUERY_PARAMS = {
 def _get_kwargs(
     *,
     client: Client,
+    build_id: Union[Unset, None, str] = UNSET,
     build_type: Union[Unset, None, V1BuildsListBuildType] = UNSET,
     exclude_fields: Union[Unset, None, List[str]] = UNSET,
     include_fields: Union[Unset, None, List[str]] = UNSET,
@@ -59,6 +61,7 @@ def _get_kwargs(
             json_include_fields = include_fields
 
     params: Dict[str, Any] = {
+        "build_id": build_id,
         "build_type": json_build_type,
         "exclude_fields": json_exclude_fields,
         "include_fields": json_include_fields,
@@ -106,6 +109,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: Client,
+    build_id: Union[Unset, None, str] = UNSET,
     build_type: Union[Unset, None, V1BuildsListBuildType] = UNSET,
     exclude_fields: Union[Unset, None, List[str]] = UNSET,
     include_fields: Union[Unset, None, List[str]] = UNSET,
@@ -117,6 +121,7 @@ def sync_detailed(
 ) -> Response[PaginatedSoftwareBuildList]:
     kwargs = _get_kwargs(
         client=client,
+        build_id=build_id,
         build_type=build_type,
         exclude_fields=exclude_fields,
         include_fields=include_fields,
@@ -141,6 +146,7 @@ def sync_detailed(
 def sync(
     *,
     client: Client,
+    build_id: Union[Unset, None, str] = UNSET,
     build_type: Union[Unset, None, V1BuildsListBuildType] = UNSET,
     exclude_fields: Union[Unset, None, List[str]] = UNSET,
     include_fields: Union[Unset, None, List[str]] = UNSET,
@@ -154,6 +160,7 @@ def sync(
 
     return sync_detailed(
         client=client,
+        build_id=build_id,
         build_type=build_type,
         exclude_fields=exclude_fields,
         include_fields=include_fields,

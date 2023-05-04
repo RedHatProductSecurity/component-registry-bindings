@@ -13,15 +13,15 @@ QUERY_PARAMS = {
 
 
 def _get_kwargs(
-    build_id: int,
+    uuid: str,
     *,
     client: Client,
     exclude_fields: Union[Unset, None, List[str]] = UNSET,
     include_fields: Union[Unset, None, List[str]] = UNSET,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1/builds/{build_id}".format(
+    url = "{}/api/v1/builds/{uuid}".format(
         client.base_url,
-        build_id=build_id,
+        uuid=uuid,
     )
 
     headers: Dict[str, Any] = client.get_headers()
@@ -76,14 +76,14 @@ def _build_response(*, response: requests.Response) -> Response[SoftwareBuild]:
 
 
 def sync_detailed(
-    build_id: int,
+    uuid: str,
     *,
     client: Client,
     exclude_fields: Union[Unset, None, List[str]] = UNSET,
     include_fields: Union[Unset, None, List[str]] = UNSET,
 ) -> Response[SoftwareBuild]:
     kwargs = _get_kwargs(
-        build_id=build_id,
+        uuid=uuid,
         client=client,
         exclude_fields=exclude_fields,
         include_fields=include_fields,
@@ -101,7 +101,7 @@ def sync_detailed(
 
 
 def sync(
-    build_id: int,
+    uuid: str,
     *,
     client: Client,
     exclude_fields: Union[Unset, None, List[str]] = UNSET,
@@ -110,7 +110,7 @@ def sync(
     """View for api/v1/builds"""
 
     return sync_detailed(
-        build_id=build_id,
+        uuid=uuid,
         client=client,
         exclude_fields=exclude_fields,
         include_fields=include_fields,

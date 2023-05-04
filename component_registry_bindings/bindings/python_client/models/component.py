@@ -8,10 +8,7 @@ from ..models.component_product_streams_item import ComponentProductStreamsItem
 from ..models.component_product_variants_item import ComponentProductVariantsItem
 from ..models.component_product_versions_item import ComponentProductVersionsItem
 from ..models.component_products_item import ComponentProductsItem
-from ..models.component_provides_item import ComponentProvidesItem
-from ..models.component_sources_item import ComponentSourcesItem
 from ..models.component_type_enum import ComponentTypeEnum
-from ..models.component_upstreams_item import ComponentUpstreamsItem
 from ..models.namespace_enum import NamespaceEnum
 from ..models.software_build_summary import SoftwareBuildSummary
 from ..models.tag import Tag
@@ -56,9 +53,9 @@ class Component(ComponentRegistryModel):
     product_streams: List[ComponentProductStreamsItem]
     product_variants: List[ComponentProductVariantsItem]
     channels: List[ComponentChannelsItem]
-    sources: List[ComponentSourcesItem]
-    provides: List[ComponentProvidesItem]
-    upstreams: List[ComponentUpstreamsItem]
+    sources: str
+    provides: str
+    upstreams: str
     manifest: str
     filename: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
@@ -172,36 +169,9 @@ class Component(ComponentRegistryModel):
 
                 channels.append(channels_item)
 
-        sources: List[Dict[str, Any]] = UNSET
-        if not isinstance(self.sources, Unset):
-            sources = []
-            for sources_item_data in self.sources:
-                sources_item: Dict[str, Any] = UNSET
-                if not isinstance(sources_item_data, Unset):
-                    sources_item = sources_item_data.to_dict()
-
-                sources.append(sources_item)
-
-        provides: List[Dict[str, Any]] = UNSET
-        if not isinstance(self.provides, Unset):
-            provides = []
-            for provides_item_data in self.provides:
-                provides_item: Dict[str, Any] = UNSET
-                if not isinstance(provides_item_data, Unset):
-                    provides_item = provides_item_data.to_dict()
-
-                provides.append(provides_item)
-
-        upstreams: List[Dict[str, Any]] = UNSET
-        if not isinstance(self.upstreams, Unset):
-            upstreams = []
-            for upstreams_item_data in self.upstreams:
-                upstreams_item: Dict[str, Any] = UNSET
-                if not isinstance(upstreams_item_data, Unset):
-                    upstreams_item = upstreams_item_data.to_dict()
-
-                upstreams.append(upstreams_item)
-
+        sources = self.sources
+        provides = self.provides
+        upstreams = self.upstreams
         manifest = self.manifest
         filename = self.filename
 
@@ -469,39 +439,21 @@ class Component(ComponentRegistryModel):
                 _temp_channels.append(channels_item)
             channels = (None, json.dumps(_temp_channels), "application/json")
 
-        sources: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.sources, Unset):
-            _temp_sources = []
-            for sources_item_data in self.sources:
-                sources_item: Dict[str, Any] = UNSET
-                if not isinstance(sources_item_data, Unset):
-                    sources_item = sources_item_data.to_dict()
-
-                _temp_sources.append(sources_item)
-            sources = (None, json.dumps(_temp_sources), "application/json")
-
-        provides: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.provides, Unset):
-            _temp_provides = []
-            for provides_item_data in self.provides:
-                provides_item: Dict[str, Any] = UNSET
-                if not isinstance(provides_item_data, Unset):
-                    provides_item = provides_item_data.to_dict()
-
-                _temp_provides.append(provides_item)
-            provides = (None, json.dumps(_temp_provides), "application/json")
-
-        upstreams: Union[Unset, Tuple[None, str, str]] = UNSET
-        if not isinstance(self.upstreams, Unset):
-            _temp_upstreams = []
-            for upstreams_item_data in self.upstreams:
-                upstreams_item: Dict[str, Any] = UNSET
-                if not isinstance(upstreams_item_data, Unset):
-                    upstreams_item = upstreams_item_data.to_dict()
-
-                _temp_upstreams.append(upstreams_item)
-            upstreams = (None, json.dumps(_temp_upstreams), "application/json")
-
+        sources = (
+            self.sources
+            if self.sources is UNSET
+            else (None, str(self.sources), "text/plain")
+        )
+        provides = (
+            self.provides
+            if self.provides is UNSET
+            else (None, str(self.provides), "text/plain")
+        )
+        upstreams = (
+            self.upstreams
+            if self.upstreams is UNSET
+            else (None, str(self.upstreams), "text/plain")
+        )
         manifest = (
             self.manifest
             if self.manifest is UNSET
@@ -759,50 +711,11 @@ class Component(ComponentRegistryModel):
 
                 channels.append(channels_item)
 
-        sources = []
-        _sources = d.pop("sources", UNSET)
-        if _sources is UNSET:
-            sources = UNSET
-        else:
-            for sources_item_data in _sources or []:
-                _sources_item = sources_item_data
-                sources_item: ComponentSourcesItem
-                if isinstance(_sources_item, Unset):
-                    sources_item = UNSET
-                else:
-                    sources_item = ComponentSourcesItem.from_dict(_sources_item)
+        sources = d.pop("sources", UNSET)
 
-                sources.append(sources_item)
+        provides = d.pop("provides", UNSET)
 
-        provides = []
-        _provides = d.pop("provides", UNSET)
-        if _provides is UNSET:
-            provides = UNSET
-        else:
-            for provides_item_data in _provides or []:
-                _provides_item = provides_item_data
-                provides_item: ComponentProvidesItem
-                if isinstance(_provides_item, Unset):
-                    provides_item = UNSET
-                else:
-                    provides_item = ComponentProvidesItem.from_dict(_provides_item)
-
-                provides.append(provides_item)
-
-        upstreams = []
-        _upstreams = d.pop("upstreams", UNSET)
-        if _upstreams is UNSET:
-            upstreams = UNSET
-        else:
-            for upstreams_item_data in _upstreams or []:
-                _upstreams_item = upstreams_item_data
-                upstreams_item: ComponentUpstreamsItem
-                if isinstance(_upstreams_item, Unset):
-                    upstreams_item = UNSET
-                else:
-                    upstreams_item = ComponentUpstreamsItem.from_dict(_upstreams_item)
-
-                upstreams.append(upstreams_item)
+        upstreams = d.pop("upstreams", UNSET)
 
         manifest = d.pop("manifest", UNSET)
 
@@ -884,9 +797,9 @@ class Component(ComponentRegistryModel):
             "product_streams": List[ComponentProductStreamsItem],
             "product_variants": List[ComponentProductVariantsItem],
             "channels": List[ComponentChannelsItem],
-            "sources": List[ComponentSourcesItem],
-            "provides": List[ComponentProvidesItem],
-            "upstreams": List[ComponentUpstreamsItem],
+            "sources": str,
+            "provides": str,
+            "upstreams": str,
             "manifest": str,
             "filename": str,
         }

@@ -14,7 +14,7 @@ class SoftwareBuildSummary(ComponentRegistryModel):
     Add or remove fields using ?include_fields=&exclude_fields="""
 
     link: str
-    build_id: int
+    build_id: str
     build_type: BuildTypeEnum
     name: str
     source: str
@@ -79,7 +79,7 @@ class SoftwareBuildSummary(ComponentRegistryModel):
     def get_fields():
         return {
             "link": str,
-            "build_id": int,
+            "build_id": str,
             "build_type": BuildTypeEnum,
             "name": str,
             "source": str,
