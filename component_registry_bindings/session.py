@@ -1,3 +1,8 @@
+"""
+component-registry-bindings session
+"""
+
+
 import importlib
 import re
 from functools import partial
@@ -13,15 +18,13 @@ from .constants import (
     COMPONENT_REGISTRY_BINDINGS_USERAGENT,
     RESOURCE_TO_MODEL_MAPPING,
 )
+from .exceptions import OperationUnsupported
+from .iterators import Paginator
 
 component_registry_status_retrieve = importlib.import_module(
     f"{COMPONENT_REGISTRY_BINDINGS_API_PATH}.{COMPONENT_REGISTRY_API_VERSION}_status_list",
     package="component_registry_bindings",
 )
-
-
-class OperationUnsupported(Exception):
-    """Session operation is unsupported exception"""
 
 
 def get_sync_function(api_module: ModuleType) -> Callable:
@@ -37,11 +40,9 @@ def new_session(
 ):
     """Create a new session for selected Component Registry URI"""
 
-    # strip trailing slash
-    if component_registry_server_uri.endswith("/"):
-        component_registry_server_uri = component_registry_server_uri[:-1]
-
-    return Session(base_url=component_registry_server_uri, verify_ssl=verify_ssl)
+    return Session(
+        base_url=component_registry_server_uri.strip("/"), verify_ssl=verify_ssl
+    )
 
 
 class Session:
@@ -124,6 +125,14 @@ class SessionOperationsGroup:
     def model(self):
         return getattr(models, self.model_name)
 
+    def __raise_operation_unsupported(self, operation_name: str):
+        """Operation unsupported exception shortcut"""
+
+        raise OperationUnsupported(
+            f'Operation "{operation_name}" is not supported for the '
+            f'"{self.resource_name}" resource.'
+        )
+
     def __get_method_module(self, resource_name: str, method: str) -> ModuleType:
         # import endpoint module based on a method
         return importlib.import_module(
@@ -168,10 +177,7 @@ class SessionOperationsGroup:
             sync_fn = get_sync_function(method_module)
             return sync_fn(id, client=self.client, **kwargs)
         else:
-            raise OperationUnsupported(
-                'Operation "retrieve" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
+            self.__raise_operation_unsupported("retrieve")
 
     def retrieve_list(self, **kwargs):
         if "list" in self.allowed_operations:
@@ -181,10 +187,7 @@ class SessionOperationsGroup:
             sync_fn = get_sync_function(method_module)
             return self.__make_iterable(sync_fn(client=self.client, **kwargs), **kwargs)
         else:
-            raise OperationUnsupported(
-                'Operation "retrieve_list" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
+            self.__raise_operation_unsupported("retrieve_list")
 
     def create(self, form_data: Dict[str, Any]):
         if "create" in self.allowed_operations:
@@ -201,10 +204,7 @@ class SessionOperationsGroup:
                 json_body=UNSET,
             )
         else:
-            raise OperationUnsupported(
-                'Operation "create" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
+            self.__raise_operation_unsupported("create")
 
     def update(self, id, form_data: Dict[str, Any]):
         if "update" in self.allowed_operations:
@@ -222,10 +222,7 @@ class SessionOperationsGroup:
                 json_body=UNSET,
             )
         else:
-            raise OperationUnsupported(
-                'Operation "update" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
+            self.__raise_operation_unsupported("update")
 
     def delete(self, id):
         if "destroy" in self.allowed_operations:
@@ -238,10 +235,7 @@ class SessionOperationsGroup:
                 client=self.client,
             )
         else:
-            raise OperationUnsupported(
-                'Operation "delete" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
+            self.__raise_operation_unsupported("delete")
 
     # Extra operations
 
@@ -253,10 +247,7 @@ class SessionOperationsGroup:
             sync_fn = get_sync_function(method_module)
             return sync_fn(client=self.client, search=searched_text)
         else:
-            raise OperationUnsupported(
-                'Operation "search" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
+            self.__raise_operation_unsupported("search")
 
     def retrieve_provides(self, id, **kwargs):
         # TODO: Once the schema in Component Registry is adjusted, allow this for the
@@ -268,10 +259,7 @@ class SessionOperationsGroup:
             sync_fn = get_sync_function(method_module)
             return sync_fn(id, client=self.client, **kwargs)
         else:
-            raise OperationUnsupported(
-                'Operation "retrieve_provides" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
+            self.__raise_operation_unsupported("retrieve_provides")
 
     def retrieve_taxonomy(self, id, **kwargs):
         # TODO: Once the schema in Component Registry is adjusted, allow this for the
@@ -283,10 +271,7 @@ class SessionOperationsGroup:
             sync_fn = get_sync_function(method_module)
             return sync_fn(id, client=self.client, **kwargs)
         else:
-            raise OperationUnsupported(
-                'Operation "retrieve_taxonomy" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
+            self.__raise_operation_unsupported("retrieve_taxonomy")
 
     def retrieve_manifest(self, id, **kwargs):
         # TODO: Once the schema in Component Registry is adjusted, allow this for the
@@ -298,52 +283,4 @@ class SessionOperationsGroup:
             sync_fn = get_sync_function(method_module)
             return sync_fn(id, client=self.client, **kwargs)
         else:
-            raise OperationUnsupported(
-                'Operation "retrieve_manifest" is not supported for the '
-                f'"{self.resource_name}" resource.'
-            )
-
-
-class Paginator:
-    """
-    Iterable for handling API pagination.
-
-    Receives either starting limit and offset or already existing response from which
-    it should continue.
-
-    It keeps calling `.next()` response until pages are exhausted.
-    """
-
-    def __init__(
-        self,
-        session_operation: Callable,
-        limit: int = 100,
-        offset: int = 0,
-        init_response=None,
-        **kwargs,
-    ):
-        self.session_operation = session_operation
-        self.__init_limit = limit
-        self.__init_offset = offset
-        self.__init_response = init_response
-        self.current_response = init_response
-        self.kwargs = kwargs
-
-    def __iter__(self):
-        self.current_response = self.__init_response
-        return self
-
-    def __next__(self):
-        if self.current_response is None:
-            response = self.session_operation(
-                limit=self.__init_limit, offset=self.__init_offset, **self.kwargs
-            )
-            self.current_response = response
-            return response
-        else:
-            response = self.current_response.next()
-            if response is not None:
-                self.current_response = response
-                return response
-            else:
-                raise StopIteration
+            self.__raise_operation_unsupported("retrieve_manifest")

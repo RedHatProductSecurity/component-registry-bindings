@@ -50,8 +50,8 @@ update_version() {
     echo "Replacing version in pyproject.toml of low level bindings to ${version}"
     sed -i 's/version = "[0-9]*\.[0-9]*\.[0-9]*"/version = "'${version}'"/g' component_registry_bindings/bindings/pyproject.toml
 
-    echo "Replacing user agent version in constants.py to ${version}"
-    sed -i 's/"component-registry-bindings-[0-9]*\.[0-9]*\.[0-9]*"/"component-registry-bindings-'${version}'"/g' component_registry_bindings/constants.py
+    echo "Replacing version in constants.py to ${version}"
+    sed -i 's/COMPONENT_REGISTRY_BINDINGS_VERSION: str = "[0-9]*\.[0-9]*\.[0-9]*"/COMPONENT_REGISTRY_BINDINGS_VERSION: str = "'${version}'"/g' component_registry_bindings/constants.py
 
     echo "Updating the CHANGELOG.md to ${version}"
     sed -i 's/^## Unreleased.*/## Unreleased\n\n## ['"${version}"'] - '$(date '+%Y-%m-%d')'/' CHANGELOG.md
