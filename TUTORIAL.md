@@ -96,6 +96,20 @@ See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for m
   select_components = session.components.retrieve_list(arch="x86_64")
 ```
 
+#### components.retrieve_list_iterator
+
+Retrieve a list of Components. Handles the pagination and returns the generator of individual resource entities.
+
+See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for more details (query parameters, response format, etc.)
+```python
+  all_components = session.components.retrieve_list_iterator()
+  for component in all_components:
+    do_calc(component)
+
+  for component in session.components.retrieve_list_iterator(arch="x86_64"):
+    print(component.arch)
+```
+
 #### components.retrieve
 
 Retrieve a single Component with specified `id`.
