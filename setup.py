@@ -17,5 +17,5 @@ setup(
     ],
     packages=find_packages(),
     python_requires=">=3.6",
-    install_requires=["attrs", "requests", "python-dateutil"],
+    install_requires=["attrs", "requests", "python-dateutil", "aiohttp"],
 )
