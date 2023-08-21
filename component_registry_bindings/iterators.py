@@ -6,6 +6,7 @@ import re
 from functools import partial
 from typing import Callable, Optional
 
+from .bindings.python_client.types import UNSET
 from .exceptions import ComponentRegistryBindingsException
 
 
@@ -95,7 +96,7 @@ class Paginator:
             kwargs.pop("limit", None)
             kwargs.pop("offset", None)
             param = getattr(response, param_name, None)
-            if param is None:
+            if param in (None, UNSET):
                 setattr(response, func_name, lambda: None)
             else:
                 limit = re.search("limit=(\d+)", param)
