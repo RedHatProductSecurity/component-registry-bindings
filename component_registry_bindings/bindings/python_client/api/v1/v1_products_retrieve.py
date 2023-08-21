@@ -115,3 +115,47 @@ def sync(
         exclude_fields=exclude_fields,
         include_fields=include_fields,
     ).parsed
+
+
+async def async_detailed(
+    uuid: str,
+    *,
+    client: Client,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
+) -> Response[Product]:
+    kwargs = _get_kwargs(
+        uuid=uuid,
+        client=client,
+        exclude_fields=exclude_fields,
+        include_fields=include_fields,
+    )
+
+    async with client.get_async_session().get(
+        verify_ssl=client.verify_ssl, raise_for_status=True, **kwargs
+    ) as response:
+        content = await response.read()
+        resp = requests.Response()
+        resp.status_code = response.status
+        resp._content = content
+
+    return _build_response(response=resp)
+
+
+async def async_(
+    uuid: str,
+    *,
+    client: Client,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
+) -> Optional[Product]:
+    """View for api/v1/products"""
+
+    return (
+        await async_detailed(
+            uuid=uuid,
+            client=client,
+            exclude_fields=exclude_fields,
+            include_fields=include_fields,
+        )
+    ).parsed

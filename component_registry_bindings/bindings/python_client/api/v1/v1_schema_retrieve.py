@@ -101,3 +101,42 @@ def sync(
         client=client,
         format_=format_,
     ).parsed
+
+
+async def async_detailed(
+    *,
+    client: AuthenticatedClient,
+    format_: Union[Unset, None, V1SchemaRetrieveFormat] = UNSET,
+) -> Response[V1SchemaRetrieveResponse200]:
+    kwargs = _get_kwargs(
+        client=client,
+        format_=format_,
+    )
+
+    async with client.get_async_session().get(
+        verify_ssl=client.verify_ssl, raise_for_status=True, **kwargs
+    ) as response:
+        content = await response.read()
+        resp = requests.Response()
+        resp.status_code = response.status
+        resp._content = content
+
+    return _build_response(response=resp)
+
+
+async def async_(
+    *,
+    client: AuthenticatedClient,
+    format_: Union[Unset, None, V1SchemaRetrieveFormat] = UNSET,
+) -> Optional[V1SchemaRetrieveResponse200]:
+    """OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+    - YAML: application/vnd.oai.openapi
+    - JSON: application/vnd.oai.openapi+json"""
+
+    return (
+        await async_detailed(
+            client=client,
+            format_=format_,
+        )
+    ).parsed

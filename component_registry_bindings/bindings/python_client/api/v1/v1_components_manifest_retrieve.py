@@ -81,3 +81,39 @@ def sync(
         uuid=uuid,
         client=client,
     ).parsed
+
+
+async def async_detailed(
+    uuid: str,
+    *,
+    client: Client,
+) -> Response[Component]:
+    kwargs = _get_kwargs(
+        uuid=uuid,
+        client=client,
+    )
+
+    async with client.get_async_session().get(
+        verify_ssl=client.verify_ssl, raise_for_status=True, **kwargs
+    ) as response:
+        content = await response.read()
+        resp = requests.Response()
+        resp.status_code = response.status
+        resp._content = content
+
+    return _build_response(response=resp)
+
+
+async def async_(
+    uuid: str,
+    *,
+    client: Client,
+) -> Optional[Component]:
+    """View for api/v1/components"""
+
+    return (
+        await async_detailed(
+            uuid=uuid,
+            client=client,
+        )
+    ).parsed

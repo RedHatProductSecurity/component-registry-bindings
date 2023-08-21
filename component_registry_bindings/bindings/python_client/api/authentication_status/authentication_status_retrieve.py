@@ -83,3 +83,35 @@ def sync(
     return sync_detailed(
         client=client,
     ).parsed
+
+
+async def async_detailed(
+    *,
+    client: Client,
+) -> Response[AuthenticationStatusRetrieveResponse200]:
+    kwargs = _get_kwargs(
+        client=client,
+    )
+
+    async with client.get_async_session().get(
+        verify_ssl=client.verify_ssl, raise_for_status=True, **kwargs
+    ) as response:
+        content = await response.read()
+        resp = requests.Response()
+        resp.status_code = response.status
+        resp._content = content
+
+    return _build_response(response=resp)
+
+
+async def async_(
+    *,
+    client: Client,
+) -> Optional[AuthenticationStatusRetrieveResponse200]:
+    """View to determine whether you are currently authenticated and, if so, as whom."""
+
+    return (
+        await async_detailed(
+            client=client,
+        )
+    ).parsed
