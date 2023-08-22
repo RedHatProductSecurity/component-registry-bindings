@@ -96,6 +96,9 @@ class Paginator:
             kwargs.pop("limit", None)
             kwargs.pop("offset", None)
             param = getattr(response, param_name, None)
+
+            # TODO: UNSET check is needed because of inconsistency between
+            #       Component Registry schema and data it provides
             if param in (None, UNSET):
                 setattr(response, func_name, lambda: None)
             else:
