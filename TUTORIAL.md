@@ -121,6 +121,8 @@ By default there is a limit which allows up to 10 concurrent connections. This l
 export COMPONENT_REGISTRY_BINDINGS_MAX_CONCURRENCY=30
 ```
 
+Using the argument `max_results` you can limit the number of results returned.
+
 See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for more details (query parameters, response format, etc.)
 ```python
   all_components = session.components.retrieve_list_iterator_async()
@@ -128,6 +130,10 @@ See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for m
     do_calc(component)
 
   for component in session.components.retrieve_list_iterator_async(arch="x86_64"):
+    print(component.arch)
+
+  # print the first 200 results
+  for component in session.components.retrieve_list_iterator_async(max_results=200):
     print(component.arch)
 ```
 

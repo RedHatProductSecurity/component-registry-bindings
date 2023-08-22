@@ -5,7 +5,7 @@ component-registry-bindings session
 import asyncio
 import importlib
 from types import ModuleType
-from typing import Any, Callable, Dict, List, Union
+from typing import Any, Callable, Dict, List, Optional, Union
 
 import aiohttp
 
@@ -268,15 +268,21 @@ class SessionOperationsGroup:
         else:
             self.__raise_operation_unsupported("retrieve_list")
 
-    def retrieve_list_iterator_async(self, *args, **kwargs):
+    def retrieve_list_iterator_async(
+        self, *args, max_results: Optional[int] = None, **kwargs
+    ):
         if "list" in self.allowed_operations:
-            for page in asyncio.run(self.__retrieve_list_async(*args, **kwargs)):
+            for page in asyncio.run(
+                self.__retrieve_list_async(*args, max_results=max_results, **kwargs)
+            ):
                 for resource in page.results:
                     yield resource
         else:
             self.__raise_operation_unsupported("retrieve_list")
 
-    async def __retrieve_list_async(self, *args, **kwargs):
+    async def __retrieve_list_async(
+        self, *args, max_results: Optional[int] = None, **kwargs
+    ):
         if "list" in self.allowed_operations:
             method_module = self.__get_method_module(
                 resource_name=self.resource_name, method="list"
@@ -285,7 +291,7 @@ class SessionOperationsGroup:
 
             kwargs.pop("offset", None)
             limit = kwargs.pop("limit", 50)
-            results_count = self.retrieve_list(*args, limit=1, **kwargs).count
+            results_count = max_results or self.count(*args, **kwargs)
 
             connector = aiohttp.TCPConnector(limit=MAX_CONCURRENCY)
             async with aiohttp.ClientSession(connector=connector) as async_session:
