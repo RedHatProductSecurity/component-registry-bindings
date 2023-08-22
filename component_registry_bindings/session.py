@@ -263,7 +263,7 @@ class SessionOperationsGroup:
             async_fn = get_async_function(method_module)
 
             kwargs.pop("offset", None)
-            limit = kwargs.pop("limit", 100)
+            limit = kwargs.pop("limit", 50)
             results_count = self.retrieve_list(*args, limit=1, **kwargs).count
 
             async with aiohttp.ClientSession() as async_session:
