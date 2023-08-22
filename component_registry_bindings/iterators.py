@@ -6,6 +6,7 @@ import re
 from functools import partial
 from typing import Callable, Optional
 
+from .bindings.python_client.types import UNSET
 from .exceptions import ComponentRegistryBindingsException
 
 
@@ -23,7 +24,7 @@ class Paginator:
         self,
         *args,
         retrieve_list_fn: Optional[Callable] = None,
-        limit: int = 100,
+        limit: int = 50,
         offset: int = 0,
         init_response=None,
         **kwargs,
@@ -95,7 +96,10 @@ class Paginator:
             kwargs.pop("limit", None)
             kwargs.pop("offset", None)
             param = getattr(response, param_name, None)
-            if param is None:
+
+            # TODO: UNSET check is needed because of inconsistency between
+            #       Component Registry schema and data it provides
+            if param in (None, UNSET):
                 setattr(response, func_name, lambda: None)
             else:
                 limit = re.search("limit=(\d+)", param)

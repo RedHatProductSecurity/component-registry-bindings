@@ -2,12 +2,12 @@
 component-registry-bindings session
 """
 
-
+import asyncio
 import importlib
-import re
-from functools import partial
 from types import ModuleType
 from typing import Any, Callable, Dict, List, Union
+
+import aiohttp
 
 from .bindings.python_client import AuthenticatedClient, models
 from .bindings.python_client.types import UNSET
@@ -33,6 +33,14 @@ def get_sync_function(api_module: ModuleType) -> Callable:
     or get basic 'sync_detailed' function (response example is not defined in schema)
     """
     return getattr(api_module, "sync", getattr(api_module, "sync_detailed"))
+
+
+def get_async_function(api_module: ModuleType) -> Callable:
+    """
+    Get 'sync' function from API module if available (response example is defined in schema)
+    or get basic 'sync_detailed' function (response example is not defined in schema)
+    """
+    return getattr(api_module, "async_", getattr(api_module, "async_detailed"))
 
 
 def new_session(
@@ -236,6 +244,37 @@ class SessionOperationsGroup:
             for page in paginator:
                 for resource in page.results:
                     yield resource
+        else:
+            self.__raise_operation_unsupported("retrieve_list")
+
+    def retrieve_list_iterator_async(self, *args, **kwargs):
+        if "list" in self.allowed_operations:
+            for page in asyncio.run(self.__retrieve_list_async(*args, **kwargs)):
+                for resource in page.results:
+                    yield resource
+        else:
+            self.__raise_operation_unsupported("retrieve_list")
+
+    async def __retrieve_list_async(self, *args, **kwargs):
+        if "list" in self.allowed_operations:
+            method_module = self.__get_method_module(
+                resource_name=self.resource_name, method="list"
+            )
+            async_fn = get_async_function(method_module)
+
+            kwargs.pop("offset", None)
+            limit = kwargs.pop("limit", 50)
+            results_count = self.retrieve_list(*args, limit=1, **kwargs).count
+
+            async with aiohttp.ClientSession() as async_session:
+                client = self.client.with_async_session(async_session)
+                tasks = [
+                    async_fn(*args, limit=limit, offset=offset, client=client, **kwargs)
+                    for offset in range(0, results_count, limit)
+                ]
+                results = await asyncio.gather(*tasks)
+
+            return results
         else:
             self.__raise_operation_unsupported("retrieve_list")
 

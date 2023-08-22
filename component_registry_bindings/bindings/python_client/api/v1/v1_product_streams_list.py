@@ -204,3 +204,95 @@ def sync(
         search=search,
         tags=tags,
     ).parsed
+
+
+async def async_detailed(
+    *,
+    client: Client,
+    active: Union[Unset, None, str] = UNSET,
+    channels: Union[Unset, None, str] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
+    limit: Union[Unset, None, int] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    offset: Union[Unset, None, int] = UNSET,
+    product_streams: Union[Unset, None, str] = UNSET,
+    product_variants: Union[Unset, None, str] = UNSET,
+    product_versions: Union[Unset, None, str] = UNSET,
+    products: Union[Unset, None, str] = UNSET,
+    re_name: Union[Unset, None, str] = UNSET,
+    re_ofuri: Union[Unset, None, str] = UNSET,
+    search: Union[Unset, None, str] = UNSET,
+    tags: Union[Unset, None, int] = UNSET,
+) -> Response[PaginatedProductStreamList]:
+    kwargs = _get_kwargs(
+        client=client,
+        active=active,
+        channels=channels,
+        exclude_fields=exclude_fields,
+        include_fields=include_fields,
+        limit=limit,
+        name=name,
+        offset=offset,
+        product_streams=product_streams,
+        product_variants=product_variants,
+        product_versions=product_versions,
+        products=products,
+        re_name=re_name,
+        re_ofuri=re_ofuri,
+        search=search,
+        tags=tags,
+    )
+
+    async with client.get_async_session().get(
+        verify_ssl=client.verify_ssl, raise_for_status=True, **kwargs
+    ) as response:
+        content = await response.read()
+        resp = requests.Response()
+        resp.status_code = response.status
+        resp._content = content
+
+    return _build_response(response=resp)
+
+
+async def async_(
+    *,
+    client: Client,
+    active: Union[Unset, None, str] = UNSET,
+    channels: Union[Unset, None, str] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
+    limit: Union[Unset, None, int] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    offset: Union[Unset, None, int] = UNSET,
+    product_streams: Union[Unset, None, str] = UNSET,
+    product_variants: Union[Unset, None, str] = UNSET,
+    product_versions: Union[Unset, None, str] = UNSET,
+    products: Union[Unset, None, str] = UNSET,
+    re_name: Union[Unset, None, str] = UNSET,
+    re_ofuri: Union[Unset, None, str] = UNSET,
+    search: Union[Unset, None, str] = UNSET,
+    tags: Union[Unset, None, int] = UNSET,
+) -> Optional[PaginatedProductStreamList]:
+    """View for api/v1/product_streams"""
+
+    return (
+        await async_detailed(
+            client=client,
+            active=active,
+            channels=channels,
+            exclude_fields=exclude_fields,
+            include_fields=include_fields,
+            limit=limit,
+            name=name,
+            offset=offset,
+            product_streams=product_streams,
+            product_variants=product_variants,
+            product_versions=product_versions,
+            products=products,
+            re_name=re_name,
+            re_ofuri=re_ofuri,
+            search=search,
+            tags=tags,
+        )
+    ).parsed

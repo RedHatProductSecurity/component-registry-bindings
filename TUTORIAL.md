@@ -110,6 +110,21 @@ See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for m
     print(component.arch)
 ```
 
+#### components.retrieve_list_iterator_async
+
+Retrieve a list of Components. Handles the pagination and returns the generator of individual resource entities. Uses asynchronous communitation
+to speed up the data retrieval.
+
+See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for more details (query parameters, response format, etc.)
+```python
+  all_components = session.components.retrieve_list_iterator_async()
+  for component in all_components:
+    do_calc(component)
+
+  for component in session.components.retrieve_list_iterator_async(arch="x86_64"):
+    print(component.arch)
+```
+
 #### components.retrieve
 
 Retrieve a single Component with specified `id`.

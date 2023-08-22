@@ -170,3 +170,71 @@ def sync(
         search=search,
         tags=tags,
     ).parsed
+
+
+async def async_detailed(
+    *,
+    client: Client,
+    build_id: Union[Unset, None, str] = UNSET,
+    build_type: Union[Unset, None, V1BuildsListBuildType] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
+    limit: Union[Unset, None, int] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    offset: Union[Unset, None, int] = UNSET,
+    search: Union[Unset, None, str] = UNSET,
+    tags: Union[Unset, None, int] = UNSET,
+) -> Response[PaginatedSoftwareBuildList]:
+    kwargs = _get_kwargs(
+        client=client,
+        build_id=build_id,
+        build_type=build_type,
+        exclude_fields=exclude_fields,
+        include_fields=include_fields,
+        limit=limit,
+        name=name,
+        offset=offset,
+        search=search,
+        tags=tags,
+    )
+
+    async with client.get_async_session().get(
+        verify_ssl=client.verify_ssl, raise_for_status=True, **kwargs
+    ) as response:
+        content = await response.read()
+        resp = requests.Response()
+        resp.status_code = response.status
+        resp._content = content
+
+    return _build_response(response=resp)
+
+
+async def async_(
+    *,
+    client: Client,
+    build_id: Union[Unset, None, str] = UNSET,
+    build_type: Union[Unset, None, V1BuildsListBuildType] = UNSET,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
+    limit: Union[Unset, None, int] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    offset: Union[Unset, None, int] = UNSET,
+    search: Union[Unset, None, str] = UNSET,
+    tags: Union[Unset, None, int] = UNSET,
+) -> Optional[PaginatedSoftwareBuildList]:
+    """View for api/v1/builds"""
+
+    return (
+        await async_detailed(
+            client=client,
+            build_id=build_id,
+            build_type=build_type,
+            exclude_fields=exclude_fields,
+            include_fields=include_fields,
+            limit=limit,
+            name=name,
+            offset=offset,
+            search=search,
+            tags=tags,
+        )
+    ).parsed

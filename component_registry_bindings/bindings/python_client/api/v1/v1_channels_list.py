@@ -150,3 +150,63 @@ def sync(
         search=search,
         type=type,
     ).parsed
+
+
+async def async_detailed(
+    *,
+    client: Client,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
+    limit: Union[Unset, None, int] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    offset: Union[Unset, None, int] = UNSET,
+    search: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, None, V1ChannelsListType] = UNSET,
+) -> Response[PaginatedChannelList]:
+    kwargs = _get_kwargs(
+        client=client,
+        exclude_fields=exclude_fields,
+        include_fields=include_fields,
+        limit=limit,
+        name=name,
+        offset=offset,
+        search=search,
+        type=type,
+    )
+
+    async with client.get_async_session().get(
+        verify_ssl=client.verify_ssl, raise_for_status=True, **kwargs
+    ) as response:
+        content = await response.read()
+        resp = requests.Response()
+        resp.status_code = response.status
+        resp._content = content
+
+    return _build_response(response=resp)
+
+
+async def async_(
+    *,
+    client: Client,
+    exclude_fields: Union[Unset, None, List[str]] = UNSET,
+    include_fields: Union[Unset, None, List[str]] = UNSET,
+    limit: Union[Unset, None, int] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    offset: Union[Unset, None, int] = UNSET,
+    search: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, None, V1ChannelsListType] = UNSET,
+) -> Optional[PaginatedChannelList]:
+    """View for api/v1/channels"""
+
+    return (
+        await async_detailed(
+            client=client,
+            exclude_fields=exclude_fields,
+            include_fields=include_fields,
+            limit=limit,
+            name=name,
+            offset=offset,
+            search=search,
+            type=type,
+        )
+    ).parsed
