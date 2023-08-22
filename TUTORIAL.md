@@ -115,6 +115,12 @@ See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for m
 Retrieve a list of Components. Handles the pagination and returns the generator of individual resource entities. Uses asynchronous communitation
 to speed up the data retrieval.
 
+By default there is a limit which allows up to 10 concurrent connections. This limit can be changed by setting the `COMPONENT_REGISTRY_BINDINGS_MAX_CONCURRENCY` environmental variable. It is strongly recommended to keep this limit between 1-50 concurrent connections. Exceeding this limit may cause service overload which might by considered as the Denial-of-Service attack.
+
+```python
+export COMPONENT_REGISTRY_BINDINGS_MAX_CONCURRENCY=30
+```
+
 See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for more details (query parameters, response format, etc.)
 ```python
   all_components = session.components.retrieve_list_iterator_async()
@@ -124,6 +130,10 @@ See `/GET /api/{api_version}/components` in [API docs](openapi_schema.yml) for m
   for component in session.components.retrieve_list_iterator_async(arch="x86_64"):
     print(component.arch)
 ```
+
+#### components.count
+
+Retrieve the the total count number of entities which would be returned by the same `retrieve_list` call. In terms of the input arguments this operation behaves the same as `retrieve_list`.
 
 #### components.retrieve
 

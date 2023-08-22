@@ -12,6 +12,9 @@ COMPONENT_REGISTRY_BINDINGS_USERAGENT: str = (
 COMPONENT_REGISTRY_BINDINGS_API_PATH: str = (
     f".bindings.python_client.api.{COMPONENT_REGISTRY_API_VERSION}"
 )
+COMPONENT_REGISTRY_BINDINGS_PLACEHOLDER_FIELD = (
+    f'__placeholder_field{COMPONENT_REGISTRY_BINDINGS_VERSION.replace(".","")}'
+)
 
 # all available session operations
 ALL_SESSION_OPERATIONS: List[str] = (
