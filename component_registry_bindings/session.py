@@ -19,11 +19,16 @@ from .constants import (
     RESOURCE_TO_MODEL_MAPPING,
 )
 from .exceptions import OperationUnsupported
+from .helpers import get_env
 from .iterators import Paginator
 
 component_registry_status_retrieve = importlib.import_module(
     f"{COMPONENT_REGISTRY_BINDINGS_API_PATH}.{COMPONENT_REGISTRY_API_VERSION}_status_list",
     package="component_registry_bindings",
+)
+
+MAX_CONCURRENCY = get_env(
+    "COMPONENT_REGISTRY_BINDINGS_MAX_CONCURRENCY", "10", is_int=True
 )
 
 
@@ -266,7 +271,8 @@ class SessionOperationsGroup:
             limit = kwargs.pop("limit", 50)
             results_count = self.retrieve_list(*args, limit=1, **kwargs).count
 
-            async with aiohttp.ClientSession() as async_session:
+            connector = aiohttp.TCPConnector(limit=MAX_CONCURRENCY)
+            async with aiohttp.ClientSession(connector=connector) as async_session:
                 client = self.client.with_async_session(async_session)
                 tasks = [
                     async_fn(*args, limit=limit, offset=offset, client=client, **kwargs)
