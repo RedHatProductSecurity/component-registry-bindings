@@ -1,5 +1,5 @@
 """
-component-registry iterators
+component-registry-bindings iterators
 """
 
 import re

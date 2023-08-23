@@ -5,7 +5,7 @@ component-registry-bindings session
 import asyncio
 import importlib
 from types import ModuleType
-from typing import Any, Callable, Dict, List, Union
+from typing import Any, Callable, Dict, List, Optional, Union
 
 import aiohttp
 
@@ -15,15 +15,21 @@ from .constants import (
     ALL_SESSION_OPERATIONS,
     COMPONENT_REGISTRY_API_VERSION,
     COMPONENT_REGISTRY_BINDINGS_API_PATH,
+    COMPONENT_REGISTRY_BINDINGS_PLACEHOLDER_FIELD,
     COMPONENT_REGISTRY_BINDINGS_USERAGENT,
     RESOURCE_TO_MODEL_MAPPING,
 )
 from .exceptions import OperationUnsupported
+from .helpers import get_env
 from .iterators import Paginator
 
 component_registry_status_retrieve = importlib.import_module(
     f"{COMPONENT_REGISTRY_BINDINGS_API_PATH}.{COMPONENT_REGISTRY_API_VERSION}_status_list",
     package="component_registry_bindings",
+)
+
+MAX_CONCURRENCY = get_env(
+    "COMPONENT_REGISTRY_BINDINGS_MAX_CONCURRENCY", "10", is_int=True
 )
 
 
@@ -223,6 +229,21 @@ class SessionOperationsGroup:
 
     # Extra operations
 
+    def count(self, *args, **kwargs):
+        if "list" in self.allowed_operations:
+            method_module = self.__get_method_module(
+                resource_name=self.resource_name, method="list"
+            )
+            sync_fn = get_sync_function(method_module)
+            kwargs.pop("offset", None)
+            kwargs["limit"] = 1
+            kwargs["include_fields"] = COMPONENT_REGISTRY_BINDINGS_PLACEHOLDER_FIELD
+
+            response = sync_fn(*args, client=self.client, **kwargs)
+            return response.count
+        else:
+            self.__raise_operation_unsupported("retrieve_list")
+
     def search(self, searched_text: str):
         if "search" in self.allowed_operations:
             method_module = self.__get_method_module(
@@ -247,15 +268,21 @@ class SessionOperationsGroup:
         else:
             self.__raise_operation_unsupported("retrieve_list")
 
-    def retrieve_list_iterator_async(self, *args, **kwargs):
+    def retrieve_list_iterator_async(
+        self, *args, max_results: Optional[int] = None, **kwargs
+    ):
         if "list" in self.allowed_operations:
-            for page in asyncio.run(self.__retrieve_list_async(*args, **kwargs)):
+            for page in asyncio.run(
+                self.__retrieve_list_async(*args, max_results=max_results, **kwargs)
+            ):
                 for resource in page.results:
                     yield resource
         else:
             self.__raise_operation_unsupported("retrieve_list")
 
-    async def __retrieve_list_async(self, *args, **kwargs):
+    async def __retrieve_list_async(
+        self, *args, max_results: Optional[int] = None, **kwargs
+    ):
         if "list" in self.allowed_operations:
             method_module = self.__get_method_module(
                 resource_name=self.resource_name, method="list"
@@ -264,9 +291,10 @@ class SessionOperationsGroup:
 
             kwargs.pop("offset", None)
             limit = kwargs.pop("limit", 50)
-            results_count = self.retrieve_list(*args, limit=1, **kwargs).count
+            results_count = max_results or self.count(*args, **kwargs)
 
-            async with aiohttp.ClientSession() as async_session:
+            connector = aiohttp.TCPConnector(limit=MAX_CONCURRENCY)
+            async with aiohttp.ClientSession(connector=connector) as async_session:
                 client = self.client.with_async_session(async_session)
                 tasks = [
                     async_fn(*args, limit=limit, offset=offset, client=client, **kwargs)
