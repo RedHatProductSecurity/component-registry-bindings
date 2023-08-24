@@ -17,6 +17,7 @@ from .constants import (
     COMPONENT_REGISTRY_BINDINGS_API_PATH,
     COMPONENT_REGISTRY_BINDINGS_PLACEHOLDER_FIELD,
     COMPONENT_REGISTRY_BINDINGS_USERAGENT,
+    DEFAULT_LIMIT,
     RESOURCE_TO_MODEL_MAPPING,
 )
 from .exceptions import OperationUnsupported
@@ -290,7 +291,7 @@ class SessionOperationsGroup:
             async_fn = get_async_function(method_module)
 
             kwargs.pop("offset", None)
-            limit = kwargs.pop("limit", 50)
+            limit = kwargs.pop("limit", None) or DEFAULT_LIMIT
             results_count = max_results or self.count(*args, **kwargs)
 
             connector = aiohttp.TCPConnector(limit=MAX_CONCURRENCY)
