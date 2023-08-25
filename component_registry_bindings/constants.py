@@ -16,6 +16,8 @@ COMPONENT_REGISTRY_BINDINGS_PLACEHOLDER_FIELD = (
     f'__placeholder_field{COMPONENT_REGISTRY_BINDINGS_VERSION.replace(".","")}'
 )
 
+DEFAULT_LIMIT: int = 50
+
 # all available session operations
 ALL_SESSION_OPERATIONS: List[str] = (
     "retrieve",
