@@ -139,49 +139,49 @@ class ProductStream(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if link is not UNSET:
+        if not isinstance(link, Unset):
             field_dict["link"] = link
-        if uuid is not UNSET:
+        if not isinstance(uuid, Unset):
             field_dict["uuid"] = uuid
-        if ofuri is not UNSET:
+        if not isinstance(ofuri, Unset):
             field_dict["ofuri"] = ofuri
-        if name is not UNSET:
+        if not isinstance(name, Unset):
             field_dict["name"] = name
-        if description is not UNSET:
+        if not isinstance(description, Unset):
             field_dict["description"] = description
-        if build_count is not UNSET:
+        if not isinstance(build_count, Unset):
             field_dict["build_count"] = build_count
-        if builds is not UNSET:
+        if not isinstance(builds, Unset):
             field_dict["builds"] = builds
-        if components is not UNSET:
+        if not isinstance(components, Unset):
             field_dict["components"] = components
-        if upstreams is not UNSET:
+        if not isinstance(upstreams, Unset):
             field_dict["upstreams"] = upstreams
-        if tags is not UNSET:
+        if not isinstance(tags, Unset):
             field_dict["tags"] = tags
-        if channels is not UNSET:
+        if not isinstance(channels, Unset):
             field_dict["channels"] = channels
-        if cpe is not UNSET:
+        if not isinstance(cpe, Unset):
             field_dict["cpe"] = cpe
-        if active is not UNSET:
+        if not isinstance(active, Unset):
             field_dict["active"] = active
-        if brew_tags is not UNSET:
+        if not isinstance(brew_tags, Unset):
             field_dict["brew_tags"] = brew_tags
-        if yum_repositories is not UNSET:
+        if not isinstance(yum_repositories, Unset):
             field_dict["yum_repositories"] = yum_repositories
-        if composes is not UNSET:
+        if not isinstance(composes, Unset):
             field_dict["composes"] = composes
-        if et_product_versions is not UNSET:
+        if not isinstance(et_product_versions, Unset):
             field_dict["et_product_versions"] = et_product_versions
-        if manifest is not UNSET:
+        if not isinstance(manifest, Unset):
             field_dict["manifest"] = manifest
-        if relations is not UNSET:
+        if not isinstance(relations, Unset):
             field_dict["relations"] = relations
-        if products is not UNSET:
+        if not isinstance(products, Unset):
             field_dict["products"] = products
-        if product_versions is not UNSET:
+        if not isinstance(product_versions, Unset):
             field_dict["product_versions"] = product_versions
-        if product_variants is not UNSET:
+        if not isinstance(product_variants, Unset):
             field_dict["product_variants"] = product_variants
 
         return field_dict

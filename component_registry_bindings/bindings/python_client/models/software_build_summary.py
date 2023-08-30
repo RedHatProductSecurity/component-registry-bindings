@@ -33,15 +33,15 @@ class SoftwareBuildSummary(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if link is not UNSET:
+        if not isinstance(link, Unset):
             field_dict["link"] = link
-        if build_id is not UNSET:
+        if not isinstance(build_id, Unset):
             field_dict["build_id"] = build_id
-        if build_type is not UNSET:
+        if not isinstance(build_type, Unset):
             field_dict["build_type"] = build_type
-        if name is not UNSET:
+        if not isinstance(name, Unset):
             field_dict["name"] = name
-        if source is not UNSET:
+        if not isinstance(source, Unset):
             field_dict["source"] = source
 
         return field_dict

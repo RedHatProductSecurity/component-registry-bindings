@@ -19,7 +19,7 @@ class V1StatusListResponse200ResultsItemProductStreams(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if count is not UNSET:
+        if not isinstance(count, Unset):
             field_dict["count"] = count
 
         return field_dict

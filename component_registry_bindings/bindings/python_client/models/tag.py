@@ -28,11 +28,11 @@ class Tag(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if name is not UNSET:
+        if not isinstance(name, Unset):
             field_dict["name"] = name
-        if created_at is not UNSET:
+        if not isinstance(created_at, Unset):
             field_dict["created_at"] = created_at
-        if value is not UNSET:
+        if not isinstance(value, Unset):
             field_dict["value"] = value
 
         return field_dict
