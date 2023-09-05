@@ -94,29 +94,29 @@ class Channel(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if uuid is not UNSET:
+        if not isinstance(uuid, Unset):
             field_dict["uuid"] = uuid
-        if link is not UNSET:
+        if not isinstance(link, Unset):
             field_dict["link"] = link
-        if last_changed is not UNSET:
+        if not isinstance(last_changed, Unset):
             field_dict["last_changed"] = last_changed
-        if created_at is not UNSET:
+        if not isinstance(created_at, Unset):
             field_dict["created_at"] = created_at
-        if name is not UNSET:
+        if not isinstance(name, Unset):
             field_dict["name"] = name
-        if relative_url is not UNSET:
+        if not isinstance(relative_url, Unset):
             field_dict["relative_url"] = relative_url
-        if type is not UNSET:
+        if not isinstance(type, Unset):
             field_dict["type"] = type
-        if description is not UNSET:
+        if not isinstance(description, Unset):
             field_dict["description"] = description
-        if products is not UNSET:
+        if not isinstance(products, Unset):
             field_dict["products"] = products
-        if product_versions is not UNSET:
+        if not isinstance(product_versions, Unset):
             field_dict["product_versions"] = product_versions
-        if product_streams is not UNSET:
+        if not isinstance(product_streams, Unset):
             field_dict["product_streams"] = product_streams
-        if product_variants is not UNSET:
+        if not isinstance(product_variants, Unset):
             field_dict["product_variants"] = product_variants
 
         return field_dict

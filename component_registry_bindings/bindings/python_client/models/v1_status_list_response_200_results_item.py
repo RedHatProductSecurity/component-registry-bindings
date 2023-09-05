@@ -101,31 +101,31 @@ class V1StatusListResponse200ResultsItem(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if status is not UNSET:
+        if not isinstance(status, Unset):
             field_dict["status"] = status
-        if dt is not UNSET:
+        if not isinstance(dt, Unset):
             field_dict["dt"] = dt
-        if service_version is not UNSET:
+        if not isinstance(service_version, Unset):
             field_dict["service_version"] = service_version
-        if rest_api_version is not UNSET:
+        if not isinstance(rest_api_version, Unset):
             field_dict["rest_api_version"] = rest_api_version
-        if db_size is not UNSET:
+        if not isinstance(db_size, Unset):
             field_dict["db_size"] = db_size
-        if builds is not UNSET:
+        if not isinstance(builds, Unset):
             field_dict["builds"] = builds
-        if products is not UNSET:
+        if not isinstance(products, Unset):
             field_dict["products"] = products
-        if product_versions is not UNSET:
+        if not isinstance(product_versions, Unset):
             field_dict["product_versions"] = product_versions
-        if product_streams is not UNSET:
+        if not isinstance(product_streams, Unset):
             field_dict["product_streams"] = product_streams
-        if product_variants is not UNSET:
+        if not isinstance(product_variants, Unset):
             field_dict["product_variants"] = product_variants
-        if channels is not UNSET:
+        if not isinstance(channels, Unset):
             field_dict["channels"] = channels
-        if components is not UNSET:
+        if not isinstance(components, Unset):
             field_dict["components"] = components
-        if relations is not UNSET:
+        if not isinstance(relations, Unset):
             field_dict["relations"] = relations
 
         return field_dict

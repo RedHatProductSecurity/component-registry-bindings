@@ -23,11 +23,11 @@ class AuthenticationStatusRetrieveResponse200(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if oidc_enabled is not UNSET:
+        if not isinstance(oidc_enabled, Unset):
             field_dict["oidc_enabled"] = oidc_enabled
-        if user is not UNSET:
+        if not isinstance(user, Unset):
             field_dict["user"] = user
-        if auth is not UNSET:
+        if not isinstance(auth, Unset):
             field_dict["auth"] = auth
 
         return field_dict

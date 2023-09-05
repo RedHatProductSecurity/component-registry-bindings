@@ -111,35 +111,35 @@ class ProductVariant(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if link is not UNSET:
+        if not isinstance(link, Unset):
             field_dict["link"] = link
-        if uuid is not UNSET:
+        if not isinstance(uuid, Unset):
             field_dict["uuid"] = uuid
-        if ofuri is not UNSET:
+        if not isinstance(ofuri, Unset):
             field_dict["ofuri"] = ofuri
-        if name is not UNSET:
+        if not isinstance(name, Unset):
             field_dict["name"] = name
-        if description is not UNSET:
+        if not isinstance(description, Unset):
             field_dict["description"] = description
-        if build_count is not UNSET:
+        if not isinstance(build_count, Unset):
             field_dict["build_count"] = build_count
-        if builds is not UNSET:
+        if not isinstance(builds, Unset):
             field_dict["builds"] = builds
-        if components is not UNSET:
+        if not isinstance(components, Unset):
             field_dict["components"] = components
-        if upstreams is not UNSET:
+        if not isinstance(upstreams, Unset):
             field_dict["upstreams"] = upstreams
-        if tags is not UNSET:
+        if not isinstance(tags, Unset):
             field_dict["tags"] = tags
-        if channels is not UNSET:
+        if not isinstance(channels, Unset):
             field_dict["channels"] = channels
-        if relations is not UNSET:
+        if not isinstance(relations, Unset):
             field_dict["relations"] = relations
-        if products is not UNSET:
+        if not isinstance(products, Unset):
             field_dict["products"] = products
-        if product_versions is not UNSET:
+        if not isinstance(product_versions, Unset):
             field_dict["product_versions"] = product_versions
-        if product_streams is not UNSET:
+        if not isinstance(product_streams, Unset):
             field_dict["product_streams"] = product_streams
 
         return field_dict

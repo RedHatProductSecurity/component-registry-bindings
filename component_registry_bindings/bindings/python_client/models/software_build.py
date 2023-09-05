@@ -72,27 +72,27 @@ class SoftwareBuild(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if uuid is not UNSET:
+        if not isinstance(uuid, Unset):
             field_dict["uuid"] = uuid
-        if link is not UNSET:
+        if not isinstance(link, Unset):
             field_dict["link"] = link
-        if web_url is not UNSET:
+        if not isinstance(web_url, Unset):
             field_dict["web_url"] = web_url
-        if build_id is not UNSET:
+        if not isinstance(build_id, Unset):
             field_dict["build_id"] = build_id
-        if build_type is not UNSET:
+        if not isinstance(build_type, Unset):
             field_dict["build_type"] = build_type
-        if name is not UNSET:
+        if not isinstance(name, Unset):
             field_dict["name"] = name
-        if source is not UNSET:
+        if not isinstance(source, Unset):
             field_dict["source"] = source
-        if tags is not UNSET:
+        if not isinstance(tags, Unset):
             field_dict["tags"] = tags
-        if created_at is not UNSET:
+        if not isinstance(created_at, Unset):
             field_dict["created_at"] = created_at
-        if last_changed is not UNSET:
+        if not isinstance(last_changed, Unset):
             field_dict["last_changed"] = last_changed
-        if components is not UNSET:
+        if not isinstance(components, Unset):
             field_dict["components"] = components
 
         return field_dict

@@ -34,13 +34,13 @@ class PaginatedProductList(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if count is not UNSET:
+        if not isinstance(count, Unset):
             field_dict["count"] = count
-        if next_ is not UNSET:
+        if not isinstance(next_, Unset):
             field_dict["next"] = next_
-        if previous is not UNSET:
+        if not isinstance(previous, Unset):
             field_dict["previous"] = previous
-        if results is not UNSET:
+        if not isinstance(results, Unset):
             field_dict["results"] = results
 
         return field_dict

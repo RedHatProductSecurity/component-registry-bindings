@@ -1,5 +1,5 @@
 import json
-from typing import Any, Dict, List, Tuple, Type, TypeVar, cast
+from typing import Any, Dict, List, Tuple, Type, TypeVar, Union, cast
 
 import attr
 
@@ -177,77 +177,77 @@ class Component(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if link is not UNSET:
+        if not isinstance(link, Unset):
             field_dict["link"] = link
-        if download_url is not UNSET:
+        if not isinstance(download_url, Unset):
             field_dict["download_url"] = download_url
-        if uuid is not UNSET:
+        if not isinstance(uuid, Unset):
             field_dict["uuid"] = uuid
-        if type is not UNSET:
+        if not isinstance(type, Unset):
             field_dict["type"] = type
-        if namespace is not UNSET:
+        if not isinstance(namespace, Unset):
             field_dict["namespace"] = namespace
-        if purl is not UNSET:
+        if not isinstance(purl, Unset):
             field_dict["purl"] = purl
-        if name is not UNSET:
+        if not isinstance(name, Unset):
             field_dict["name"] = name
-        if description is not UNSET:
+        if not isinstance(description, Unset):
             field_dict["description"] = description
-        if related_url is not UNSET:
+        if not isinstance(related_url, Unset):
             field_dict["related_url"] = related_url
-        if tags is not UNSET:
+        if not isinstance(tags, Unset):
             field_dict["tags"] = tags
-        if version is not UNSET:
+        if not isinstance(version, Unset):
             field_dict["version"] = version
-        if release is not UNSET:
+        if not isinstance(release, Unset):
             field_dict["release"] = release
-        if el_match is not UNSET:
+        if not isinstance(el_match, Unset):
             field_dict["el_match"] = el_match
-        if arch is not UNSET:
+        if not isinstance(arch, Unset):
             field_dict["arch"] = arch
-        if nvr is not UNSET:
+        if not isinstance(nvr, Unset):
             field_dict["nvr"] = nvr
-        if nevra is not UNSET:
+        if not isinstance(nevra, Unset):
             field_dict["nevra"] = nevra
-        if epoch is not UNSET:
+        if not isinstance(epoch, Unset):
             field_dict["epoch"] = epoch
-        if copyright_text is not UNSET:
+        if not isinstance(copyright_text, Unset):
             field_dict["copyright_text"] = copyright_text
-        if license_concluded is not UNSET:
+        if not isinstance(license_concluded, Unset):
             field_dict["license_concluded"] = license_concluded
-        if license_concluded_list is not UNSET:
+        if not isinstance(license_concluded_list, Unset):
             field_dict["license_concluded_list"] = license_concluded_list
-        if license_declared is not UNSET:
+        if not isinstance(license_declared, Unset):
             field_dict["license_declared"] = license_declared
-        if license_declared_list is not UNSET:
+        if not isinstance(license_declared_list, Unset):
             field_dict["license_declared_list"] = license_declared_list
-        if openlcs_scan_url is not UNSET:
+        if not isinstance(openlcs_scan_url, Unset):
             field_dict["openlcs_scan_url"] = openlcs_scan_url
-        if openlcs_scan_version is not UNSET:
+        if not isinstance(openlcs_scan_version, Unset):
             field_dict["openlcs_scan_version"] = openlcs_scan_version
-        if software_build is not UNSET:
+        if not isinstance(software_build, Unset):
             field_dict["software_build"] = software_build
-        if errata is not UNSET:
+        if not isinstance(errata, Unset):
             field_dict["errata"] = errata
-        if products is not UNSET:
+        if not isinstance(products, Unset):
             field_dict["products"] = products
-        if product_versions is not UNSET:
+        if not isinstance(product_versions, Unset):
             field_dict["product_versions"] = product_versions
-        if product_streams is not UNSET:
+        if not isinstance(product_streams, Unset):
             field_dict["product_streams"] = product_streams
-        if product_variants is not UNSET:
+        if not isinstance(product_variants, Unset):
             field_dict["product_variants"] = product_variants
-        if channels is not UNSET:
+        if not isinstance(channels, Unset):
             field_dict["channels"] = channels
-        if sources is not UNSET:
+        if not isinstance(sources, Unset):
             field_dict["sources"] = sources
-        if provides is not UNSET:
+        if not isinstance(provides, Unset):
             field_dict["provides"] = provides
-        if upstreams is not UNSET:
+        if not isinstance(upstreams, Unset):
             field_dict["upstreams"] = upstreams
-        if manifest is not UNSET:
+        if not isinstance(manifest, Unset):
             field_dict["manifest"] = manifest
-        if filename is not UNSET:
+        if not isinstance(filename, Unset):
             field_dict["filename"] = filename
 
         return field_dict
@@ -472,77 +472,77 @@ class Component(ComponentRegistryModel):
                 for key, value in self.additional_properties.items()
             }
         )
-        if link is not UNSET:
+        if not isinstance(link, Unset):
             field_dict["link"] = link
-        if download_url is not UNSET:
+        if not isinstance(download_url, Unset):
             field_dict["download_url"] = download_url
-        if uuid is not UNSET:
+        if not isinstance(uuid, Unset):
             field_dict["uuid"] = uuid
-        if type is not UNSET:
+        if not isinstance(type, Unset):
             field_dict["type"] = type
-        if namespace is not UNSET:
+        if not isinstance(namespace, Unset):
             field_dict["namespace"] = namespace
-        if purl is not UNSET:
+        if not isinstance(purl, Unset):
             field_dict["purl"] = purl
-        if name is not UNSET:
+        if not isinstance(name, Unset):
             field_dict["name"] = name
-        if description is not UNSET:
+        if not isinstance(description, Unset):
             field_dict["description"] = description
-        if related_url is not UNSET:
+        if not isinstance(related_url, Unset):
             field_dict["related_url"] = related_url
-        if tags is not UNSET:
+        if not isinstance(tags, Unset):
             field_dict["tags"] = tags
-        if version is not UNSET:
+        if not isinstance(version, Unset):
             field_dict["version"] = version
-        if release is not UNSET:
+        if not isinstance(release, Unset):
             field_dict["release"] = release
-        if el_match is not UNSET:
+        if not isinstance(el_match, Unset):
             field_dict["el_match"] = el_match
-        if arch is not UNSET:
+        if not isinstance(arch, Unset):
             field_dict["arch"] = arch
-        if nvr is not UNSET:
+        if not isinstance(nvr, Unset):
             field_dict["nvr"] = nvr
-        if nevra is not UNSET:
+        if not isinstance(nevra, Unset):
             field_dict["nevra"] = nevra
-        if epoch is not UNSET:
+        if not isinstance(epoch, Unset):
             field_dict["epoch"] = epoch
-        if copyright_text is not UNSET:
+        if not isinstance(copyright_text, Unset):
             field_dict["copyright_text"] = copyright_text
-        if license_concluded is not UNSET:
+        if not isinstance(license_concluded, Unset):
             field_dict["license_concluded"] = license_concluded
-        if license_concluded_list is not UNSET:
+        if not isinstance(license_concluded_list, Unset):
             field_dict["license_concluded_list"] = license_concluded_list
-        if license_declared is not UNSET:
+        if not isinstance(license_declared, Unset):
             field_dict["license_declared"] = license_declared
-        if license_declared_list is not UNSET:
+        if not isinstance(license_declared_list, Unset):
             field_dict["license_declared_list"] = license_declared_list
-        if openlcs_scan_url is not UNSET:
+        if not isinstance(openlcs_scan_url, Unset):
             field_dict["openlcs_scan_url"] = openlcs_scan_url
-        if openlcs_scan_version is not UNSET:
+        if not isinstance(openlcs_scan_version, Unset):
             field_dict["openlcs_scan_version"] = openlcs_scan_version
-        if software_build is not UNSET:
+        if not isinstance(software_build, Unset):
             field_dict["software_build"] = software_build
-        if errata is not UNSET:
+        if not isinstance(errata, Unset):
             field_dict["errata"] = errata
-        if products is not UNSET:
+        if not isinstance(products, Unset):
             field_dict["products"] = products
-        if product_versions is not UNSET:
+        if not isinstance(product_versions, Unset):
             field_dict["product_versions"] = product_versions
-        if product_streams is not UNSET:
+        if not isinstance(product_streams, Unset):
             field_dict["product_streams"] = product_streams
-        if product_variants is not UNSET:
+        if not isinstance(product_variants, Unset):
             field_dict["product_variants"] = product_variants
-        if channels is not UNSET:
+        if not isinstance(channels, Unset):
             field_dict["channels"] = channels
-        if sources is not UNSET:
+        if not isinstance(sources, Unset):
             field_dict["sources"] = sources
-        if provides is not UNSET:
+        if not isinstance(provides, Unset):
             field_dict["provides"] = provides
-        if upstreams is not UNSET:
+        if not isinstance(upstreams, Unset):
             field_dict["upstreams"] = upstreams
-        if manifest is not UNSET:
+        if not isinstance(manifest, Unset):
             field_dict["manifest"] = manifest
-        if filename is not UNSET:
+        if not isinstance(filename, Unset):
             field_dict["filename"] = filename
 
         return field_dict

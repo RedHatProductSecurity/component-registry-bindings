@@ -19,7 +19,7 @@ class TokenAuthTestCreateResponse200(ComponentRegistryModel):
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        if user is not UNSET:
+        if not isinstance(user, Unset):
             field_dict["user"] = user
 
         return field_dict
