@@ -13,11 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Fixed
 - fix usage of query parameters with double underscore
+- fix `to_dict` not being able corretly transform UNSET values
+  of different instances (mainly multiprocessing issue)
 
 ## [1.3.9] - 2023-08-25
 ### Changed
 - fix bindings making lot a of uncessary calls when supplying max_results
-  parameter for async list iterator which is much higher than actual results count 
+  parameter for async list iterator which is much higher than actual results count
 
 ## [1.3.8] - 2023-08-25
 ### Changed
