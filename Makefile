@@ -40,6 +40,10 @@ sync-deps:
 	@echo ">synchronizing python dependencies"
 	$(ps) requirements.txt devel-requirements.txt $$([ -f local-requirements.txt ] && echo 'local-requirements.txt')
 
+download-schema:
+	@echo ">downloading Component Registry OpenAPI schema for ref \"$(ref)\""
+	scripts/download_schema.sh $(ref)
+
 patch-release:
 	@echo ">preparing patch release"
 	scripts/patch_release.sh

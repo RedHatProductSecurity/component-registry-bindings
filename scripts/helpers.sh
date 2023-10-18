@@ -119,3 +119,20 @@ review() {
     fi
     echo
 }
+
+# Get OpenAPI schema from github API
+# $1: version (defaults to "main")
+get_schema() {
+    local version=${1:-main}
+
+    echo "Downloading Component Registry schema version "
+    local response=$(curl -s "https://raw.githubusercontent.com/RedHatProductSecurity/component-registry/${version}/openapi.yml" \
+    -o component_registry_bindings/openapi_schema.yml -f -w 'HTTPSTATUS:%{http_code}\n')
+
+    local status=$(echo ${response} | tr -d '\n' | sed -E 's/.*HTTPSTATUS:([0-9]{3})$/\1/')
+
+    if [ ! ${status} -eq 200 ]; then
+        echo "Error accessing \"https://raw.githubusercontent.com/RedHatProductSecurity/component-registry/${version}/openapi.yml\" [HTTP status: ${status}]"
+        exit 1
+    fi
+}
