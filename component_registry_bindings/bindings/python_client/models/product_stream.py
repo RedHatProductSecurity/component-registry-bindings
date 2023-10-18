@@ -35,12 +35,14 @@ class ProductStream(ComponentRegistryModel):
     upstreams: str
     tags: List[Tag]
     channels: List[ProductStreamChannelsItem]
-    cpe: str
     active: bool
     brew_tags: ProductStreamBrewTags
+    cpes: List[str]
+    cpes_matching_patterns: List[str]
     yum_repositories: List[str]
     composes: ProductStreamComposes
     et_product_versions: List[str]
+    exclude_components: List[str]
     manifest: str
     relations: List[ProductStreamRelationsItem]
     products: List[ProductStreamProductsItem]
@@ -78,11 +80,18 @@ class ProductStream(ComponentRegistryModel):
 
                 channels.append(channels_item)
 
-        cpe = self.cpe
         active = self.active
         brew_tags: Dict[str, Any] = UNSET
         if not isinstance(self.brew_tags, Unset):
             brew_tags = self.brew_tags.to_dict()
+
+        cpes: List[str] = UNSET
+        if not isinstance(self.cpes, Unset):
+            cpes = self.cpes
+
+        cpes_matching_patterns: List[str] = UNSET
+        if not isinstance(self.cpes_matching_patterns, Unset):
+            cpes_matching_patterns = self.cpes_matching_patterns
 
         yum_repositories: List[str] = UNSET
         if not isinstance(self.yum_repositories, Unset):
@@ -95,6 +104,10 @@ class ProductStream(ComponentRegistryModel):
         et_product_versions: List[str] = UNSET
         if not isinstance(self.et_product_versions, Unset):
             et_product_versions = self.et_product_versions
+
+        exclude_components: List[str] = UNSET
+        if not isinstance(self.exclude_components, Unset):
+            exclude_components = self.exclude_components
 
         manifest = self.manifest
         relations: List[Dict[str, Any]] = UNSET
@@ -161,18 +174,22 @@ class ProductStream(ComponentRegistryModel):
             field_dict["tags"] = tags
         if not isinstance(channels, Unset):
             field_dict["channels"] = channels
-        if not isinstance(cpe, Unset):
-            field_dict["cpe"] = cpe
         if not isinstance(active, Unset):
             field_dict["active"] = active
         if not isinstance(brew_tags, Unset):
             field_dict["brew_tags"] = brew_tags
+        if not isinstance(cpes, Unset):
+            field_dict["cpes"] = cpes
+        if not isinstance(cpes_matching_patterns, Unset):
+            field_dict["cpes_matching_patterns"] = cpes_matching_patterns
         if not isinstance(yum_repositories, Unset):
             field_dict["yum_repositories"] = yum_repositories
         if not isinstance(composes, Unset):
             field_dict["composes"] = composes
         if not isinstance(et_product_versions, Unset):
             field_dict["et_product_versions"] = et_product_versions
+        if not isinstance(exclude_components, Unset):
+            field_dict["exclude_components"] = exclude_components
         if not isinstance(manifest, Unset):
             field_dict["manifest"] = manifest
         if not isinstance(relations, Unset):
@@ -237,8 +254,6 @@ class ProductStream(ComponentRegistryModel):
 
                 channels.append(channels_item)
 
-        cpe = d.pop("cpe", UNSET)
-
         active = d.pop("active", UNSET)
 
         _brew_tags = d.pop("brew_tags", UNSET)
@@ -247,6 +262,10 @@ class ProductStream(ComponentRegistryModel):
             brew_tags = UNSET
         else:
             brew_tags = ProductStreamBrewTags.from_dict(_brew_tags)
+
+        cpes = cast(List[str], d.pop("cpes", UNSET))
+
+        cpes_matching_patterns = cast(List[str], d.pop("cpes_matching_patterns", UNSET))
 
         yum_repositories = cast(List[str], d.pop("yum_repositories", UNSET))
 
@@ -258,6 +277,8 @@ class ProductStream(ComponentRegistryModel):
             composes = ProductStreamComposes.from_dict(_composes)
 
         et_product_versions = cast(List[str], d.pop("et_product_versions", UNSET))
+
+        exclude_components = cast(List[str], d.pop("exclude_components", UNSET))
 
         manifest = d.pop("manifest", UNSET)
 
@@ -339,12 +360,14 @@ class ProductStream(ComponentRegistryModel):
             upstreams=upstreams,
             tags=tags,
             channels=channels,
-            cpe=cpe,
             active=active,
             brew_tags=brew_tags,
+            cpes=cpes,
+            cpes_matching_patterns=cpes_matching_patterns,
             yum_repositories=yum_repositories,
             composes=composes,
             et_product_versions=et_product_versions,
+            exclude_components=exclude_components,
             manifest=manifest,
             relations=relations,
             products=products,
@@ -369,12 +392,14 @@ class ProductStream(ComponentRegistryModel):
             "upstreams": str,
             "tags": List[Tag],
             "channels": List[ProductStreamChannelsItem],
-            "cpe": str,
             "active": bool,
             "brew_tags": ProductStreamBrewTags,
+            "cpes": List[str],
+            "cpes_matching_patterns": List[str],
             "yum_repositories": List[str],
             "composes": ProductStreamComposes,
             "et_product_versions": List[str],
+            "exclude_components": List[str],
             "manifest": str,
             "relations": List[ProductStreamRelationsItem],
             "products": List[ProductStreamProductsItem],
