@@ -92,7 +92,10 @@ class Session:
 
         self.__client = AuthenticatedClient(
             base_url=base_url,
-            headers={"User-Agent": COMPONENT_REGISTRY_BINDINGS_USERAGENT},
+            headers={
+                "User-Agent": COMPONENT_REGISTRY_BINDINGS_USERAGENT,
+                "Accept": "application/json",
+            },
             verify_ssl=verify_ssl,
         )
 
