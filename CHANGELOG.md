@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [1.4.0] - 2023-11-20
+
 ## [1.3.10] - 2023-09-05
 ### Fixed
 - fix usage of query parameters with double underscore

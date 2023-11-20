@@ -38,7 +38,7 @@ class Component(ComponentRegistryModel):
     arch: str
     nvr: str
     nevra: str
-    epoch: str
+    epoch: int
     copyright_text: str
     license_concluded: str
     license_concluded_list: List[str]
@@ -782,7 +782,7 @@ class Component(ComponentRegistryModel):
             "arch": str,
             "nvr": str,
             "nevra": str,
-            "epoch": str,
+            "epoch": int,
             "copyright_text": str,
             "license_concluded": str,
             "license_concluded_list": List[str],

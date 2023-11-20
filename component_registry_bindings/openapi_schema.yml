@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Component Registry API
-  version: 1.3.4
+  version: 1.4.1
   description: REST API auto-generated docs for Component Registry
 paths:
   /api/authentication_status:
@@ -109,6 +109,8 @@ paths:
           - BREW
           - CENTOS
           - KOJI
+          - PNC
+          - PYXIS
       - in: query
         name: exclude_fields
         schema:
@@ -299,6 +301,11 @@ paths:
       description: View for api/v1/components
       parameters:
       - in: query
+        name: active_streams
+        schema:
+          type: boolean
+        description: Show components from active streams
+      - in: query
         name: arch
         schema:
           type: string
@@ -308,6 +315,10 @@ paths:
           type: string
       - in: query
         name: description
+        schema:
+          type: string
+      - in: query
+        name: downstreams
         schema:
           type: string
       - in: query
@@ -337,11 +348,6 @@ paths:
         description: 'Include only specified fields in the response. Multiple values
           may be separated by commas. Example: `include_fields=software_build.build_id,name`'
       - in: query
-        name: latest_components
-        schema:
-          type: boolean
-        description: Show only latest components
-      - in: query
         name: latest_components_by_streams
         schema:
           type: boolean
@@ -358,10 +364,15 @@ paths:
           type: boolean
         description: Show only unscanned components (where copyright text is empty)
       - in: query
-        name: missing_license
+        name: missing_license_concluded
         schema:
           type: boolean
         description: Show only unscanned components (where license concluded is empty)
+      - in: query
+        name: missing_license_declared
+        schema:
+          type: boolean
+        description: Show only unscanned components (where license declared is empty)
       - in: query
         name: missing_scan_url
         schema:
@@ -396,6 +407,7 @@ paths:
         name: ofuri
         schema:
           type: string
+        description: Show only latest root components of product
       - in: query
         name: product_streams
         schema:
@@ -417,7 +429,15 @@ paths:
         schema:
           type: string
       - in: query
+        name: provides_name
+        schema:
+          type: string
+      - in: query
         name: purl
+        schema:
+          type: string
+      - in: query
+        name: re_downstreams
         schema:
           type: string
       - in: query
@@ -429,6 +449,10 @@ paths:
         schema:
           type: string
       - in: query
+        name: re_provides_name
+        schema:
+          type: string
+      - in: query
         name: re_purl
         schema:
           type: string
@@ -437,7 +461,15 @@ paths:
         schema:
           type: string
       - in: query
+        name: re_sources_name
+        schema:
+          type: string
+      - in: query
         name: re_upstreams
+        schema:
+          type: string
+      - in: query
+        name: re_upstreams_name
         schema:
           type: string
       - in: query
@@ -469,6 +501,10 @@ paths:
         schema:
           type: string
       - in: query
+        name: sources_name
+        schema:
+          type: string
+      - in: query
         name: tags
         schema:
           type: integer
@@ -490,6 +526,10 @@ paths:
           - RPMMOD
       - in: query
         name: upstreams
+        schema:
+          type: string
+      - in: query
+        name: upstreams_name
         schema:
           type: string
       - in: query
@@ -567,9 +607,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/Component'
           description: ''
-  /api/v1/components/{uuid}/olcs_test:
+  /api/v1/components/{uuid}/taxonomy:
+    get:
+      operationId: v1_components_taxonomy_retrieve
+      description: View for api/v1/components
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this component.
+        required: true
+      tags:
+      - v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+  /api/v1/components/{uuid}/update_license:
     put:
-      operationId: v1_components_olcs_test_update
+      operationId: v1_components_update_license_update
       description: Allow OpenLCS to upload copyright text / license scan results for
         a component
       parameters:
@@ -593,48 +654,8 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/Component'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Component'
-          description: ''
-  /api/v1/components/{uuid}/provides:
-    get:
-      operationId: v1_components_provides_retrieve
-      description: View for api/v1/components
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this component.
-        required: true
-      tags:
-      - v1
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Component'
-          description: ''
-  /api/v1/components/{uuid}/taxonomy:
-    get:
-      operationId: v1_components_taxonomy_retrieve
-      description: View for api/v1/components
-      parameters:
-      - in: path
-        name: uuid
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this component.
-        required: true
-      tags:
-      - v1
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -1294,6 +1315,8 @@ components:
       - KOJI
       - CENTOS
       - APP_INTERFACE
+      - PNC
+      - PYXIS
       type: string
     Channel:
       type: object
@@ -1438,7 +1461,7 @@ components:
           type: string
           readOnly: true
         epoch:
-          type: string
+          type: integer
           readOnly: true
         copyright_text:
           type: string
@@ -1848,15 +1871,24 @@ components:
             additionalProperties:
               type: string
           readOnly: true
-        cpe:
-          type: string
-          readOnly: true
         active:
           type: boolean
           readOnly: true
         brew_tags:
           type: object
           additionalProperties: {}
+          readOnly: true
+        cpes:
+          type: array
+          items:
+            type: string
+            maxLength: 1000
+          readOnly: true
+        cpes_matching_patterns:
+          type: array
+          items:
+            type: string
+            maxLength: 1000
           readOnly: true
         yum_repositories:
           type: array
@@ -1869,6 +1901,12 @@ components:
           additionalProperties: {}
           readOnly: true
         et_product_versions:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          readOnly: true
+        exclude_components:
           type: array
           items:
             type: string
@@ -1913,9 +1951,11 @@ components:
       - channels
       - components
       - composes
-      - cpe
+      - cpes
+      - cpes_matching_patterns
       - description
       - et_product_versions
+      - exclude_components
       - link
       - manifest
       - name
@@ -2064,6 +2104,12 @@ components:
             additionalProperties:
               type: string
           readOnly: true
+        cpe_patterns:
+          type: array
+          items:
+            type: string
+            maxLength: 1000
+          readOnly: true
         products:
           type: array
           items:
@@ -2090,6 +2136,7 @@ components:
       - builds
       - channels
       - components
+      - cpe_patterns
       - description
       - link
       - name
