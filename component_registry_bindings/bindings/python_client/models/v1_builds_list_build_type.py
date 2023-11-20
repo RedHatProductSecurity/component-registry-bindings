@@ -6,6 +6,8 @@ class V1BuildsListBuildType(str, Enum):
     BREW = "BREW"
     CENTOS = "CENTOS"
     KOJI = "KOJI"
+    PNC = "PNC"
+    PYXIS = "PYXIS"
     # This is a temporary tweak to accept empty Enum
     NONE = ""
 

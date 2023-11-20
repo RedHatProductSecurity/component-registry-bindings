@@ -2,28 +2,41 @@ from typing import Any, Dict, Optional
 
 import requests
 
-from ...client import Client
+from ...client import AuthenticatedClient
 from ...models.component import Component
 from ...types import UNSET, Response, Unset
 
 QUERY_PARAMS = {}
+REQUEST_BODY_TYPE = Component
 
 
 def _get_kwargs(
     uuid: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
+    form_data: Component,
+    multipart_data: Component,
+    json_body: Component,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1/components/{uuid}/provides".format(
+    url = "{}/api/v1/components/{uuid}/update_license".format(
         client.base_url,
         uuid=uuid,
     )
 
     headers: Dict[str, Any] = client.get_headers()
 
+    json_json_body: Dict[str, Any] = UNSET
+    if not isinstance(json_body, Unset):
+        json_body.to_dict()
+
+    multipart_multipart_data: Dict[str, Any] = UNSET
+    if not isinstance(multipart_data, Unset):
+        multipart_data.to_multipart()
+
     return {
         "url": url,
         "headers": headers,
+        "data": form_data.to_dict(),
     }
 
 
@@ -52,14 +65,20 @@ def _build_response(*, response: requests.Response) -> Response[Component]:
 def sync_detailed(
     uuid: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
+    form_data: Component,
+    multipart_data: Component,
+    json_body: Component,
 ) -> Response[Component]:
     kwargs = _get_kwargs(
         uuid=uuid,
         client=client,
+        form_data=form_data,
+        multipart_data=multipart_data,
+        json_body=json_body,
     )
 
-    response = requests.get(
+    response = requests.put(
         verify=client.verify_ssl,
         auth=client.auth,
         timeout=client.timeout,
@@ -73,27 +92,39 @@ def sync_detailed(
 def sync(
     uuid: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
+    form_data: Component,
+    multipart_data: Component,
+    json_body: Component,
 ) -> Optional[Component]:
-    """View for api/v1/components"""
+    """Allow OpenLCS to upload copyright text / license scan results for a component"""
 
     return sync_detailed(
         uuid=uuid,
         client=client,
+        form_data=form_data,
+        multipart_data=multipart_data,
+        json_body=json_body,
     ).parsed
 
 
 async def async_detailed(
     uuid: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
+    form_data: Component,
+    multipart_data: Component,
+    json_body: Component,
 ) -> Response[Component]:
     kwargs = _get_kwargs(
         uuid=uuid,
         client=client,
+        form_data=form_data,
+        multipart_data=multipart_data,
+        json_body=json_body,
     )
 
-    async with client.get_async_session().get(
+    async with client.get_async_session().put(
         verify_ssl=client.verify_ssl, raise_for_status=True, **kwargs
     ) as response:
         content = await response.read()
@@ -107,13 +138,19 @@ async def async_detailed(
 async def async_(
     uuid: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
+    form_data: Component,
+    multipart_data: Component,
+    json_body: Component,
 ) -> Optional[Component]:
-    """View for api/v1/components"""
+    """Allow OpenLCS to upload copyright text / license scan results for a component"""
 
     return (
         await async_detailed(
             uuid=uuid,
             client=client,
+            form_data=form_data,
+            multipart_data=multipart_data,
+            json_body=json_body,
         )
     ).parsed

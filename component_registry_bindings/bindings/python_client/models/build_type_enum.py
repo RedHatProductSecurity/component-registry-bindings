@@ -6,6 +6,8 @@ class BuildTypeEnum(str, Enum):
     KOJI = "KOJI"
     CENTOS = "CENTOS"
     APP_INTERFACE = "APP_INTERFACE"
+    PNC = "PNC"
+    PYXIS = "PYXIS"
     # This is a temporary tweak to accept empty Enum
     NONE = ""
 

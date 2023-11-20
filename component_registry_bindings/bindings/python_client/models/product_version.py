@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar, cast
 
 import attr
 
@@ -32,6 +32,7 @@ class ProductVersion(ComponentRegistryModel):
     upstreams: str
     tags: List[Tag]
     channels: List[ProductVersionChannelsItem]
+    cpe_patterns: List[str]
     products: List[ProductVersionProductsItem]
     product_streams: List[ProductVersionProductStreamsItem]
     product_variants: List[ProductVersionProductVariantsItem]
@@ -66,6 +67,10 @@ class ProductVersion(ComponentRegistryModel):
                     channels_item = channels_item_data.to_dict()
 
                 channels.append(channels_item)
+
+        cpe_patterns: List[str] = UNSET
+        if not isinstance(self.cpe_patterns, Unset):
+            cpe_patterns = self.cpe_patterns
 
         products: List[Dict[str, Any]] = UNSET
         if not isinstance(self.products, Unset):
@@ -121,6 +126,8 @@ class ProductVersion(ComponentRegistryModel):
             field_dict["tags"] = tags
         if not isinstance(channels, Unset):
             field_dict["channels"] = channels
+        if not isinstance(cpe_patterns, Unset):
+            field_dict["cpe_patterns"] = cpe_patterns
         if not isinstance(products, Unset):
             field_dict["products"] = products
         if not isinstance(product_streams, Unset):
@@ -180,6 +187,8 @@ class ProductVersion(ComponentRegistryModel):
                     channels_item = ProductVersionChannelsItem.from_dict(_channels_item)
 
                 channels.append(channels_item)
+
+        cpe_patterns = cast(List[str], d.pop("cpe_patterns", UNSET))
 
         products = []
         _products = d.pop("products", UNSET)
@@ -242,6 +251,7 @@ class ProductVersion(ComponentRegistryModel):
             upstreams=upstreams,
             tags=tags,
             channels=channels,
+            cpe_patterns=cpe_patterns,
             products=products,
             product_streams=product_streams,
             product_variants=product_variants,
@@ -264,6 +274,7 @@ class ProductVersion(ComponentRegistryModel):
             "upstreams": str,
             "tags": List[Tag],
             "channels": List[ProductVersionChannelsItem],
+            "cpe_patterns": List[str],
             "products": List[ProductVersionProductsItem],
             "product_streams": List[ProductVersionProductStreamsItem],
             "product_variants": List[ProductVersionProductVariantsItem],
